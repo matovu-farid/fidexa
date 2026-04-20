@@ -15,12 +15,12 @@ export function Nav() {
           >
             Projects
           </Link>
-          <a
-            href="#contact"
+          <Link
+            href="/#contact"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground"
           >
             Contact
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
