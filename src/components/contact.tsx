@@ -14,10 +14,11 @@ export function Contact() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
     setSending(true);
     setStatus("idle");
 
-    const data = new FormData(e.currentTarget);
+    const data = new FormData(form);
     const body = Object.fromEntries(data);
 
     try {
@@ -29,7 +30,7 @@ export function Contact() {
 
       if (res.ok) {
         setStatus("success");
-        e.currentTarget.reset();
+        form.reset();
       } else {
         setStatus("error");
       }
