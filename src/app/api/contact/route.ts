@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   }
 
   const { error } = await resend.emails.send({
-    from: "Fidexa Contact <onboarding@resend.dev>",
+    from: "Fidexa Contact <contact@fidexa.org>",
     to: process.env.CONTACT_EMAIL || "matovufarid@gmail.com",
     replyTo: email,
     subject: `New inquiry from ${name}`,
