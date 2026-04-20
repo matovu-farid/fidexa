@@ -1,34 +1,22 @@
-// app/layout.tsx
-import './globals.css'
-import { Inter } from 'next/font/google'
-import { ThemeProvider } from "@/components/theme-provider"
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
 
+const inter = Inter({ subsets: ["latin"] });
 
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Fidexa - Inspiring Digital Transformation',
-  description: 'We help businesses create inspiring websites and applications.',
-}
+export const metadata: Metadata = {
+  title: "Fidexa — Software Studio",
+  description: "We build software that improves lives.",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="en"  suppressHydrationWarning>
-      <head />
-        <body className={`${inter.className} bg-background text-foreground`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
-        </body>
+    <html lang="en" className="dark">
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
-  )
+  );
 }
