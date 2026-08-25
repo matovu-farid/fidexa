@@ -10,6 +10,7 @@ export interface Project {
   year: number;
   featured: boolean;
   links?: {
+    appStore?: string;
     github?: string;
     live?: string;
     video?: string;
@@ -28,28 +29,45 @@ export const projects: Project[] = [
   {
     id: "rishi",
     name: "Rishi",
-    description: "Cross-platform book reader with on-device AI, voice chat, and cloud sync across desktop, web, and mobile.",
+    description: "Production Apple ecosystem reading platform for iPhone, iPad, Mac, CarPlay, and connected Apple Watch experiences, with EPUB and PDF reading, read-aloud, highlights, sync, sharing, and AI chat grounded in the current book. Android is planned, but is not available today.",
     category: "cross-platform",
     tags: ["Innovation", "Cross-Platform"],
-    techStack: ["Tauri", "React Native", "Rust", "Cloudflare"],
-    year: 2025,
+    techStack: ["SwiftUI", "Swift", "Shared Swift Packages", "TypeScript", "Cloudflare"],
+    year: 2026,
     featured: true,
     links: {
+      appStore: "https://apps.apple.com/us/app/rishi-reader/id6763041630",
       github: "https://github.com/matovu-farid/rishi-monorepo",
+      live: "https://rishi.fidexa.org",
       video: "https://youtu.be/vcWcpEGsof8",
     },
   },
   {
     id: "money-lending",
-    name: "Money Lending System",
-    description: "Full-featured lending platform with loan tracking, investor management, daily interest calculations, and financial reporting.",
+    name: "Money Lending Management System",
+    description: "Production fintech and accounting-ledger platform for a money-lending business, with reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports.",
     category: "web-apps",
-    tags: ["SaaS", "Finance"],
-    techStack: ["Next.js", "PostgreSQL", "Clerk", "Prisma"],
+    tags: ["SaaS", "Fintech"],
+    techStack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "TanStack DB", "ElectricSQL", "Better Auth", "BigNumber.js"],
     year: 2026,
     featured: true,
     links: {
-      live: "https://money-lending-liart.vercel.app",
+      github: "https://github.com/matovu-farid/money-lending",
+      live: "https://money-lending.fidexa.org/home",
+    },
+  },
+  {
+    id: "inventory-trade",
+    name: "Inventory and Trade Management System",
+    description: "Production trade platform spanning Supply, Store, and Shop, with a shared double-entry ledger from procurement to retail, RMB, USD, and UGX money support, POS, stock control, loss detection, and audit trails.",
+    category: "web-apps",
+    tags: ["SaaS", "Trade"],
+    techStack: ["TanStack Start", "TanStack Router", "TanStack DB", "React", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "Cloudflare Workers", "Better Auth"],
+    year: 2026,
+    featured: true,
+    links: {
+      github: "https://github.com/matovu-farid/inventory",
+      live: "https://inventory.fidexa.org/home",
     },
   },
   {
@@ -73,9 +91,8 @@ export const projects: Project[] = [
     tags: ["SaaS", "Property"],
     techStack: ["Next.js", "PostgreSQL", "Prisma", "Better Auth"],
     year: 2025,
-    featured: true,
+    featured: false,
     links: {
-      github: "https://github.com/matovu-farid/apartment_manager_next",
       live: "https://apartment-manager-ten.vercel.app",
     },
   },
@@ -140,7 +157,6 @@ export const projects: Project[] = [
     featured: false,
     links: {
       github: "https://github.com/matovu-farid/realtime-analytics",
-      live: "https://realtime-analytics-ae1974cb754c.herokuapp.com/",
     },
   },
   {

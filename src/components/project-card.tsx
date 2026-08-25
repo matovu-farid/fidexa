@@ -1,5 +1,5 @@
 import type { Project } from "@/data/projects";
-import { ExternalLink, GithubIcon, Play } from "lucide-react";
+import { Apple, ExternalLink, GithubIcon, Play } from "lucide-react";
 
 const tagColors: Record<string, string> = {
   Innovation: "bg-indigo-500/15 text-indigo-300",
@@ -52,6 +52,17 @@ export function ProjectCard({ project }: { project: Project }) {
       </p>
       {project.links && (
         <div className="mt-4 flex gap-3">
+          {project.links.appStore && (
+            <a
+              href={project.links.appStore}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${project.name} on the App Store`}
+              className="text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <Apple size={16} />
+            </a>
+          )}
           {project.links.github && (
             <a
               href={project.links.github}
