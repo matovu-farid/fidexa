@@ -93,9 +93,6 @@ export const projects: Project[] = [
     techStack: ["Next.js", "PostgreSQL", "Prisma", "Better Auth"],
     year: 2025,
     featured: false,
-    links: {
-      live: "https://apartment-manager-ten.vercel.app",
-    },
   },
   {
     id: "maria",

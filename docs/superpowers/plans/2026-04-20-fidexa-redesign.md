@@ -354,10 +354,6 @@ export const projects: Project[] = [
     techStack: ["Next.js", "PostgreSQL", "Prisma", "Better Auth"],
     year: 2025,
     featured: true,
-    links: {
-      github: "https://github.com/matovu-farid/apartment_manager_next",
-      live: "https://apartment-manager-ten.vercel.app",
-    },
   },
   {
     id: "maria",
