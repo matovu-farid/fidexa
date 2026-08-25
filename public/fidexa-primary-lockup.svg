@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="720" height="250" viewBox="0 0 720 250">
+  <g>
+    <g transform="translate(68, 54)">
+      <path d="M0 0L130 0L95 42L45 42L45 60L90 60L58 102L45 102L45 146L0 146L0 0Z" fill="#101828"/>
+      <path d="M0 0L130 0L95 42L45 42L45 22L0 22L0 0Z" fill="#7C5CFC"/>
+      <path d="M45 60L90 60L58 102L45 102L45 60Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(238, 72)">
+      <text x="0" y="76" font-family="Inter" font-size="76" font-weight="700" fill="#101828">fidexa</text>
+    </g>
+    <g transform="translate(242, 142)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#667085">SOFTWARE STUDIO</text>
+    </g>
+  </g>
+</svg>

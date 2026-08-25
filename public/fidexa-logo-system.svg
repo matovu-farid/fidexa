@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="760" viewBox="0 0 1200 760">
+  <g>
+    <path d="M28 0L1172 0C1187.46 0 1200 12.54 1200 28L1200 732C1200 747.46 1187.46 760 1172 760L28 760C12.54 760 0 747.46 0 732L0 28C0 12.54 12.54 0 28 0" fill="#F7F9FC"/>
+    <g transform="translate(72, 190)">
+      <path d="M20 0L670 0C681.05 0 690 8.95 690 20L690 168C690 179.05 681.05 188 670 188L20 188C8.95 188 0 179.05 0 168L0 20C0 8.95 8.95 0 20 0Z" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="1"/>
+    </g>
+    <g transform="translate(72, 190)">
+      <path d="M81.8 45.6L175.4 45.6L150.2 75.84L114.2 75.84L114.2 88.8L146.6 88.8L123.56 119.04L114.2 119.04L114.2 150.72L81.8 150.72L81.8 45.6Z" fill="#101828"/>
+      <path d="M81.8 45.6L175.4 45.6L150.2 75.84L114.2 75.84L114.2 61.44L81.8 61.44L81.8 45.6Z" fill="#7C5CFC"/>
+      <path d="M114.2 88.8L146.6 88.8L123.56 119.04L114.2 119.04L114.2 88.8Z" fill="#37D6C0"/>
+      <path d="M20 220L670 220C681.05 220 690 228.95 690 240L690 388C690 399.05 681.05 408 670 408L20 408C8.95 408 0 399.05 0 388L0 240C0 228.95 8.95 220 20 220Z" fill="#101828"/>
+      <path d="M81.8 265.6L175.4 265.6L150.2 295.84L114.2 295.84L114.2 308.8L146.6 308.8L123.56 339.04L114.2 339.04L114.2 370.72L81.8 370.72L81.8 265.6Z" fill="#F7F9FC"/>
+      <path d="M81.8 265.6L175.4 265.6L150.2 295.84L114.2 295.84L114.2 281.44L81.8 281.44L81.8 265.6Z" fill="#7C5CFC"/>
+      <path d="M114.2 308.8L146.6 308.8L123.56 339.04L114.2 339.04L114.2 308.8Z" fill="#37D6C0"/>
+      <path d="M776 0L1036 0C1047.05 0 1056 8.95 1056 20L1056 388C1056 399.05 1047.05 408 1036 408L776 408C764.95 408 756 399.05 756 388L756 20C756 8.95 764.95 0 776 0Z" fill="#EEF2FF"/>
+      <path d="M858.6 112.2L1006.8 112.2L966.9 160.08L909.9 160.08L909.9 180.6L961.2 180.6L924.72 228.48L909.9 228.48L909.9 278.64L858.6 278.64L858.6 112.2Z" fill="#101828"/>
+      <path d="M858.6 112.2L1006.8 112.2L966.9 160.08L909.9 160.08L909.9 137.28L858.6 137.28L858.6 112.2Z" fill="#7C5CFC"/>
+      <path d="M909.9 180.6L961.2 180.6L924.72 228.48L909.9 228.48L909.9 180.6Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(72, 48)">
+      <text x="0" y="16" font-family="Inter" font-size="16" fill="#667085">FIDEXA / LOGO SYSTEM</text>
+    </g>
+    <g transform="translate(72, 84)">
+      <text x="0" y="30" font-family="Inter" font-size="30" font-weight="700" fill="#101828">Folded F</text>
+    </g>
+    <g transform="translate(72, 122)">
+      <text x="0" y="15" font-family="Inter" font-size="15" fill="#667085">Primary lockup, reversed lockup, and standalone mark</text>
+    </g>
+    <g transform="translate(310, 244)">
+      <text x="0" y="66" font-family="Inter" font-size="66" font-weight="700" fill="#101828">fidexa</text>
+    </g>
+    <g transform="translate(312, 314)">
+      <text x="0" y="15" font-family="Inter" font-size="15" fill="#667085">SOFTWARE STUDIO</text>
+    </g>
+    <g transform="translate(310, 464)">
+      <text x="0" y="66" font-family="Inter" font-size="66" font-weight="700" fill="#F7F9FC">fidexa</text>
+    </g>
+    <g transform="translate(312, 534)">
+      <text x="0" y="15" font-family="Inter" font-size="15" fill="#AAB4C5">SOFTWARE STUDIO</text>
+    </g>
+    <g transform="translate(860, 520)">
+      <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#101828">STANDALONE MARK</text>
+    </g>
+    <g transform="translate(860, 548)">
+      <text x="0" y="13" font-family="Inter" font-size="13" fill="#667085">favicon · app icon · avatar</text>
+    </g>
+    <g transform="translate(72, 650)">
+      <text x="0" y="13" font-family="Inter" font-size="13" fill="#667085">Core colors: Ink #101828 · Violet #7C5CFC · Mint #37D6C0 · Cloud #F7F9FC</text>
+    </g>
+  </g>
+</svg>
