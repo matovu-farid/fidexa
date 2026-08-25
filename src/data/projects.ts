@@ -1,4 +1,4 @@
-export type ProjectCategory = "ai-automation" | "cross-platform" | "web-apps" | "developer-tools";
+export type ProjectCategory = "ai-automation" | "cross-platform" | "native-apps" | "web-apps" | "developer-tools";
 
 export interface Project {
   id: string;
@@ -20,6 +20,7 @@ export interface Project {
 export const categories: { value: ProjectCategory | "all"; label: string }[] = [
   { value: "all", label: "All" },
   { value: "ai-automation", label: "AI & Automation" },
+  { value: "native-apps", label: "Apple & Native Apps" },
   { value: "cross-platform", label: "Cross-Platform" },
   { value: "web-apps", label: "Web Applications" },
   { value: "developer-tools", label: "Developer Tools" },
@@ -30,8 +31,8 @@ export const projects: Project[] = [
     id: "rishi",
     name: "Rishi",
     description: "Production Apple ecosystem reading platform for iPhone, iPad, Mac, CarPlay, and connected Apple Watch experiences, with EPUB and PDF reading, read-aloud, highlights, sync, sharing, and AI chat grounded in the current book. Android is planned, but is not available today.",
-    category: "cross-platform",
-    tags: ["Innovation", "Cross-Platform"],
+    category: "native-apps",
+    tags: ["Innovation", "Apple Native"],
     techStack: ["SwiftUI", "Swift", "Shared Swift Packages", "TypeScript", "Cloudflare"],
     year: 2026,
     featured: true,
@@ -45,7 +46,7 @@ export const projects: Project[] = [
   {
     id: "money-lending",
     name: "Money Lending Management System",
-    description: "Production fintech and accounting-ledger platform for a money-lending business, with reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports.",
+    description: "Production fintech and accounting-ledger platform used by real customers and businesses in a money-lending operation, with reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports.",
     category: "web-apps",
     tags: ["SaaS", "Fintech"],
     techStack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "TanStack DB", "ElectricSQL", "Better Auth", "BigNumber.js"],
@@ -59,7 +60,7 @@ export const projects: Project[] = [
   {
     id: "inventory-trade",
     name: "Inventory and Trade Management System",
-    description: "Production trade platform spanning Supply, Store, and Shop, with a shared double-entry ledger from procurement to retail, RMB, USD, and UGX money support, POS, stock control, loss detection, and audit trails.",
+    description: "Production trade platform used by real customers and businesses across Supply, Store, and Shop, with a shared double-entry ledger from procurement to retail, RMB, USD, and UGX money support, POS, stock control, loss detection, and audit trails.",
     category: "web-apps",
     tags: ["SaaS", "Trade"],
     techStack: ["TanStack Start", "TanStack Router", "TanStack DB", "React", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "Cloudflare Workers", "Better Auth"],
@@ -78,7 +79,7 @@ export const projects: Project[] = [
     tags: ["AI", "Developer Tool"],
     techStack: ["Next.js", "AWS Lambda", "npm", "AI"],
     year: 2025,
-    featured: true,
+    featured: false,
     links: {
       github: "https://github.com/matovu-farid/scrap-platform",
     },
