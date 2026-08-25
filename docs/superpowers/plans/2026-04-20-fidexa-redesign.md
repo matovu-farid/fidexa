@@ -327,7 +327,7 @@ export const projects: Project[] = [
     year: 2026,
     featured: true,
     links: {
-      live: "https://money-lending-liart.vercel.app",
+      live: "https://money-lending.fidexa.org/home",
     },
   },
   {
@@ -425,7 +425,6 @@ export const projects: Project[] = [
     featured: false,
     links: {
       github: "https://github.com/matovu-farid/realtime-analytics",
-      live: "https://realtime-analytics-ae1974cb754c.herokuapp.com/",
     },
   },
   {

@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Fidexa — Software Studio",
+  title: "Fidexa · Software Studio",
   description: "We build software that improves lives.",
 };
 

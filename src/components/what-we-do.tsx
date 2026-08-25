@@ -14,15 +14,14 @@ export function WhatWeDo() {
             <p className="text-sm leading-relaxed text-muted-foreground">
               We build apps, websites, and platforms for clients. Web
               applications, mobile apps, full-stack systems, and e-commerce
-              solutions — tailored to your needs.
+              solutions tailored to your needs.
             </p>
           </div>
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-8">
             <h3 className="mb-3 text-lg font-semibold">Innovation Lab</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">
-              Client work funds our own R&D. We build products like Rishi —
-              pushing boundaries in AI, cross-platform development, and
-              developer tools.
+              Client work funds our own R&D. We build products like Rishi,
+              exploring AI, native Apple development, and developer tools.
             </p>
           </div>
         </div>
