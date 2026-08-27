@@ -43,14 +43,14 @@ The attached source of truth is `/Users/faridmatovu/projects/rishi-monorepo/apps
 
 - `/sms` — retained as a compliance utility for SMS-related disclosure and support links; not shown as a primary-nav item.
 
-### Removed from the product-site prototype
+### Removed from the Rishi product-site prototype
 
 - `/pricing`
 - `/changelog`
 - `/blog`
-- The existing studio-oriented pages: `Home`, `Work Index`, `Case Study — Rishi`, `Studio`, `Contact`, and the old review boards that describe the Fidexa studio site.
+- The old `Rishi Routes Review` board, which is superseded by the new product-site prototype.
 
-The old consolidated `Rishi Routes Review` board is replaced by the new product-site prototype rather than used as the final information architecture.
+The existing Fidexa studio pages are a separate design system and must remain intact in the Pencil document: `Home`, `Work Index`, `Case Study — Rishi`, `Studio`, `Contact`, and `Site Redesign Review`. They are not part of the Rishi product-site information architecture, but they are necessary Fidexa deliverables and must not be deleted or merged into Rishi.
 
 ## Experience and visual direction
 
@@ -138,15 +138,16 @@ The current Apple workspace has known build/package blockers: the full scheme cu
 
 ## Pencil deliverable
 
-Create one clean page named `Rishi Site Redesign` containing labeled desktop and mobile frames for every route above, plus a small route map and evidence/media notes. The page should be understandable as a handoff: route labels, CTA labels, footer/legal relationships, and removed-page notes must be visible without relying on hidden layers.
+Create one clean page named `Rishi Site Redesign` containing labeled desktop and mobile frames for every route above, plus a small route map and evidence/media notes. The page should be understandable as a handoff: route labels, CTA labels, footer/legal relationships, and removed-page notes must be visible without relying on hidden layers. Keep this page separate from the preserved Fidexa studio/design pages in the same Pencil file.
 
 The final Pencil file is `/Users/faridmatovu/projects/fidexa/fidexa-logo.fig`. Save it after edits and export reviewable SVGs into `/Users/faridmatovu/projects/fidexa/public/`.
 
 ## Acceptance criteria
 
 - The prototype’s primary story is Rishi, not a generic Fidexa studio.
+- Fidexa’s existing studio/design pages remain present and separate from the Rishi product prototype.
 - All eight public/utility routes are represented: homepage, features, how it works, download, support, privacy, terms, and SMS.
-- Pricing, changelog, blog, and studio-only pages are removed from the approved prototype information architecture.
+- Pricing, changelog, and blog are removed from the approved Rishi prototype information architecture; Fidexa studio pages are preserved as separate deliverables.
 - No pricing table or web checkout appears anywhere in the product-site design.
 - App UI evidence maps only to capabilities verified in the Apple source.
 - Desktop and mobile layouts are present for the key marketing and legal/support surfaces.
