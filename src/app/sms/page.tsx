@@ -39,6 +39,10 @@ export default function SmsOptInPage() {
             message and no further messages unless you re-subscribe.
           </p>
           <p>
+            SMS consent is optional and is not a condition of purchasing any
+            product or service.
+          </p>
+          <p>
             For details about data handling and messaging terms, read our{" "}
             <Link className="underline underline-offset-4" href="https://rishi.fidexa.org/privacy">
               Privacy Policy
