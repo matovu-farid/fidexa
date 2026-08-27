@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { AlertCircle, CheckCircle, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Sparkles, CheckCircle, AlertCircle } from "lucide-react";
 import { ChatModal } from "./chat-modal";
 
 export function Contact() {
@@ -17,79 +17,41 @@ export function Contact() {
     const form = e.currentTarget;
     setSending(true);
     setStatus("idle");
-
-    const data = new FormData(form);
-    const body = Object.fromEntries(data);
-
+    const body = Object.fromEntries(new FormData(form));
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      if (res.ok) {
-        setStatus("success");
-        form.reset();
-      } else {
-        setStatus("error");
-      }
-    } catch {
-      setStatus("error");
-    } finally {
-      setSending(false);
-    }
+      const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      if (res.ok) { setStatus("success"); form.reset(); } else setStatus("error");
+    } catch { setStatus("error"); } finally { setSending(false); }
   }
 
   return (
     <>
-      <section id="contact" className="border-t border-white/[0.06] px-6 py-24">
-        <div className="mx-auto max-w-xl">
-          <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-            Get in Touch
-          </p>
-          <h2 className="mb-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-            Let&apos;s build something great
-          </h2>
-          <p className="mb-10 text-sm text-muted-foreground">
-            Tell us about your project and we&apos;ll get back to you.
-          </p>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Input name="name" placeholder="Name" required disabled={sending} />
-              <Input name="email" type="email" placeholder="Email" required disabled={sending} />
+      <section id="contact" className="section-rule section-block">
+        <div className="site-shell">
+          <div className="contact-panel dark-card">
+            <div className="flex flex-col justify-between">
+              <div>
+                <p className="eyebrow text-[#36d6bf]">Let&apos;s talk</p>
+                <h2 className="section-title mt-5 text-[#f7f9fc]">Bring the hard part.</h2>
+                <p className="mt-6 max-w-sm text-sm leading-6 text-[#b8c7dd]">Tell us what needs to become clearer, faster, or more useful. We&apos;ll help find the shape of it.</p>
+              </div>
+              <p className="contact-side-note mt-12">Remote / East Africa<br />Available for select builds</p>
             </div>
-            <Textarea
-              name="message"
-              placeholder="Your message..."
-              className="min-h-[120px]"
-              required
-              disabled={sending}
-            />
-            <div className="flex items-center gap-3">
-              <Button type="submit" className="px-6" disabled={sending}>
-                {sending ? "Sending..." : "Send Message"}
-              </Button>
-              <button
-                type="button"
-                onClick={() => setChatOpen(true)}
-                className="flex items-center gap-2 rounded-lg border border-white/[0.1] px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:border-white/[0.2] hover:text-foreground"
-              >
-                <Sparkles size={14} />
-                Ask AI instead
-              </button>
-            </div>
-            {status === "success" && (
-              <p className="flex items-center gap-2 text-sm text-green-400">
-                <CheckCircle size={16} /> Message sent! We&apos;ll get back to you soon.
-              </p>
-            )}
-            {status === "error" && (
-              <p className="flex items-center gap-2 text-sm text-red-400">
-                <AlertCircle size={16} /> Failed to send. Please try again.
-              </p>
-            )}
-          </form>
+            <form onSubmit={handleSubmit} className="rounded-xl bg-[#fffdf8] p-5 text-[#101828] sm:p-7">
+              <p className="eyebrow">Project brief</p>
+              <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <Input className="editorial-input" name="name" placeholder="Your name" required disabled={sending} />
+                <Input className="editorial-input" name="email" type="email" placeholder="Email address" required disabled={sending} />
+              </div>
+              <Textarea className="editorial-input mt-3 min-h-[140px]" name="message" placeholder="What are you trying to make?" required disabled={sending} />
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <Button type="submit" className="button-primary border-0 px-6" disabled={sending}>{sending ? "Sending…" : "Send brief ↗"}</Button>
+                <button type="button" onClick={() => setChatOpen(true)} className="button-secondary min-h-[46px] border-[#101828]/15 px-4 text-[#101828]"><Sparkles size={14} /> Ask AI instead</button>
+              </div>
+              {status === "success" && <p className="mt-4 flex items-center gap-2 text-sm text-[#287c5d]"><CheckCircle size={16} /> Message sent. We&apos;ll be in touch.</p>}
+              {status === "error" && <p className="mt-4 flex items-center gap-2 text-sm text-[#b13c36]"><AlertCircle size={16} /> Something went wrong. Please try again.</p>}
+            </form>
+          </div>
         </div>
       </section>
       <ChatModal open={chatOpen} onClose={() => setChatOpen(false)} />

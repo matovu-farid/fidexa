@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Nav />
-      <main className="pt-16">
+      <main>
         <Hero />
         <WhatWeDo />
         <FeaturedProjects />

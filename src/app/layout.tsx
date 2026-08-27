@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "Fidexa · Software Studio",
-  description: "We build software that improves lives.",
+  title: "Fidexa — Software Studio",
+  description: "Software for the next useful step.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -15,8 +16,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+    <html lang="en">
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

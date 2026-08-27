@@ -9,47 +9,37 @@ import type { ProjectCategory } from "@/data/projects";
 
 export default function ProjectsPage() {
   const [active, setActive] = useState<ProjectCategory | "all">("all");
-
-  const filtered =
-    active === "all"
-      ? projects
-      : projects.filter((p) => p.category === active);
+  const filtered = active === "all" ? projects : projects.filter((project) => project.category === active);
 
   return (
     <>
       <Nav />
-      <main className="px-6 pb-24 pt-32">
-        <div className="mx-auto max-w-5xl">
-          <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-            Our Work
-          </p>
-          <h1 className="mb-10 text-3xl font-bold tracking-tight sm:text-4xl">
-            Projects
-          </h1>
-
-          {/* Filters */}
-          <div className="mb-10 flex flex-wrap gap-2">
-            {categories.map((cat) => (
+      <main className="page-main">
+        <div className="site-shell">
+          <div className="split-heading">
+            <div>
+              <p className="eyebrow">Work index · {projects.length} systems</p>
+              <h1 className="section-title mt-5">Work with a point of view.</h1>
+            </div>
+            <p className="body-copy">Featured launches, client systems, and experiments from the Fidexa studio. Filter by the kind of problem, not just the technology.</p>
+          </div>
+          <div className="filter-row mt-10" role="group" aria-label="Filter projects">
+            {categories.map((category) => (
               <button
-                key={cat.value}
-                onClick={() => setActive(cat.value)}
-                className={`rounded-lg px-4 py-2 text-sm transition-colors ${
-                  active === cat.value
-                    ? "bg-foreground text-background"
-                    : "border border-white/[0.1] text-muted-foreground hover:border-white/[0.2] hover:text-foreground"
-                }`}
+                key={category.value}
+                type="button"
+                className={`filter-pill ${active === category.value ? "filter-pill-active" : ""}`}
+                aria-pressed={active === category.value}
+                onClick={() => setActive(category.value)}
               >
-                {cat.label}
+                {category.label}
               </button>
             ))}
           </div>
-
-          {/* Grid */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {filtered.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
+          <div className="index-grid mt-10">
+            {filtered.map((project) => <ProjectCard key={project.id} project={project} featured={project.featured} />)}
           </div>
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.1em] text-[#667087]">{projects.length} projects in the full index · filters mirror the live catalog.</p>
         </div>
       </main>
       <Footer />

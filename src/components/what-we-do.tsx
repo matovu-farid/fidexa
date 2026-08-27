@@ -1,29 +1,25 @@
 export function WhatWeDo() {
   return (
-    <section className="border-t border-white/[0.06] px-6 py-24">
-      <div className="mx-auto max-w-5xl">
-        <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          What We Do
-        </p>
-        <h2 className="mb-10 text-2xl font-semibold tracking-tight sm:text-3xl">
-          Two sides of the same coin
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-8">
-            <h3 className="mb-3 text-lg font-semibold">Client Solutions</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              We build apps, websites, and platforms for clients. Web
-              applications, mobile apps, full-stack systems, and e-commerce
-              solutions tailored to your needs.
-            </p>
+    <section id="studio" className="section-rule section-block">
+      <div className="site-shell">
+        <div className="split-heading">
+          <div>
+            <p className="eyebrow">Two engines · one studio</p>
+            <h2 className="section-title mt-5">Useful by design.</h2>
           </div>
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-8">
-            <h3 className="mb-3 text-lg font-semibold">Innovation Lab</h3>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Client work funds our own R&D. We build products like Rishi,
-              exploring AI, native Apple development, and developer tools.
-            </p>
-          </div>
+          <p className="body-copy">Client work and product experiments share the same standard: make the complicated thing feel clear, calm, and ready for real life.</p>
+        </div>
+        <div className="engine-grid mt-12">
+          <article className="engine-card dark-card">
+            <p className="eyebrow text-[#36d6bf]">01 / Client work</p>
+            <h3 className="mt-16 text-3xl font-bold tracking-[-0.05em]">Build the thing your team needs.</h3>
+            <p className="mt-5 max-w-md text-sm leading-6 text-[#b8c7dd]">Web applications, native apps, internal tools, and full-stack systems that move from a good brief to a useful product.</p>
+          </article>
+          <article className="engine-card mint-card">
+            <p className="eyebrow text-[#0c3f3d]">02 / Innovation lab</p>
+            <h3 className="mt-16 text-3xl font-bold tracking-[-0.05em]">Make the next idea tangible.</h3>
+            <p className="mt-5 max-w-md text-sm leading-6 text-[#1e5a58]">Our own products, like Rishi, give us room to explore AI, native Apple development, and better ways to make software feel human.</p>
+          </article>
         </div>
       </div>
     </section>

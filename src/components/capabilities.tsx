@@ -1,47 +1,30 @@
-import { Globe, Smartphone, Bot, Monitor } from "lucide-react";
+import { Bot, Globe, Layers3, Smartphone } from "lucide-react";
 
 const capabilities = [
-  {
-    icon: Globe,
-    label: "Web Apps",
-    tech: "Next.js, React, Rails",
-  },
-  {
-    icon: Smartphone,
-    label: "Mobile",
-    tech: "Flutter, React Native",
-  },
-  {
-    icon: Bot,
-    label: "AI & ML",
-    tech: "OpenAI, on-device ML",
-  },
-  {
-    icon: Monitor,
-    label: "Desktop",
-    tech: "Tauri, Electron, Rust",
-  },
+  { icon: Globe, label: "Web apps", copy: "Interfaces that make complex work feel simple." },
+  { icon: Smartphone, label: "Apple + native", copy: "Focused experiences for the devices people use." },
+  { icon: Bot, label: "AI + automation", copy: "Intelligence that helps people move faster." },
+  { icon: Layers3, label: "Systems + tooling", copy: "Reliable foundations for the next stage." },
 ];
 
 export function Capabilities() {
   return (
-    <section className="border-t border-white/[0.06] px-6 py-24">
-      <div className="mx-auto max-w-5xl">
-        <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          Capabilities
-        </p>
-        <h2 className="mb-10 text-2xl font-semibold tracking-tight sm:text-3xl">
-          What we bring to the table
-        </h2>
-        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
-          {capabilities.map((cap) => (
-            <div key={cap.label} className="text-center">
-              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02]">
-                <cap.icon size={22} className="text-muted-foreground" />
-              </div>
-              <p className="text-sm font-semibold">{cap.label}</p>
-              <p className="mt-1 text-xs text-muted-foreground">{cap.tech}</p>
-            </div>
+    <section className="section-rule section-block">
+      <div className="site-shell">
+        <div className="split-heading">
+          <div>
+            <p className="eyebrow">Capabilities</p>
+            <h2 className="section-title mt-5">The right shape for the job.</h2>
+          </div>
+          <p className="body-copy">Start with the problem, not the stack. We bring product thinking, engineering depth, and a bias toward the simplest useful system.</p>
+        </div>
+        <div className="capability-grid mt-12">
+          {capabilities.map(({ icon: Icon, label, copy }, index) => (
+            <article key={label} className={`capability-card ${index % 2 === 0 ? "editorial-card" : "mint-card"}`}>
+              <Icon size={22} strokeWidth={1.8} aria-hidden="true" />
+              <h3 className="mt-10 text-lg font-bold tracking-[-0.03em]">{label}</h3>
+              <p className="mt-3 text-sm leading-5 text-[#667087]">{copy}</p>
+            </article>
           ))}
         </div>
       </div>

@@ -1,31 +1,22 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { featuredProjects } from "@/data/projects";
 import { ProjectCard } from "./project-card";
 
 export function FeaturedProjects() {
   return (
-    <section id="projects" className="border-t border-white/[0.06] px-6 py-24">
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-10 flex items-end justify-between">
+    <section id="projects" className="section-rule section-block">
+      <div className="site-shell">
+        <div className="work-header">
           <div>
-            <p className="mb-2 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              Selected Work
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-              Featured Projects
-            </h2>
+            <p className="eyebrow">Selected work</p>
+            <h2 className="section-title mt-5">Projects with a point of view.</h2>
           </div>
-          <Link
-            href="/projects"
-            className="rounded-lg border border-white/[0.1] px-4 py-2 text-xs text-muted-foreground transition-colors hover:border-white/[0.2] hover:text-foreground"
-          >
-            View All &rarr;
-          </Link>
+          <Link className="button-secondary" href="/projects">View all work <ArrowUpRight size={15} /></Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
+        <p className="body-copy mt-6 max-w-xl">A few products and client systems we have taken from fuzzy first thought to something people can use.</p>
+        <div className="featured-grid mt-12">
+          {featuredProjects.map((project) => <ProjectCard key={project.id} project={project} featured />)}
         </div>
       </div>
     </section>

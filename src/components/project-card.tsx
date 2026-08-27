@@ -1,100 +1,56 @@
 import type { Project } from "@/data/projects";
-import { Apple, ExternalLink, GithubIcon, Play } from "lucide-react";
 
-const tagColors: Record<string, string> = {
-  Innovation: "bg-indigo-500/15 text-indigo-300",
-  "Cross-Platform": "bg-white/[0.06] text-muted-foreground",
-  SaaS: "bg-green-500/15 text-green-300",
-  Finance: "bg-white/[0.06] text-muted-foreground",
-  AI: "bg-amber-500/15 text-amber-300",
-  "Developer Tool": "bg-white/[0.06] text-muted-foreground",
-  Property: "bg-pink-500/15 text-pink-300",
-  "Client Work": "bg-white/[0.06] text-muted-foreground",
-  Business: "bg-white/[0.06] text-muted-foreground",
-  Infrastructure: "bg-white/[0.06] text-muted-foreground",
-  Docker: "bg-white/[0.06] text-muted-foreground",
-  Analytics: "bg-cyan-500/15 text-cyan-300",
-  "Real-time": "bg-white/[0.06] text-muted-foreground",
-  npm: "bg-red-500/15 text-red-300",
-  "Component Library": "bg-white/[0.06] text-muted-foreground",
-  Tourism: "bg-white/[0.06] text-muted-foreground",
-  Marketing: "bg-white/[0.06] text-muted-foreground",
-  Mobile: "bg-violet-500/15 text-violet-300",
-  "Play Store": "bg-white/[0.06] text-muted-foreground",
-  Communication: "bg-white/[0.06] text-muted-foreground",
-  Telephony: "bg-white/[0.06] text-muted-foreground",
-  Data: "bg-white/[0.06] text-muted-foreground",
-  API: "bg-white/[0.06] text-muted-foreground",
-  Space: "bg-white/[0.06] text-muted-foreground",
-  CLI: "bg-white/[0.06] text-muted-foreground",
-  Systems: "bg-orange-500/15 text-orange-300",
-};
+function Snapshot({ project }: { project: Project }) {
+  const snapshot = project.id === "rishi"
+    ? { label: "Reader / current chapter", value: "04:12", bar: "w-3/4" }
+    : project.id === "money-lending"
+      ? { label: "Cash flow / this month", value: "$128k", bar: "w-1/2" }
+      : project.id === "inventory-trade"
+        ? { label: "Supply → store → shop", value: "LIVE", bar: "w-2/3" }
+        : { label: "System snapshot", value: "READY", bar: "w-1/2" };
 
-export function ProjectCard({ project }: { project: Project }) {
   return (
-    <div className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-6 transition-colors hover:border-white/[0.12] hover:bg-white/[0.04]">
-      <div className="mb-4 flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className={`rounded-full px-2.5 py-1 text-xs font-medium ${tagColors[tag] ?? "bg-white/[0.06] text-muted-foreground"}`}
-          >
-            {tag}
-          </span>
-        ))}
+    <div className="project-snapshot" aria-label={`${project.name} product snapshot`}>
+      <div className="snapshot-top">
+        <span className="snapshot-label">Project snapshot</span>
+        <span className="snapshot-label opacity-60">{snapshot.label}</span>
       </div>
-      <h3 className="text-lg font-semibold">{project.name}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-        {project.description}
-      </p>
-      <p className="mt-4 text-xs text-white/30">
-        {project.techStack.join(" \u00B7 ")}
-      </p>
-      {project.links && (
-        <div className="mt-4 flex gap-3">
-          {project.links.appStore && (
-            <a
-              href={project.links.appStore}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Open ${project.name} on the App Store`}
-              className="text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              <Apple size={16} />
-            </a>
-          )}
-          {project.links.github && (
-            <a
-              href={project.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <GithubIcon size={16} />
-            </a>
-          )}
-          {project.links.live && (
-            <a
-              href={project.links.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ExternalLink size={16} />
-            </a>
-          )}
-          {project.links.video && (
-            <a
-              href={project.links.video}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <Play size={16} />
-            </a>
-          )}
+      <div className="snapshot-bottom">
+        <span className="snapshot-number">{snapshot.value}</span>
+        <span className={`snapshot-bar ${snapshot.bar}`} />
+      </div>
+    </div>
+  );
+}
+
+export function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
+  const links = project.links ? [
+    project.links.live ? { label: "Visit live", href: project.links.live } : null,
+    project.links.appStore ? { label: "App Store", href: project.links.appStore } : null,
+    project.links.github ? { label: "GitHub", href: project.links.github } : null,
+    project.links.video ? { label: "Watch demo", href: project.links.video } : null,
+  ].filter((link): link is { label: string; href: string } => Boolean(link)) : [];
+
+  return (
+    <article className={`project-card ${featured ? "project-card-featured" : ""}`}>
+      <div className="project-tag-row">
+        <span className="project-tag">{project.category.replace("-", " ")}</span>
+        {project.tags.slice(0, 2).map((tag) => <span className="project-tag" key={tag}>{tag}</span>)}
+      </div>
+      <div className="project-card-copy">
+        <p className="eyebrow opacity-70">{project.year} · {project.featured ? "Featured" : "Selected work"}</p>
+        <h3 className="mt-3 text-2xl font-bold tracking-[-0.05em]">{project.name}</h3>
+        <p className="mt-4">{project.description}</p>
+      </div>
+      {featured && <Snapshot project={project} />}
+      <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.08em] opacity-60">{project.techStack.slice(0, 3).join(" · ")}</p>
+      {links.length > 0 && (
+        <div className="project-links">
+          {links.map(({ label, href }) => (
+            <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label} ↗</a>
+          ))}
         </div>
       )}
-    </div>
+    </article>
   );
 }

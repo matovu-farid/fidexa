@@ -26,10 +26,12 @@ export function Logo({ className = "", size = 32, variant = "reversed" }: LogoPr
 }
 
 export function LogoWithText({ className = "", variant = "reversed" }: Omit<LogoProps, "size">) {
+  const textColor = variant === "light" ? "text-[#101828]" : "text-[#F7F9FC]";
+
   return (
     <div className={`flex items-center gap-3 ${className}`}>
       <Logo size={28} variant={variant} />
-      <span className="text-xl font-bold tracking-tight">fidexa</span>
+      <span className={`text-xl font-bold tracking-tight ${textColor}`}>fidexa</span>
     </div>
   );
 }
