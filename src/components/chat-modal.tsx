@@ -19,6 +19,8 @@ export function ChatModal({
     useChat({ api: "/api/chat" });
   const isLoading = status === "streaming" || status === "submitted";
   const scrollRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -26,11 +28,42 @@ export function ChatModal({
     }
   }, [messages]);
 
+  useEffect(() => {
+    if (!open) return;
+    const previousFocus = document.activeElement as HTMLElement | null;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (event.key !== "Tab" || !dialogRef.current) return;
+      const focusable = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(
+        "button:not([disabled]), textarea:not([disabled]), input:not([disabled]), [href]"
+      ));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    closeButtonRef.current?.focus();
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      previousFocus?.focus();
+    };
+  }, [open, onClose]);
+
   if (!open) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="relative flex h-[80vh] w-full max-w-lg flex-col rounded-2xl border border-white/[0.1] bg-background shadow-2xl">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Fidexa AI project scoping" className="relative flex h-[80vh] w-full max-w-lg flex-col rounded-2xl border border-white/[0.1] bg-background shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-4">
           <div className="flex items-center gap-2">
@@ -38,7 +71,9 @@ export function ChatModal({
             <span className="text-sm font-medium">Fidexa AI</span>
           </div>
           <button
+            ref={closeButtonRef}
             onClick={onClose}
+            aria-label="Close Fidexa AI"
             className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground"
           >
             <X size={18} />
@@ -105,7 +140,7 @@ export function ChatModal({
                 <Bot size={14} className="text-muted-foreground" />
               </div>
               <div className="rounded-xl bg-white/[0.04] px-4 py-2.5 text-sm text-muted-foreground">
-                Thinking...
+                Thinking…
               </div>
             </div>
           )}
@@ -120,6 +155,8 @@ export function ChatModal({
             <Textarea
               value={input}
               onChange={handleInputChange}
+              name="message"
+              aria-label="Describe your project idea"
               placeholder="Describe your project idea..."
               className="min-h-[44px] max-h-[120px] resize-none"
               onKeyDown={(e) => {
@@ -129,7 +166,7 @@ export function ChatModal({
                 }
               }}
             />
-            <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
+            <Button type="submit" size="icon" aria-label="Send message" disabled={isLoading || !input.trim()}>
               <Send size={16} />
             </Button>
           </div>

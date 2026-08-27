@@ -5,9 +5,11 @@ function Snapshot({ project }: { project: Project }) {
     ? { label: "Reader / current chapter", value: "04:12", bar: "w-3/4" }
     : project.id === "money-lending"
       ? { label: "Cash flow / this month", value: "$128k", bar: "w-1/2" }
-      : project.id === "inventory-trade"
-        ? { label: "Supply → store → shop", value: "LIVE", bar: "w-2/3" }
-        : { label: "System snapshot", value: "READY", bar: "w-1/2" };
+    : project.id === "inventory-trade"
+      ? { label: "Supply → store → shop", value: "LIVE", bar: "w-2/3" }
+      : project.id === "ai-scraping"
+        ? { label: "Pipeline / live", value: "SIGNAL", bar: "w-3/5" }
+      : { label: "System snapshot", value: "READY", bar: "w-1/2" };
 
   return (
     <div className="project-snapshot" aria-label={`${project.name} product snapshot`}>
@@ -22,6 +24,12 @@ function Snapshot({ project }: { project: Project }) {
     </div>
   );
 }
+
+const featuredValue: Record<string, string> = {
+  rishi: "A calmer way to read with AI.",
+  "money-lending": "Make the numbers work harder.",
+  "ai-scraping": "Turn the web into signal.",
+};
 
 export function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
   const links = project.links ? [
@@ -40,7 +48,7 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
       <div className="project-card-copy">
         <p className="eyebrow opacity-70">{project.year} · {project.featured ? "Featured" : "Selected work"}</p>
         <h3 className="mt-3 text-2xl font-bold tracking-[-0.05em]">{project.name}</h3>
-        <p className="mt-4">{project.description}</p>
+        <p className="mt-4">{featuredValue[project.id] ?? project.description}</p>
       </div>
       {featured && <Snapshot project={project} />}
       <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.08em] opacity-60">{project.techStack.slice(0, 3).join(" · ")}</p>

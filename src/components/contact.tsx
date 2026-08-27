@@ -28,28 +28,28 @@ export function Contact() {
     <>
       <section id="contact" className="section-rule section-block">
         <div className="site-shell">
-          <div className="contact-panel dark-card">
+          <div className="contact-panel editorial-card">
             <div className="flex flex-col justify-between">
               <div>
-                <p className="eyebrow text-[#36d6bf]">Let&apos;s talk</p>
-                <h2 className="section-title mt-5 text-[#f7f9fc]">Bring the hard part.</h2>
-                <p className="mt-6 max-w-sm text-sm leading-6 text-[#b8c7dd]">Tell us what needs to become clearer, faster, or more useful. We&apos;ll help find the shape of it.</p>
+                <p className="eyebrow">04 / Contact</p>
+                <h2 className="section-title mt-5 text-[#101828]">Have a hard problem?</h2>
+                <p className="mt-6 max-w-sm text-sm leading-6 text-[#667085]">Tell us what you want to make better. We&apos;ll bring the questions, structure, and a clear next step.</p>
               </div>
-              <p className="contact-side-note mt-12">Remote / East Africa<br />Available for select builds</p>
+              <p className="contact-side-note mt-12">Typical response / 2 business days<br />hello@fidexa.org</p>
             </div>
             <form onSubmit={handleSubmit} className="rounded-xl bg-[#fffdf8] p-5 text-[#101828] sm:p-7">
               <p className="eyebrow">Project brief</p>
               <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <Input className="editorial-input" name="name" placeholder="Your name" required disabled={sending} />
-                <Input className="editorial-input" name="email" type="email" placeholder="Email address" required disabled={sending} />
+                <Input className="editorial-input" name="name" placeholder="Your name" aria-label="Your name" required disabled={sending} />
+                <Input className="editorial-input" name="email" type="email" placeholder="Email address" aria-label="Email address" required disabled={sending} />
               </div>
-              <Textarea className="editorial-input mt-3 min-h-[140px]" name="message" placeholder="What are you trying to make?" required disabled={sending} />
+              <Textarea className="editorial-input mt-3 min-h-[140px]" name="message" placeholder="What are you trying to make?" aria-label="What are you trying to make?" required disabled={sending} />
               <div className="mt-4 flex flex-wrap items-center gap-3">
-                <Button type="submit" className="button-primary border-0 px-6" disabled={sending}>{sending ? "Sending…" : "Send brief ↗"}</Button>
+                <Button type="submit" className="button-primary border-0 px-6" disabled={sending}>{sending ? "Sending…" : "Start a conversation ↗"}</Button>
                 <button type="button" onClick={() => setChatOpen(true)} className="button-secondary min-h-[46px] border-[#101828]/15 px-4 text-[#101828]"><Sparkles size={14} /> Ask AI instead</button>
               </div>
-              {status === "success" && <p className="mt-4 flex items-center gap-2 text-sm text-[#287c5d]"><CheckCircle size={16} /> Message sent. We&apos;ll be in touch.</p>}
-              {status === "error" && <p className="mt-4 flex items-center gap-2 text-sm text-[#b13c36]"><AlertCircle size={16} /> Something went wrong. Please try again.</p>}
+              {status === "success" && <p aria-live="polite" className="mt-4 flex items-center gap-2 text-sm text-[#287c5d]"><CheckCircle size={16} /> Message sent. We&apos;ll be in touch.</p>}
+              {status === "error" && <p aria-live="polite" className="mt-4 flex items-center gap-2 text-sm text-[#b13c36]"><AlertCircle size={16} /> Something went wrong. Please try again.</p>}
             </form>
           </div>
         </div>

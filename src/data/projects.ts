@@ -65,7 +65,7 @@ export const projects: Project[] = [
     tags: ["SaaS", "Trade"],
     techStack: ["TanStack Start", "TanStack Router", "TanStack DB", "React", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "Cloudflare Workers", "Better Auth"],
     year: 2026,
-    featured: true,
+    featured: false,
     links: {
       github: "https://github.com/matovu-farid/inventory",
       live: "https://inventory.fidexa.org/home",
@@ -79,7 +79,7 @@ export const projects: Project[] = [
     tags: ["AI", "Developer Tool"],
     techStack: ["Next.js", "AWS Lambda", "npm", "AI"],
     year: 2025,
-    featured: false,
+    featured: true,
     links: {
       github: "https://github.com/matovu-farid/scrap-platform",
     },

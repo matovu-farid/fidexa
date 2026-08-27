@@ -5,8 +5,7 @@ export const metadata: Metadata = {
   title: "Fidexa — Software Studio",
   description: "Software for the next useful step.",
   icons: {
-    icon: "/favicon.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/icon.svg",
   },
 };
 
