@@ -24,7 +24,7 @@ The attached source of truth is `/Users/faridmatovu/projects/rishi-monorepo/apps
 
 - No public pricing page. Subscription purchase and management remain inside the app through Apple’s StoreKit flows.
 - No changelog page.
-- No blog or generic studio work index while those pages are unpublished and do not represent the current product.
+- No blog or generic studio work index in the Rishi product-site information architecture; the separate Fidexa studio pages remain preserved in the Pencil file.
 - No changes to the Apple app source, billing implementation, or legal policy text as part of the site prototype.
 
 ## Information architecture
