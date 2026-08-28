@@ -29,6 +29,19 @@ Do not add a pricing or changelog page unless the product strategy changes. Do n
 5. Implement the approved direction in the existing reusable components and project data model. Avoid broad rewrites when a focused component/data/CSS change is enough.
 6. Run a separate adversarial review against old and new screenshots. A review that finds a concrete regression is a required fix loop, not a final opinion.
 
+## Design QA: prevent unreadable copy and overlap
+
+Use these rules for every Pencil page, especially case studies:
+
+- Put each content unit inside a named bounded frame. Use a semantic order such as `eyebrow → heading → body → proof/media`.
+- Use width-constrained, height-growing text (`HEIGHT`) for headings and body copy. Fixed-height text boxes are only appropriate for deliberately short labels.
+- Use vertical auto-layout and explicit spacing for repeated story units. Avoid manually placing every text layer when the content has a reading order.
+- Size with realistic, longest-case copy before approval. Short placeholder copy hides wrapping and overflow failures.
+- Keep decorative artwork and intentional overlays separate from content flow. Name intentional overlays `Overlay / ...`; lock background and decorative layers.
+- Run Pencil overlap checks for sibling collisions, parent overflow, and intentional overlays as separate passes. A clean geometric result does not prove legibility.
+- Export and inspect the actual page at 100% zoom on desktop and mobile. Check heading wrapping, text contrast, parent bounds, media crops, and the first fold.
+- Use a fresh adversarial reviewer before saving the final design. If it finds a material readability or hierarchy issue, fix it, export again, and repeat the review.
+
 ## Product media provenance
 
 Use real captures from these public deployed surfaces when available:
