@@ -17,9 +17,9 @@ export function FeaturedProjects() {
         <p className="body-copy mt-6 max-w-xl">Featured launches and the full project index.</p>
         <div className="filter-row mt-8" aria-label="Featured work categories">
           <Link className="filter-pill filter-pill-active" href="/projects">All</Link>
-          <Link className="filter-pill" href="/projects">AI + Automation</Link>
-          <Link className="filter-pill" href="/projects">Apple + Native</Link>
-          <Link className="filter-pill" href="/projects">Web Apps</Link>
+          <Link className="filter-pill" href="/projects?category=ai-automation">AI + Automation</Link>
+          <Link className="filter-pill" href="/projects?category=native-apps">Apple + Native</Link>
+          <Link className="filter-pill" href="/projects?category=web-apps">Web Apps</Link>
         </div>
         <div className="featured-grid mt-12">
           {featuredProjects.map((project) => <ProjectCard key={project.id} project={project} featured />)}

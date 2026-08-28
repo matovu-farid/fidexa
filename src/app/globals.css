@@ -99,8 +99,9 @@
   .dark-card { background: var(--ink); color: var(--paper); }
   .mint-card { background: var(--mint); color: var(--ink); }
   .editorial-card { border: 1px solid var(--line); background: var(--cloud); }
-  .hero-section { padding-block: 1rem 4rem; }
-  .hero-panel { position: relative; min-height: min(720px, calc(100svh - 100px)); overflow: hidden; border-radius: 1.4rem; padding: clamp(2rem, 6vw, 5rem); }
+  .hero-section { padding-block: 0 4rem; }
+  .hero-section .site-shell { width: 100%; }
+  .hero-panel { position: relative; height: min(640px, calc(100svh - 76px)); min-height: 0; overflow: hidden; border-radius: 0; padding: clamp(2rem, 6vw, 5rem); }
   .hero-grid { position: relative; z-index: 2; display: grid; min-height: inherit; align-items: end; gap: 3rem; grid-template-columns: minmax(0, 1.15fr) minmax(260px, .85fr); }
   .hero-copy { align-self: center; }
   .hero-title { max-width: 680px; color: var(--paper); }
@@ -132,17 +133,13 @@
   .project-tag { border-radius: 999px; background: rgba(16,24,40,.08); padding: .36rem .55rem; color: var(--muted-ink); font-size: .62rem; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; }
   .project-card:nth-child(3n + 1) .project-tag { background: rgba(255,253,248,.1); color: var(--dark-muted); }
   .project-card:nth-child(3n) .project-tag { color: #0c3f3d; }
-  .project-snapshot { display: grid; min-height: 104px; align-content: space-between; gap: .65rem; margin-top: 1.25rem; border-radius: .8rem; padding: .85rem; background: rgba(255,253,248,.85); color: var(--ink); }
-  .project-card:nth-child(3n + 1) .project-snapshot { background: #f0f3fa; }
-  .project-card:nth-child(3n) .project-snapshot { background: #0c3f3d; color: var(--paper); }
-  .snapshot-top, .snapshot-bottom { display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
-  .snapshot-bar { height: .4rem; border-radius: 999px; background: var(--violet); }
-  .snapshot-bar-muted { width: 62%; background: rgba(102,112,135,.28); }
-  .snapshot-bar-accent { width: 38%; background: var(--mint); }
-  .snapshot-label { font-size: .58rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
-  .snapshot-number { font-size: 1.15rem; font-weight: 800; }
+  .project-media { position: relative; aspect-ratio: 16 / 10; margin-top: 1.25rem; overflow: hidden; border: 1px solid rgba(16,24,40,.12); border-radius: .8rem; background: #f0f3fa; }
+  .project-media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .project-media-label { position: absolute; left: .7rem; bottom: .7rem; border-radius: 999px; background: rgba(16,24,40,.8); padding: .35rem .55rem; color: var(--paper); font-size: .58rem; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; }
+  .project-card:nth-child(3n) .project-media-label { background: rgba(12,63,61,.9); }
   .project-card-copy { margin-top: 1.25rem; }
   .project-card-copy p { color: var(--muted-ink); font-size: .86rem; line-height: 1.5; }
+  .project-card-copy .project-card-description { margin-top: .65rem; font-size: .75rem; line-height: 1.45; opacity: .82; }
   .project-card:nth-child(3n + 1) .project-card-copy p { color: var(--dark-muted); }
   .project-card:nth-child(3n + 2) .project-card-copy p { color: #5d431c; }
   .project-card:nth-child(3n) .project-card-copy p { color: #0c3f3d; }
@@ -175,10 +172,10 @@
   @media (max-width: 767px) {
     .site-shell { width: min(100% - 1.25rem, 1120px); }
     .site-nav-inner { min-height: 64px; }
-    .hero-section { padding-top: .6rem; }
-    .hero-panel { min-height: 700px; border-radius: 1rem; padding: 1.5rem; }
+    .hero-section { padding-top: 0; }
+    .hero-panel { height: 740px; min-height: 740px; border-radius: 0; padding: 1.5rem; }
     .hero-grid, .split-heading, .contact-panel, .sms-grid { grid-template-columns: 1fr; }
-    .hero-grid { align-content: space-between; gap: 2.5rem; }
+    .hero-grid { min-height: 0; height: 100%; align-content: space-between; gap: 2.5rem; }
     .hero-copy { align-self: start; padding-top: 3rem; }
     .hero-title { font-size: clamp(3.2rem, 16vw, 5.2rem); }
     .hero-desktop-title { display: none; }

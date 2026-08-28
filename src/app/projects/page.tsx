@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
@@ -8,7 +9,16 @@ import { projects, categories } from "@/data/projects";
 import type { ProjectCategory } from "@/data/projects";
 
 export default function ProjectsPage() {
+  const pathname = usePathname();
   const [active, setActive] = useState<ProjectCategory | "all">("all");
+  useEffect(() => {
+    const queryCategory = new URLSearchParams(window.location.search).get("category");
+    setActive(categories.some((category) => category.value === queryCategory) ? queryCategory as ProjectCategory : "all");
+  }, []);
+  function selectCategory(category: ProjectCategory | "all") {
+    setActive(category);
+    window.history.replaceState(null, "", category === "all" ? pathname : `${pathname}?category=${category}`);
+  }
   const filtered = active === "all" ? projects : projects.filter((project) => project.category === active);
 
   return (
@@ -30,14 +40,14 @@ export default function ProjectsPage() {
                 type="button"
                 className={`filter-pill ${active === category.value ? "filter-pill-active" : ""}`}
                 aria-pressed={active === category.value}
-                onClick={() => setActive(category.value)}
+                onClick={() => selectCategory(category.value)}
               >
                 {category.label}
               </button>
             ))}
           </div>
           <div className="index-grid mt-10">
-            {filtered.map((project) => <ProjectCard key={project.id} project={project} featured={project.featured} />)}
+            {filtered.map((project) => <ProjectCard key={project.id} project={project} featured={project.featured} context="index" />)}
           </div>
           <p className="mt-8 text-xs font-bold uppercase tracking-[0.1em] text-[#667087]">{projects.length} projects in the full index · filters mirror the live catalog.</p>
         </div>

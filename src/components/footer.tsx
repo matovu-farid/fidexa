@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GithubIcon, LinkedinIcon, TwitterIcon } from "lucide-react";
+import { GithubIcon, TwitterIcon } from "lucide-react";
 import { LogoWithText } from "./logo";
 
 export function Footer() {
@@ -18,7 +18,6 @@ export function Footer() {
         <div className="footer-socials" aria-label="Social links">
           <a href="https://github.com/matovu-farid" target="_blank" rel="noopener noreferrer" aria-label="Fidexa on GitHub"><GithubIcon size={16} /></a>
           <a href="https://twitter.com/matovu100" target="_blank" rel="noopener noreferrer" aria-label="Fidexa on X"><TwitterIcon size={16} /></a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="Fidexa on LinkedIn"><LinkedinIcon size={16} /></a>
           <span className="text-xs text-[#b8c7dd]">© {new Date().getFullYear()} Fidexa</span>
         </div>
       </div>

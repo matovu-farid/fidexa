@@ -10,7 +10,7 @@ export function Hero() {
           <div className="hero-grid">
             <div className="hero-copy">
               <p className="eyebrow text-[#37d6c0]">Software studio · Kampala ↗</p>
-              <h1 className="display-title hero-title mt-6"><span className="hero-desktop-title">We build software for people moving forward.</span><span className="hero-mobile-title">Build what matters next.</span></h1>
+              <h1 className="display-title hero-title mt-6"><span className="hero-desktop-title">We build software that improves lives.</span><span className="hero-mobile-title">Build what matters next.</span></h1>
               <p className="body-copy mt-7">Client work funds our own products. One studio, two engines.</p>
               <div className="hero-actions mt-9">
                 <a className="button-primary bg-[#fcf9f0] text-[#1e1811] hover:bg-[#37d6c0]" href="#projects">View selected work <span aria-hidden="true">↗</span></a>

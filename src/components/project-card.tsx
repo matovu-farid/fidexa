@@ -1,37 +1,12 @@
 import type { Project } from "@/data/projects";
 
-function Snapshot({ project }: { project: Project }) {
-  const snapshot = project.id === "rishi"
-    ? { label: "Reader / current chapter", value: "04:12", bar: "w-3/4" }
-    : project.id === "money-lending"
-      ? { label: "Cash flow / this month", value: "$128k", bar: "w-1/2" }
-    : project.id === "inventory-trade"
-      ? { label: "Supply → store → shop", value: "LIVE", bar: "w-2/3" }
-      : project.id === "ai-scraping"
-        ? { label: "Pipeline / live", value: "SIGNAL", bar: "w-3/5" }
-      : { label: "System snapshot", value: "READY", bar: "w-1/2" };
-
-  return (
-    <div className="project-snapshot" aria-label={`${project.name} product snapshot`}>
-      <div className="snapshot-top">
-        <span className="snapshot-label">Project snapshot</span>
-        <span className="snapshot-label opacity-60">{snapshot.label}</span>
-      </div>
-      <div className="snapshot-bottom">
-        <span className="snapshot-number">{snapshot.value}</span>
-        <span className={`snapshot-bar ${snapshot.bar}`} />
-      </div>
-    </div>
-  );
-}
-
 const featuredValue: Record<string, string> = {
   rishi: "A calmer way to read with AI.",
-  "money-lending": "Make the numbers work harder.",
-  "ai-scraping": "Turn the web into signal.",
+  "money-lending": "Kaks Credit / Make the numbers work harder.",
+  "inventory-trade": "A shared system from supply to shop.",
 };
 
-export function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
+export function ProjectCard({ project, featured = false, context = "home" }: { project: Project; featured?: boolean; context?: "home" | "index" }) {
   const links = project.links ? [
     project.links.live ? { label: "Visit live", href: project.links.live } : null,
     project.links.appStore ? { label: "App Store", href: project.links.appStore } : null,
@@ -48,9 +23,21 @@ export function ProjectCard({ project, featured = false }: { project: Project; f
       <div className="project-card-copy">
         <p className="eyebrow opacity-70">{project.year} · {project.featured ? "Featured" : "Selected work"}</p>
         <h3 className="mt-3 text-2xl font-bold tracking-[-0.05em]">{project.name}</h3>
-        <p className="mt-4">{featuredValue[project.id] ?? project.description}</p>
+        {context === "index" || !featuredValue[project.id] ? (
+          <p className="mt-4">{project.description}</p>
+        ) : (
+          <>
+            <p className="mt-4">{featuredValue[project.id]}</p>
+            <p className="project-card-description">{project.description}</p>
+          </>
+        )}
       </div>
-      {featured && <Snapshot project={project} />}
+      {featured && project.media && (
+        <figure className="project-media">
+          <img width="16" height="10" loading={project.id === "rishi" ? "eager" : "lazy"} decoding="async" src={project.media.src} alt={project.media.alt} />
+          <figcaption className="project-media-label">Live product showcase</figcaption>
+        </figure>
+      )}
       <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.08em] opacity-60">{project.techStack.slice(0, 3).join(" · ")}</p>
       {links.length > 0 && (
         <div className="project-links">

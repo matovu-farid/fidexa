@@ -9,6 +9,10 @@ export interface Project {
   techStack: string[];
   year: number;
   featured: boolean;
+  media?: {
+    src: string;
+    alt: string;
+  };
   links?: {
     appStore?: string;
     github?: string;
@@ -36,6 +40,7 @@ export const projects: Project[] = [
     techStack: ["SwiftUI", "Swift", "Shared Swift Packages", "TypeScript", "Cloudflare"],
     year: 2026,
     featured: true,
+    media: { src: "/projects/rishi-library.png", alt: "Rishi reading library on iPhone" },
     links: {
       appStore: "https://apps.apple.com/us/app/rishi-reader/id6763041630",
       github: "https://github.com/matovu-farid/rishi-monorepo",
@@ -46,12 +51,13 @@ export const projects: Project[] = [
   {
     id: "money-lending",
     name: "Money Lending Management System",
-    description: "Production fintech and accounting-ledger platform used by real customers and businesses in a money-lending operation, with reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports.",
+    description: "Kaks Credit’s production fintech and accounting-ledger platform used by real customers and businesses in a money-lending operation, with reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports.",
     category: "web-apps",
     tags: ["SaaS", "Fintech"],
     techStack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "TanStack DB", "ElectricSQL", "Better Auth", "BigNumber.js"],
     year: 2026,
     featured: true,
+    media: { src: "/projects/money-lending-showcase.png", alt: "Kaks Credit lending workspace showcase" },
     links: {
       github: "https://github.com/matovu-farid/money-lending",
       live: "https://money-lending.fidexa.org/home",
@@ -65,7 +71,8 @@ export const projects: Project[] = [
     tags: ["SaaS", "Trade"],
     techStack: ["TanStack Start", "TanStack Router", "TanStack DB", "React", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "Cloudflare Workers", "Better Auth"],
     year: 2026,
-    featured: false,
+    featured: true,
+    media: { src: "/projects/inventory-dashboard.png", alt: "Inventory management dashboard" },
     links: {
       github: "https://github.com/matovu-farid/inventory",
       live: "https://inventory.fidexa.org/home",
@@ -79,7 +86,7 @@ export const projects: Project[] = [
     tags: ["AI", "Developer Tool"],
     techStack: ["Next.js", "AWS Lambda", "npm", "AI"],
     year: 2025,
-    featured: true,
+    featured: false,
     links: {
       github: "https://github.com/matovu-farid/scrap-platform",
     },
