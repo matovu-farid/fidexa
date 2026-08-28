@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Agent handoff
 
-Read [`AGENTS.md`](./AGENTS.md) before changing the Fidexa design or site implementation. It documents the Pencil-first workflow, product-media sources, route scope, responsive contracts, and adversarial review process.
+Read [`AGENTS.md`](./AGENTS.md) before changing the Fidexa design or site implementation. It documents the Pencil/Penpot workflows, product-media sources, route scope, responsive contracts, and adversarial review process. See [`docs/penpot-design-process.md`](./docs/penpot-design-process.md) for the Penpot MCP and browser-review handoff.
 
 ## Getting Started
 

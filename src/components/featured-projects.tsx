@@ -9,12 +9,12 @@ export function FeaturedProjects() {
       <div className="site-shell">
         <div className="work-header">
           <div>
-            <p className="eyebrow">Selected work</p>
-            <h2 className="section-title mt-5">Work with a point of view.</h2>
+            <p className="eyebrow">02 / Work</p>
+            <h2 className="section-title mt-5">A few things we&apos;ve built.</h2>
           </div>
           <Link className="button-secondary" href="/projects">View all work <ArrowUpRight size={15} /></Link>
         </div>
-        <p className="body-copy mt-6 max-w-xl">Featured launches and the full project index.</p>
+        <p className="body-copy mt-6 max-w-xl">Selected work from a much broader studio practice.</p>
         <div className="filter-row mt-8" aria-label="Featured work categories">
           <Link className="filter-pill filter-pill-active" href="/projects">All</Link>
           <Link className="filter-pill" href="/projects?category=ai-automation">AI + Automation</Link>

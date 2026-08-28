@@ -26,15 +26,12 @@ export function ProjectCard({ project, featured = false, context = "home" }: { p
         {context === "index" || !featuredValue[project.id] ? (
           <p className="mt-4">{project.description}</p>
         ) : (
-          <>
-            <p className="mt-4">{featuredValue[project.id]}</p>
-            <p className="project-card-description">{project.description}</p>
-          </>
+          <p className="mt-4">{featuredValue[project.id]}</p>
         )}
       </div>
       {featured && project.media && (
         <figure className="project-media">
-          <img width="16" height="10" loading={project.id === "rishi" ? "eager" : "lazy"} decoding="async" src={project.media.src} alt={project.media.alt} />
+          <img width={project.media.width} height={project.media.height} loading="lazy" decoding="async" src={project.media.src} alt={project.media.alt} />
           <figcaption className="project-media-label">Live product showcase</figcaption>
         </figure>
       )}

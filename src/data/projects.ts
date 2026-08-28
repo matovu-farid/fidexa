@@ -1,4 +1,4 @@
-export type ProjectCategory = "ai-automation" | "cross-platform" | "native-apps" | "web-apps" | "developer-tools";
+export type ProjectCategory = "ai-automation" | "native-apps" | "web-apps" | "developer-tools";
 
 export interface Project {
   id: string;
@@ -12,6 +12,8 @@ export interface Project {
   media?: {
     src: string;
     alt: string;
+    width: number;
+    height: number;
   };
   links?: {
     appStore?: string;
@@ -25,7 +27,6 @@ export const categories: { value: ProjectCategory | "all"; label: string }[] = [
   { value: "all", label: "All" },
   { value: "ai-automation", label: "AI & Automation" },
   { value: "native-apps", label: "Apple & Native Apps" },
-  { value: "cross-platform", label: "Cross-Platform" },
   { value: "web-apps", label: "Web Applications" },
   { value: "developer-tools", label: "Developer Tools" },
 ];
@@ -40,7 +41,7 @@ export const projects: Project[] = [
     techStack: ["SwiftUI", "Swift", "Shared Swift Packages", "TypeScript", "Cloudflare"],
     year: 2026,
     featured: true,
-    media: { src: "/projects/rishi-library.png", alt: "Rishi reading library on iPhone" },
+    media: { src: "/projects/rishi-library.png", alt: "Rishi reading library on iPhone", width: 1280, height: 720 },
     links: {
       appStore: "https://apps.apple.com/us/app/rishi-reader/id6763041630",
       github: "https://github.com/matovu-farid/rishi-monorepo",
@@ -57,7 +58,7 @@ export const projects: Project[] = [
     techStack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "TanStack DB", "ElectricSQL", "Better Auth", "BigNumber.js"],
     year: 2026,
     featured: true,
-    media: { src: "/projects/money-lending-showcase.png", alt: "Kaks Credit lending workspace showcase" },
+    media: { src: "/projects/money-lending-showcase.png", alt: "Kaks Credit lending workspace showcase", width: 1280, height: 720 },
     links: {
       github: "https://github.com/matovu-farid/money-lending",
       live: "https://money-lending.fidexa.org/home",
@@ -72,7 +73,7 @@ export const projects: Project[] = [
     techStack: ["TanStack Start", "TanStack Router", "TanStack DB", "React", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "Cloudflare Workers", "Better Auth"],
     year: 2026,
     featured: true,
-    media: { src: "/projects/inventory-dashboard.png", alt: "Inventory management dashboard" },
+    media: { src: "/projects/inventory-dashboard.png", alt: "Inventory management dashboard", width: 1440, height: 900 },
     links: {
       github: "https://github.com/matovu-farid/inventory",
       live: "https://inventory.fidexa.org/home",
@@ -175,74 +176,6 @@ export const projects: Project[] = [
     featured: false,
     links: {
       github: "https://github.com/matovu-farid/rc-textfield",
-    },
-  },
-  {
-    id: "pearl-of-africa",
-    name: "Pearl of Africa Tour",
-    description: "Responsive tourism website showcasing Uganda's annual tour event featuring game park visits and cultural experiences.",
-    category: "web-apps",
-    tags: ["Tourism", "Marketing"],
-    techStack: ["HTML", "CSS", "JavaScript"],
-    year: 2022,
-    featured: false,
-    links: {
-      github: "https://github.com/matovu-farid/Pearl-of-Africa-tour",
-      live: "https://matovu-farid.github.io/Pearl-of-Africa-tour/",
-    },
-  },
-  {
-    id: "painter",
-    name: "Painter",
-    description: "Creative drawing and painting app on Google Play Store with shape tools, color palettes, and screenshot saving.",
-    category: "cross-platform",
-    tags: ["Mobile", "Play Store"],
-    techStack: ["Flutter", "Dart", "Canvas API"],
-    year: 2022,
-    featured: false,
-    links: {
-      github: "https://github.com/matovu-farid/painter",
-    },
-  },
-  {
-    id: "virtual-phone",
-    name: "Virtual Phone",
-    description: "Virtual phone application for communication and telephony.",
-    category: "web-apps",
-    tags: ["Communication", "Telephony"],
-    techStack: ["TypeScript", "Next.js"],
-    year: 2024,
-    featured: false,
-    links: {
-      live: "https://virtual-phone.vercel.app",
-    },
-  },
-  {
-    id: "stocks-app",
-    name: "Stocks App",
-    description: "Mobile-friendly stock price viewer displaying company information and real-time prices.",
-    category: "web-apps",
-    tags: ["Finance", "Data"],
-    techStack: ["React", "Redux", "JavaScript"],
-    year: 2022,
-    featured: false,
-    links: {
-      github: "https://github.com/matovu-farid/stocks-app",
-      live: "https://frosty-beaver-391916.netlify.app",
-    },
-  },
-  {
-    id: "space-travellers",
-    name: "Space Travellers",
-    description: "SpaceX rocket booking and mission joining app consuming live SpaceX API data.",
-    category: "web-apps",
-    tags: ["API", "Space"],
-    techStack: ["React", "Redux", "SpaceX API"],
-    year: 2022,
-    featured: false,
-    links: {
-      github: "https://github.com/matovu-farid/space-travellers",
-      live: "https://space-travellers-farid-anny.netlify.app/",
     },
   },
 ];

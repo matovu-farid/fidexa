@@ -32,8 +32,8 @@ export function Contact() {
             <div className="flex flex-col justify-between">
               <div>
                 <p className="eyebrow">04 / Contact</p>
-                <h2 className="section-title mt-5 text-[#101828]">Have a hard problem?</h2>
-                <p className="mt-6 max-w-sm text-sm leading-6 text-[#667085]">Tell us what you want to make better. We&apos;ll bring the questions, structure, and a clear next step.</p>
+                <h2 className="section-title mt-5 text-[#101828]">Have something worth building?</h2>
+                <p className="mt-6 max-w-sm text-sm leading-6 text-[#667085]">Tell us what you want to make better—or what you want to make possible. We&apos;ll bring the questions, structure, and a clear next step.</p>
               </div>
               <p className="contact-side-note mt-12">Typical response / 2 business days<br />hello@fidexa.org</p>
             </div>

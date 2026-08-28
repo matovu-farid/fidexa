@@ -8,7 +8,7 @@ export function Footer() {
       <div className="site-shell footer-grid">
         <div>
           <LogoWithText variant="reversed" />
-          <p className="mt-3 max-w-xs text-xs leading-5 text-[#b8c7dd]">Built for the next useful step.</p>
+          <p className="mt-3 max-w-xs text-xs leading-5 text-[#b8c7dd]">End-to-end products for the work ahead.</p>
         </div>
         <nav className="footer-links" aria-label="Footer navigation">
           <Link href="/projects">Work</Link>

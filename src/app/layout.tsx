@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Fidexa — Software Studio",
-  description: "Software for the next useful step.",
+  description: "Fidexa builds end-to-end software products for companies and their customers.",
   icons: {
     icon: "/icon.svg",
   },

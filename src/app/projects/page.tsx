@@ -31,7 +31,7 @@ export default function ProjectsPage() {
               <p className="eyebrow">Work index · {projects.length} systems</p>
               <h1 className="section-title mt-5">Work with a point of view.</h1>
             </div>
-            <p className="body-copy">Featured launches, client systems, and experiments from the Fidexa studio. Filter by the kind of problem, not just the technology.</p>
+            <p className="body-copy">Selected product work, client systems, and experiments from the Fidexa studio. This catalog is a window into the practice, not the whole story.</p>
           </div>
           <div className="filter-row mt-10" role="group" aria-label="Filter projects">
             {categories.map((category) => (
@@ -49,7 +49,7 @@ export default function ProjectsPage() {
           <div className="index-grid mt-10">
             {filtered.map((project) => <ProjectCard key={project.id} project={project} featured={project.featured} context="index" />)}
           </div>
-          <p className="mt-8 text-xs font-bold uppercase tracking-[0.1em] text-[#667087]">{projects.length} projects in the full index · filters mirror the live catalog.</p>
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.1em] text-[#667087]">{projects.length} projects in the index · a sample of the studio&apos;s work.</p>
         </div>
       </main>
       <Footer />

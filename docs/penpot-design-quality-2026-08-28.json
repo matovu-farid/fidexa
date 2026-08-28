@@ -1,0 +1,43 @@
+{
+  "date": "2026-08-28",
+  "file": "fidexa",
+  "page": "Fidexa Site Redesign",
+  "workflow": "penpot-build-screen",
+  "profile": "Editorial",
+  "skeleton": "Landing / hero -> proof -> detail -> closing CTA",
+  "sections": ["03 Fidexa Studio", "06 / responsive targets / iPhone"],
+  "tokensUsed": [
+    "surface.inverse",
+    "surface.card",
+    "surface.accent",
+    "color.sand.200",
+    "content.primary",
+    "content.inverse",
+    "content.inverseMuted",
+    "radius.sm"
+  ],
+  "proposedTokens": [],
+  "checks": {
+    "studioRowsContained": true,
+    "studioRowsOnFourPixelGrid": true,
+    "iphoneBoardCount": 5,
+    "iphoneBoardSize": "393x852",
+    "iphoneDescendantContainmentViolations": 0,
+    "independentReview": "PASS"
+  },
+  "qualityScore": {
+    "hierarchy": 4,
+    "composition": 4,
+    "typography": 4,
+    "color": 4,
+    "spacing": 4,
+    "content": 5,
+    "distinctiveness": 4
+  },
+  "intentionalOverlays": [
+    "Eyebrow labels on backgrounds",
+    "CTA labels on buttons",
+    "Text over SMS policy card",
+    "Folded-F orbit overlap"
+  ]
+}
