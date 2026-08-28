@@ -1,5 +1,9 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Agent handoff
+
+Read [`AGENTS.md`](./AGENTS.md) before changing the Fidexa design or site implementation. It documents the Pencil-first workflow, product-media sources, route scope, responsive contracts, and adversarial review process.
+
 ## Getting Started
 
 First, run the development server:
