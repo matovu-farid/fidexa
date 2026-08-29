@@ -3,16 +3,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@font-face {
-  font-family: "Fidexa Sans";
-  src: url("/fonts/GeistVF.woff") format("woff");
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
 @theme inline {
-  --font-sans: "Fidexa Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-fidexa-sans), ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -68,7 +60,7 @@
   body {
     @apply bg-background text-foreground;
     min-width: 320px;
-    font-family: "Fidexa Sans", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-fidexa-sans), ui-sans-serif, system-ui, sans-serif;
   }
   ::selection { background: var(--mint); color: var(--ink); }
 }
@@ -193,12 +185,12 @@
     .site-nav-inner { min-height: 64px; }
     .site-nav-embedded .site-nav-inner { padding-right: 0; }
     .hero-section { padding-top: 0; }
-    .hero-panel { height: 860px; min-height: 860px; border-radius: 0; padding: 1.25rem; }
+    .hero-panel { height: auto; min-height: 860px; border-radius: 0; padding: 1.25rem; }
     .hero-grid, .split-heading, .contact-panel, .sms-grid { grid-template-columns: 1fr; }
-    .hero-grid { min-height: 0; height: 100%; align-content: start; gap: 1rem; padding-top: 3.5rem; padding-bottom: 3.5rem; }
+    .hero-grid { min-height: 0; height: auto; align-content: start; gap: 1rem; padding-top: 3.5rem; padding-bottom: 3.5rem; }
     .hero-copy { align-self: start; padding-top: 1rem; }
     .hero-copy { transform: none; }
-    .hero-title { max-width: 350px; font-size: clamp(3rem, 13.5vw, 4.5rem); }
+    .hero-title { max-width: 350px; font-size: clamp(2.65rem, 12.5vw, 4.5rem); letter-spacing: -.06em; line-height: .96; }
     .mobile-start-project { display: inline-flex; border-color: rgba(255,253,248,.25); color: var(--paper); }
     .mobile-start-project:hover { border-color: var(--paper); background: rgba(255,253,248,.1); }
     .hero-visual { position: static; justify-self: end; width: 88px; margin-right: 1rem; box-shadow: 0 0 0 20px rgba(28,39,64,.75), 0 16px 32px rgba(0,0,0,.18); transform: rotate(-8deg); }
@@ -206,8 +198,10 @@
     .hero-visual-logo { width: 68px; height: 68px; }
     .hero-orb-halo { display: none; }
     .hero-proof { width: 100%; align-self: start; margin-bottom: 0; }
+    .hero-proof { display: grid; gap: .75rem; }
+    .hero-proof p { margin-top: 0 !important; }
     .hero-top-cta { display: none; }
-    .hero-rail { right: 1.25rem; bottom: 1.25rem; left: 1.25rem; font-size: .55rem; }
+    .hero-rail { position: static; right: auto; bottom: auto; left: auto; width: auto; margin-top: 0; font-size: .55rem; }
     .hero-rail span:nth-child(2) { display: none; }
     .engine-grid, .featured-grid, .capability-grid, .index-grid { grid-template-columns: 1fr; }
     .engine-card, .project-card, .project-card-featured { min-height: auto; }
@@ -216,7 +210,7 @@
     .footer-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 400px) {
-    .hero-panel { height: 860px; min-height: 860px; }
+    .hero-panel { height: auto; min-height: 860px; }
     .hero-actions { gap: .5rem; }
     .hero-actions .button-primary, .hero-actions .button-secondary { padding-inline: .85rem; font-size: .7rem; }
   }
