@@ -35,6 +35,13 @@ yarn-error.log*
 # local isolated worktrees
 .worktrees/
 
+# archived implementation drafts
+*.legacy
+
+# Cloudflare local state
+workers/*/.wrangler/
+workers/*/worker-configuration.d.ts
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

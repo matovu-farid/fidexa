@@ -11,6 +11,8 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
+export * from "./auth-schema";
+
 export const messageDirection = pgEnum("mail_message_direction", ["inbound", "outbound"]);
 export const messageStatus = pgEnum("mail_message_status", [
   "received", "pending", "sent", "delivered", "delayed", "bounced", "failed", "suppressed", "complained",

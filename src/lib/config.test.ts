@@ -15,7 +15,9 @@ describe("server configuration", () => {
       RESEND_WEBHOOK_SECRET: "whsec_example",
       INBOX_INGEST_SECRET: "ingest-secret-123456",
       INBOX_ATTACHMENT_SECRET: "attachment-secret-123456",
+      CLEANUP_SECRET: "cleanup-secret-123456",
       FIDEXA_APP_URL: "https://fidexa.org",
+      INBOX_WORKER_URL: "https://fidexa-email-gateway.example.workers.dev",
       FIDEXA_ADMIN_EMAILS: "admin@fidexa.org,owner@fidexa.org",
     });
 

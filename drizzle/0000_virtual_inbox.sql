@@ -60,6 +60,19 @@ CREATE INDEX "mail_messages_thread_created_idx" ON "mail_messages" ("thread_id",
 CREATE INDEX "mail_messages_expiry_idx" ON "mail_messages" ("content_expires_at");
 CREATE INDEX "mail_messages_search_idx" ON "mail_messages" USING GIN (to_tsvector('simple', coalesce("from_address", '') || ' ' || coalesce("subject", '') || ' ' || coalesce("text_body", '') || ' ' || coalesce("sanitized_html", '')));
 
+CREATE TABLE "user" ("id" text PRIMARY KEY NOT NULL, "name" text NOT NULL, "email" text NOT NULL, "email_verified" boolean DEFAULT false NOT NULL, "image" text, "created_at" timestamptz DEFAULT now() NOT NULL, "updated_at" timestamptz DEFAULT now() NOT NULL);
+CREATE UNIQUE INDEX "user_email_unique" ON "user" ("email");
+CREATE TABLE "session" ("id" text PRIMARY KEY NOT NULL, "expires_at" timestamptz NOT NULL, "token" text NOT NULL, "created_at" timestamptz DEFAULT now() NOT NULL, "updated_at" timestamptz DEFAULT now() NOT NULL, "ip_address" text, "user_agent" text, "user_id" text NOT NULL REFERENCES "user"("id") ON DELETE CASCADE);
+CREATE UNIQUE INDEX "session_token_unique" ON "session" ("token");
+CREATE INDEX "session_user_idx" ON "session" ("user_id");
+CREATE TABLE "account" ("id" text PRIMARY KEY NOT NULL, "account_id" text NOT NULL, "provider_id" text NOT NULL, "user_id" text NOT NULL REFERENCES "user"("id") ON DELETE CASCADE, "access_token" text, "refresh_token" text, "id_token" text, "access_token_expires_at" timestamptz, "refresh_token_expires_at" timestamptz, "scope" text, "password" text, "created_at" timestamptz DEFAULT now() NOT NULL, "updated_at" timestamptz DEFAULT now() NOT NULL);
+CREATE INDEX "account_user_idx" ON "account" ("user_id");
+CREATE TABLE "verification" ("id" text PRIMARY KEY NOT NULL, "identifier" text NOT NULL, "value" text NOT NULL, "expires_at" timestamptz NOT NULL, "created_at" timestamptz DEFAULT now() NOT NULL, "updated_at" timestamptz DEFAULT now() NOT NULL);
+CREATE INDEX "verification_identifier_idx" ON "verification" ("identifier");
+CREATE TABLE "passkey" ("id" text PRIMARY KEY NOT NULL, "name" text, "public_key" text NOT NULL, "user_id" text NOT NULL REFERENCES "user"("id") ON DELETE CASCADE, "credential_id" text NOT NULL, "counter" integer NOT NULL, "device_type" text NOT NULL, "backed_up" boolean NOT NULL, "transports" text, "created_at" timestamptz DEFAULT now() NOT NULL, "aaguid" text);
+CREATE UNIQUE INDEX "passkey_credential_unique" ON "passkey" ("credential_id");
+CREATE INDEX "passkey_user_idx" ON "passkey" ("user_id");
+
 CREATE TABLE "mail_attachments" (
   "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   "message_id" uuid NOT NULL REFERENCES "mail_messages"("id") ON DELETE CASCADE,

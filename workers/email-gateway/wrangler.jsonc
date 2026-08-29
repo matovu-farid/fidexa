@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "fidexa-email-gateway",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-08-29",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+  "vars": {
+    "FIDEXA_APP_URL": "https://www.fidexa.org",
+    "GMAIL_FORWARD_TO": "matovu90@gmail.com"
+  },
+  "r2_buckets": [
+    { "binding": "INBOX_BUCKET", "bucket_name": "fidexa-inbox" }
+  ],
+  "triggers": { "crons": ["0 2 * * *"] }
+}

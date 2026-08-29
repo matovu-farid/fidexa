@@ -8,7 +8,9 @@ const rawConfigSchema = z.object({
   RESEND_WEBHOOK_SECRET: z.string().min(1),
   INBOX_INGEST_SECRET: z.string().min(16),
   INBOX_ATTACHMENT_SECRET: z.string().min(16),
+  CLEANUP_SECRET: z.string().min(16),
   FIDEXA_APP_URL: z.string().url(),
+  INBOX_WORKER_URL: z.string().url(),
   FIDEXA_ADMIN_EMAILS: z.string().min(1),
 });
 
@@ -20,7 +22,9 @@ export type ServerConfig = {
   resendWebhookSecret: string;
   inboxIngestSecret: string;
   inboxAttachmentSecret: string;
+  cleanupSecret: string;
   fidexaAppUrl: string;
+  inboxWorkerUrl: string;
   adminEmails: string[];
 };
 
@@ -42,11 +46,17 @@ export function parseServerConfig(input: Record<string, string | undefined>): Se
     resendWebhookSecret: parsed.RESEND_WEBHOOK_SECRET,
     inboxIngestSecret: parsed.INBOX_INGEST_SECRET,
     inboxAttachmentSecret: parsed.INBOX_ATTACHMENT_SECRET,
+    cleanupSecret: parsed.CLEANUP_SECRET,
     fidexaAppUrl: parsed.FIDEXA_APP_URL,
+    inboxWorkerUrl: parsed.INBOX_WORKER_URL,
     adminEmails,
   };
 }
 
 export function getServerConfig(): ServerConfig {
   return parseServerConfig(process.env);
+}
+
+export function isAdminEmail(email: string, config = getServerConfig()): boolean {
+  return config.adminEmails.includes(email.trim().toLowerCase());
 }
