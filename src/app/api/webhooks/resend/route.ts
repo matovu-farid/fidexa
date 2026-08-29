@@ -10,6 +10,8 @@ async function sha256Hex(value: string) {
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
 
+class UnmatchedResendEventError extends Error {}
+
 export async function POST(request: Request) {
   const config = getServerConfig();
   const body = await request.text();
@@ -20,10 +22,20 @@ export async function POST(request: Request) {
   if (!status || !event.data?.email_id) return Response.json({ ok: true, ignored: true });
   const providerEventId = request.headers.get("svix-id") ?? `${event.type}:${event.data.email_id}:${request.headers.get("svix-timestamp") ?? ""}`;
   const db = getDb();
-  const inserted = await db.insert(mailEvents).values({ source: "resend", providerEventId, payloadHash: await sha256Hex(body) }).onConflictDoNothing().returning({ id: mailEvents.id });
-  if (inserted.length === 0) return Response.json({ ok: true, duplicate: true });
-  const current = await db.select({ status: mailMessages.status }).from(mailMessages).where(eq(mailMessages.providerMessageId, event.data.email_id)).limit(1);
-  const currentStatus = current[0]?.status;
-  if (currentStatus && canAdvanceMessageStatus(currentStatus === "received" ? "pending" : currentStatus, status)) await db.update(mailMessages).set({ status, updatedAt: new Date(), sentAt: status === "sent" ? new Date() : undefined }).where(eq(mailMessages.providerMessageId, event.data.email_id));
-  return Response.json({ ok: true });
+  try {
+    const outcome = await db.transaction(async (tx) => {
+      const inserted = await tx.insert(mailEvents).values({ source: "resend", providerEventId, payloadHash: await sha256Hex(body) }).onConflictDoNothing().returning({ id: mailEvents.id });
+      if (inserted.length === 0) return "duplicate" as const;
+      const current = await tx.select({ status: mailMessages.status }).from(mailMessages).where(eq(mailMessages.providerMessageId, event.data!.email_id!)).for("update").limit(1);
+      if (!current[0]) throw new UnmatchedResendEventError("Message has not been persisted yet");
+      const currentStatus = current[0].status;
+      if (canAdvanceMessageStatus(currentStatus === "received" ? "pending" : currentStatus, status)) await tx.update(mailMessages).set({ status, updatedAt: new Date(), sentAt: status === "sent" ? new Date() : undefined }).where(eq(mailMessages.providerMessageId, event.data!.email_id!));
+      return "processed" as const;
+    });
+    return Response.json({ ok: true, ...(outcome === "duplicate" ? { duplicate: true } : {}) });
+  } catch (error) {
+    if (error instanceof UnmatchedResendEventError) return Response.json({ error: "Message is not ready for this event" }, { status: 503 });
+    console.error("Failed to process Resend webhook", error);
+    return Response.json({ error: "Webhook processing failed" }, { status: 500 });
+  }
 }

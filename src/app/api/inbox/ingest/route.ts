@@ -9,6 +9,7 @@ import { sanitizeEmailHtml } from "@/lib/email/sanitize";
 import { verifyPayloadSignature } from "@/lib/email/signatures";
 import { isInboundAlias } from "@/lib/email/addresses";
 import { recordAudit } from "@/lib/email/audit";
+import { boundReceivedAt } from "@/lib/email/received-at";
 
 const attachmentSchema = z.object({
   id: z.string().uuid(), filename: z.string().min(1).max(255), mimeType: z.string().min(1).max(255),
@@ -18,6 +19,8 @@ const inboundSchema = z.object({
   idempotencyKey: z.string().uuid(), messageId: z.string().max(998).nullable().optional(), inReplyTo: z.string().max(998).nullable().optional(), references: z.string().max(8000).nullable().optional(),
   fromAddress: z.string().email().max(320), toAddresses: z.array(z.string().email().max(320)).min(1).max(5), ccAddresses: z.array(z.string().email().max(320)).max(50).default([]),
   subject: z.string().max(998).default("(no subject)"), textBody: z.string().max(2_000_000).default(""), htmlBody: z.string().max(5_000_000).default(""), receivedAt: z.string().datetime(), rawMimeKey: z.string().regex(/^raw\/[0-9]{4}-[0-9]{2}-[0-9]{2}\/[a-f0-9-]+$/).nullable().optional(), attachments: z.array(attachmentSchema).max(20).default([]),
+}).superRefine((value, context) => {
+  if (value.attachments.reduce((total, attachment) => total + attachment.sizeBytes, 0) > 15 * 1024 * 1024) context.addIssue({ code: z.ZodIssueCode.too_big, maximum: 15 * 1024 * 1024, type: "number", inclusive: true, path: ["attachments"], message: "Attachments exceed the aggregate size limit" });
 });
 
 export async function POST(request: Request) {
@@ -37,7 +40,7 @@ export async function POST(request: Request) {
   const duplicate = await db.select({ id: mailMessages.id }).from(mailMessages).where(or(eq(mailMessages.idempotencyKey, input.idempotencyKey), input.messageId ? eq(mailMessages.rfcMessageId, input.messageId) : undefined)).limit(1);
   if (duplicate.length > 0) return Response.json({ ok: true, duplicate: true }, { status: 200 });
 
-  const receivedAt = new Date(input.receivedAt);
+  const receivedAt = boundReceivedAt(new Date(input.receivedAt), new Date());
   const record = buildInboundRecord({ ...input, fromAddress: input.fromAddress.toLowerCase(), sanitizedHtml: sanitizeEmailHtml(input.htmlBody), receivedAt, rawMimeExpiresAt: null, attachments: input.attachments.map((attachment) => ({ ...attachment, expiresAt: new Date(receivedAt.getTime() + 365 * 24 * 60 * 60 * 1000) })) });
   const normalized = normalizeSubject(input.subject);
   const candidates = threadCandidates({ messageId: input.messageId, inReplyTo: input.inReplyTo, references: input.references, subject: input.subject });

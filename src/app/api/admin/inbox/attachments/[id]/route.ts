@@ -17,5 +17,5 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   const response = await fetch(`${config.inboxWorkerUrl.replace(/\/$/, "")}/attachments/${encodeURIComponent(attachment.id)}?token=${encodeURIComponent(token)}`);
   if (!response.ok || !response.body) return Response.json({ error: "Attachment unavailable" }, { status: 404 });
   try { await recordAudit({ actorEmail: session.user.email, action: "attachment.downloaded", objectType: "attachment", objectId: attachment.id, metadata: { filename: attachment.filename } }); } catch (error) { console.error("Failed to write attachment audit log", error); }
-  return new Response(response.body, { headers: { "content-type": attachment.mimeType, "content-disposition": `attachment; filename="${attachment.filename.replace(/["\r\n]/g, "_")}"`, "cache-control": "private, no-store" } });
+  return new Response(response.body, { headers: { "content-type": attachment.mimeType, "content-disposition": `attachment; filename="${attachment.filename.replace(/["\r\n]/g, "_")}"`, "cache-control": "private, no-store", "x-content-type-options": "nosniff" } });
 }

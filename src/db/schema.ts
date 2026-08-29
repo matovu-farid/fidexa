@@ -48,6 +48,7 @@ export const mailThreads = pgTable("mail_threads", {
 export const mailMessages = pgTable("mail_messages", {
   id: uuid("id").defaultRandom().primaryKey(),
   threadId: uuid("thread_id").notNull().references(() => mailThreads.id, { onDelete: "cascade" }),
+  draftId: uuid("draft_id"),
   direction: messageDirection("direction").notNull(),
   status: messageStatus("status").notNull(),
   providerMessageId: text("provider_message_id"),

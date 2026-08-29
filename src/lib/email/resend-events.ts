@@ -18,7 +18,7 @@ const rank: Record<InboxMessageStatus, number> = {
   bounced: 3,
   failed: 3,
   suppressed: 3,
-  complained: 3,
+  complained: 4,
 };
 
 export function mapResendEventStatus(eventType: string): InboxMessageStatus | null {
@@ -27,6 +27,7 @@ export function mapResendEventStatus(eventType: string): InboxMessageStatus | nu
 
 export function canAdvanceMessageStatus(current: InboxMessageStatus, next: InboxMessageStatus): boolean {
   if (current === next) return true;
-  if (current === "delivered" || current === "bounced" || current === "failed" || current === "suppressed" || current === "complained") return false;
+  if (current === "complained") return false;
+  if (current === "delivered" || current === "bounced" || current === "failed" || current === "suppressed") return current === "delivered" && next === "complained";
   return rank[next] >= rank[current];
 }

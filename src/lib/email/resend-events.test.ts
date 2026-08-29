@@ -14,4 +14,9 @@ describe("Resend delivery events", () => {
     expect(canAdvanceMessageStatus("sent", "delivered")).toBe(true);
     expect(canAdvanceMessageStatus("pending", "failed")).toBe(true);
   });
+
+  it("preserves a later complaint as the final customer-impact status", () => {
+    expect(canAdvanceMessageStatus("delivered", "complained")).toBe(true);
+    expect(canAdvanceMessageStatus("complained", "delivered")).toBe(false);
+  });
 });

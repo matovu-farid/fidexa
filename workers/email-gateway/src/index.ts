@@ -1,4 +1,6 @@
-import { parseInboundMime } from "./mime";
+import { parseInboundMime, type ParsedInboundMime } from "./mime";
+import { filterAttachments } from "./attachments";
+import { isObjectExpired } from "./retention";
 
 const ALIASES = new Set([
   "hello@fidexa.org",
@@ -8,11 +10,6 @@ const ALIASES = new Set([
   "faridmatovu@fidexa.org",
 ]);
 const MAX_RAW_BYTES = 15 * 1024 * 1024;
-const MAX_ATTACHMENT_BYTES = 10 * 1024 * 1024;
-const EXECUTABLE_TYPES = new Set([
-  "application/x-msdownload", "application/x-msdos-program", "application/x-executable",
-  "application/x-sh", "application/x-bat", "application/vnd.microsoft.portable-executable",
-]);
 const encoder = new TextEncoder();
 
 export type GatewayEnv = {
@@ -84,6 +81,11 @@ async function postWithRetry(url: string, body: string, headers: HeadersInit, fe
   return lastResponse!;
 }
 
+async function isDuplicateIngestResponse(response: Response): Promise<boolean> {
+  if (!response.ok) return false;
+  try { return ((await response.clone().json()) as { duplicate?: boolean }).duplicate === true; } catch { return false; }
+}
+
 export async function handleInboundEmail(
   message: ForwardableEmailMessage,
   env: GatewayEnv,
@@ -100,46 +102,57 @@ export async function handleInboundEmail(
     return;
   }
 
-  const forwardPromise = message.forward(env.GMAIL_FORWARD_TO);
   const raw = new Uint8Array(await new Response(message.raw as BodyInit).arrayBuffer());
   const rawId = crypto.randomUUID();
   const rawKey = storageKey("raw", rawId);
-  const parsed = await parseInboundMime(raw);
-  const attachments = [];
-  for (const attachment of parsed.attachments) {
-    if (attachment.sizeBytes > MAX_ATTACHMENT_BYTES || EXECUTABLE_TYPES.has(attachment.mimeType.toLowerCase())) continue;
-    const id = crypto.randomUUID();
-    const key = storageKey("attachments", id);
-    await env.INBOX_BUCKET.put(key, attachment.content, { httpMetadata: { contentType: attachment.mimeType }, customMetadata: { filename: attachment.filename } });
-    attachments.push({ id, filename: attachment.filename, mimeType: attachment.mimeType, sizeBytes: attachment.sizeBytes, storageKey: key, checksum: await checksum(attachment.content) });
+  let parsed: ParsedInboundMime;
+  try {
+    parsed = await parseInboundMime(raw);
+  } catch (error) {
+    // Forwarding the original message is intentionally withheld when MIME cannot be parsed safely.
+    // This keeps the personal mailbox from becoming a policy bypass for malformed payloads.
+    console.error(JSON.stringify({ event: "mime_parse_failed", recipient, error: String(error) }));
+    message.setReject("Message could not be safely parsed");
+    return;
   }
-  await env.INBOX_BUCKET.put(rawKey, raw, { httpMetadata: { contentType: "message/rfc822" } });
-  const body = JSON.stringify({
-    idempotencyKey: rawId,
-    messageId: parsed.messageId,
-    inReplyTo: parsed.inReplyTo,
-    references: parsed.references,
-    fromAddress: message.from,
-    toAddresses: [recipient],
-    ccAddresses: parsed.cc,
-    subject: parsed.subject,
-    textBody: parsed.text,
-    htmlBody: parsed.html,
-    receivedAt: parsed.receivedAt,
-    rawMimeKey: rawKey,
-    attachments,
-  });
-  const signed = await createSignedRequest(body, env.INBOX_INGEST_SECRET);
-  const ingestPromise = postWithRetry(
-    `${env.FIDEXA_APP_URL.replace(/\/$/, "")}/api/inbox/ingest`,
-    body,
-    signed.headers,
-    fetcher,
-  );
-  const [forwardResult, ingestResult] = await Promise.allSettled([forwardPromise, ingestPromise]);
-  if (forwardResult.status === "rejected") console.error(JSON.stringify({ event: "gmail_forward_failed", recipient, error: String(forwardResult.reason) }));
-  if (ingestResult.status === "rejected") console.error(JSON.stringify({ event: "fidexa_ingest_failed", recipient, error: String(ingestResult.reason) }));
-  if (ingestResult.status === "fulfilled" && !ingestResult.value.ok) console.error(JSON.stringify({ event: "fidexa_ingest_rejected", status: ingestResult.value.status, recipient }));
+  const decision = filterAttachments(parsed.attachments);
+  if (decision.rejected.length > 0) console.warn(JSON.stringify({ event: "attachments_rejected", recipient, count: decision.rejected.length }));
+  // Forwarding is independent after the message passes the same attachment safety gate used for R2.
+  const canForward = (message as ForwardableEmailMessage & { canBeForwarded?: boolean }).canBeForwarded !== false && message.headers.get("x-fidexa-forwarded") !== "1";
+  const forwardPromise = decision.rejected.length === 0 && canForward
+    ? Promise.resolve().then(() => message.forward(env.GMAIL_FORWARD_TO))
+    : Promise.resolve({ skipped: true });
+  const writtenKeys: string[] = [];
+  const deleteWrittenObjects = async () => {
+    if (writtenKeys.length === 0) return;
+    try { await env.INBOX_BUCKET.delete(writtenKeys); } catch (error) { console.error(JSON.stringify({ event: "inbox_storage_cleanup_failed", recipient, error: String(error) })); }
+  };
+  try {
+    const attachments = [];
+    for (const attachment of decision.accepted) {
+      const id = crypto.randomUUID();
+      const key = storageKey("attachments", id);
+      await env.INBOX_BUCKET.put(key, attachment.content, { httpMetadata: { contentType: attachment.mimeType }, customMetadata: { filename: attachment.filename } });
+      writtenKeys.push(key);
+      attachments.push({ id, filename: attachment.filename, mimeType: attachment.mimeType, sizeBytes: attachment.sizeBytes, storageKey: key, checksum: await checksum(attachment.content) });
+    }
+    await env.INBOX_BUCKET.put(rawKey, raw, { httpMetadata: { contentType: "message/rfc822" } });
+    writtenKeys.push(rawKey);
+    const body = JSON.stringify({ idempotencyKey: rawId, messageId: parsed.messageId, inReplyTo: parsed.inReplyTo, references: parsed.references, fromAddress: message.from, toAddresses: [recipient], ccAddresses: parsed.cc, subject: parsed.subject, textBody: parsed.text, htmlBody: parsed.html, receivedAt: parsed.receivedAt, rawMimeKey: rawKey, attachments });
+    const signed = await createSignedRequest(body, env.INBOX_INGEST_SECRET);
+    const ingestPromise = postWithRetry(`${env.FIDEXA_APP_URL.replace(/\/$/, "")}/api/inbox/ingest`, body, signed.headers, fetcher);
+    const [forwardResult, ingestResult] = await Promise.allSettled([forwardPromise, ingestPromise]);
+    if (forwardResult.status === "rejected") console.error(JSON.stringify({ event: "gmail_forward_failed", recipient, error: String(forwardResult.reason) }));
+    if (ingestResult.status === "rejected") console.error(JSON.stringify({ event: "fidexa_ingest_uncertain", recipient, error: String(ingestResult.reason) }));
+    if (ingestResult.status === "fulfilled" && !ingestResult.value.ok) {
+      if (ingestResult.value.status >= 400 && ingestResult.value.status < 500 && ingestResult.value.status !== 408 && ingestResult.value.status !== 409 && ingestResult.value.status !== 429) await deleteWrittenObjects();
+      console.error(JSON.stringify({ event: ingestResult.value.status >= 500 ? "fidexa_ingest_uncertain" : "fidexa_ingest_rejected", status: ingestResult.value.status, recipient }));
+    }
+    if (ingestResult.status === "fulfilled" && await isDuplicateIngestResponse(ingestResult.value)) { await deleteWrittenObjects(); console.warn(JSON.stringify({ event: "fidexa_ingest_duplicate", recipient })); }
+  } catch (error) {
+    await deleteWrittenObjects();
+    throw error;
+  }
 }
 
 export default {
@@ -149,7 +162,7 @@ export default {
     const token = url.searchParams.get("token"); if (!token) return new Response("Not found", { status: 404 });
     const attachment = await verifyAttachmentToken(token, env.INBOX_ATTACHMENT_SECRET); if (!attachment) return new Response("Not found", { status: 404 });
     const object = await env.INBOX_BUCKET.get(attachment.storageKey); if (!object) return new Response("Not found", { status: 404 });
-    return new Response(object.body, { headers: { "content-type": object.httpMetadata?.contentType ?? "application/octet-stream", "content-disposition": `attachment; filename="${attachment.filename.replace(/["\r\n]/g, "_")}"`, "cache-control": "private, no-store" } });
+    return new Response(object.body, { headers: { "content-type": object.httpMetadata?.contentType ?? "application/octet-stream", "content-disposition": `attachment; filename="${attachment.filename.replace(/["\r\n]/g, "_")}"`, "cache-control": "private, no-store", "x-content-type-options": "nosniff" } });
   },
   async email(message: ForwardableEmailMessage, env: GatewayEnv, ctx: ExecutionContext): Promise<void> {
     await handleInboundEmail(message, env, ctx);
@@ -158,22 +171,28 @@ export default {
     ctx.waitUntil((async () => {
       const now = Date.now();
       for (const [prefix, maxAge] of [["raw/", 7], ["attachments/", 365]] as const) {
-        let cursor: string | undefined;
-        do {
-          const listing = await env.INBOX_BUCKET.list({ prefix, limit: 1000, cursor });
-          const expired = listing.objects.filter((object) => {
-            const date = object.key.split("/")[1];
-            const created = Date.parse(`${date}T00:00:00Z`);
-            return Number.isFinite(created) && now - created >= maxAge * 24 * 60 * 60 * 1000;
-          });
-          if (expired.length > 0) await env.INBOX_BUCKET.delete(expired.map((object) => object.key));
-          cursor = listing.truncated ? listing.cursor : undefined;
-        } while (cursor);
+        try {
+          let cursor: string | undefined;
+          do {
+            const listing = await env.INBOX_BUCKET.list({ prefix, limit: 1000, cursor });
+            const expired = listing.objects.filter((object) => {
+              return isObjectExpired(object.uploaded, now, maxAge);
+            });
+            if (expired.length > 0) await env.INBOX_BUCKET.delete(expired.map((object) => object.key));
+            cursor = listing.truncated ? listing.cursor : undefined;
+          } while (cursor);
+        } catch (error) {
+          console.error(JSON.stringify({ event: "inbox_bucket_cleanup_failed", prefix, error: String(error) }));
+        }
       }
       if (!env.CLEANUP_SECRET) return;
-      const request = new Request(`${env.FIDEXA_APP_URL.replace(/\/$/, "")}/api/admin/inbox/cleanup`, { method: "POST", headers: { authorization: `Bearer ${env.CLEANUP_SECRET}` } });
-      const response = await fetch(request);
-      if (!response.ok) console.error(JSON.stringify({ event: "fidexa_cleanup_failed", status: response.status }));
+      try {
+        const request = new Request(`${env.FIDEXA_APP_URL.replace(/\/$/, "")}/api/admin/inbox/cleanup`, { method: "POST", headers: { authorization: `Bearer ${env.CLEANUP_SECRET}` } });
+        const response = await fetch(request);
+        if (!response.ok) console.error(JSON.stringify({ event: "fidexa_cleanup_failed", status: response.status }));
+      } catch (error) {
+        console.error(JSON.stringify({ event: "fidexa_cleanup_failed", error: String(error) }));
+      }
     })());
   },
 } satisfies ExportedHandler<GatewayEnv>;
