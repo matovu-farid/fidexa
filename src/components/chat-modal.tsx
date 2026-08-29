@@ -1,12 +1,27 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useRef, useEffect } from "react";
+import { DefaultChatTransport, type UIMessage } from "ai";
+import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { X, Send, Bot, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
+const CHAT_TRANSPORT = new DefaultChatTransport({ api: "/api/chat" });
+const INITIAL_MESSAGES: UIMessage[] = [
+  {
+    id: "fidexa-opening",
+    role: "assistant",
+    parts: [
+      {
+        type: "text",
+        text: "Hi — I’m Fidexa’s project guide. I’ll help clarify what you’re trying to build, who it serves, and the most useful next step. What problem are you trying to solve, and who experiences it today?",
+      },
+    ],
+  },
+];
 
 export function ChatModal({
   open,
@@ -15,8 +30,11 @@ export function ChatModal({
   open: boolean;
   onClose: () => void;
 }) {
-  const { messages, input, handleInputChange, handleSubmit, status } =
-    useChat({ api: "/api/chat" });
+  const { messages, sendMessage, status, error } = useChat({
+    transport: CHAT_TRANSPORT,
+    messages: INITIAL_MESSAGES,
+  });
+  const [input, setInput] = useState("");
   const isLoading = status === "streaming" || status === "submitted";
   const scrollRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -58,6 +76,14 @@ export function ChatModal({
       previousFocus?.focus();
     };
   }, [open, onClose]);
+
+  function submitMessage(event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLTextAreaElement>) {
+    event.preventDefault();
+    const text = input.trim();
+    if (!text || isLoading) return;
+    setInput("");
+    void sendMessage({ text });
+  }
 
   if (!open) return null;
 
@@ -121,10 +147,16 @@ export function ChatModal({
                       ),
                     }}
                   >
-                    {msg.content}
+                    {msg.parts
+                      .filter((part) => part.type === "text")
+                      .map((part) => (part.type === "text" ? part.text : ""))
+                      .join("")}
                   </ReactMarkdown>
                 ) : (
-                  msg.content
+                  msg.parts
+                    .filter((part) => part.type === "text")
+                    .map((part) => (part.type === "text" ? part.text : ""))
+                    .join("")
                 )}
               </div>
               {msg.role === "user" && (
@@ -144,25 +176,29 @@ export function ChatModal({
               </div>
             </div>
           )}
+          {error && (
+            <p role="alert" className="mb-4 text-sm text-red-300">
+              The chat could not complete that response. Please try again.
+            </p>
+          )}
         </div>
 
         {/* Input */}
         <form
-          onSubmit={handleSubmit}
+          onSubmit={submitMessage}
           className="border-t border-white/[0.06] px-4 py-3"
         >
           <div className="flex items-end gap-2">
             <Textarea
               value={input}
-              onChange={handleInputChange}
+              onChange={(event) => setInput(event.target.value)}
               name="message"
               aria-label="Describe your project idea"
               placeholder="Describe your project idea..."
               className="min-h-[44px] max-h-[120px] resize-none"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSubmit(e as unknown as React.FormEvent);
+                  submitMessage(e);
                 }
               }}
             />
