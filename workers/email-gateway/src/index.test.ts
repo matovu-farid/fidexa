@@ -111,6 +111,7 @@ describe("email gateway", () => {
     } as never, env, ctx, fetch);
 
     expect(remove).not.toHaveBeenCalled();
+    expect(fetch).toHaveBeenCalledTimes(3);
   });
 
   it("retains staged objects when the app returns a server error", async () => {
@@ -145,6 +146,38 @@ describe("email gateway", () => {
     } as never, env, ctx, fetch);
 
     expect(remove).not.toHaveBeenCalled();
+  });
+
+  it("rejects the message when Fidexa ingestion remains unavailable", async () => {
+    const raw = new TextEncoder().encode([
+      "From: customer@example.com",
+      "To: hello@fidexa.org",
+      "Subject: Retry me",
+      "Content-Type: text/plain",
+      "",
+      "Hi",
+    ].join("\r\n"));
+    const setReject = vi.fn();
+    const ctx = { waitUntil: vi.fn() } as unknown as ExecutionContext;
+    const env = {
+      FIDEXA_APP_URL: "https://fidexa.org",
+      GMAIL_FORWARD_TO: "matovu90@gmail.com",
+      INBOX_INGEST_SECRET: "ingest-secret-123456",
+      INBOX_BUCKET: { put: vi.fn(async () => undefined), delete: vi.fn(async () => undefined) },
+    } as never;
+
+    await handleInboundEmail({
+      from: "customer@example.com",
+      to: "hello@fidexa.org",
+      headers: new Headers({ subject: "Retry me" }),
+      raw: new ReadableStream({ start(controller) { controller.enqueue(raw); controller.close(); } }),
+      rawSize: raw.byteLength,
+      canBeForwarded: true,
+      forward: vi.fn(async () => ({ success: true })),
+      setReject,
+    } as never, env, ctx, async () => { throw new Error("network timeout"); });
+
+    expect(setReject).toHaveBeenCalledWith("Temporary inbox processing failure");
   });
 
   it("removes staged objects when the API confirms a duplicate", async () => {

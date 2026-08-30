@@ -10,6 +10,7 @@ export type OutboundMessageForComparison = {
   references?: string | null;
   threadId?: string | null;
   draftId?: string | null;
+  attachmentIds?: string[];
 };
 
 export const RESEND_IDEMPOTENCY_WINDOW_MS = 24 * 60 * 60 * 1000;
@@ -25,7 +26,8 @@ export function isSameOutboundMessage(expected: OutboundMessageForComparison, ac
     && (expected.inReplyTo ?? null) === (actual.inReplyTo ?? null)
     && (expected.references ?? null) === (actual.references ?? null)
     && (expected.threadId ?? null) === (actual.threadId ?? null)
-    && (expected.draftId ?? null) === (actual.draftId ?? null);
+    && (expected.draftId ?? null) === (actual.draftId ?? null)
+    && JSON.stringify(expected.attachmentIds ?? []) === JSON.stringify(actual.attachmentIds ?? []);
 }
 
 export function isIdempotencyWindowExpired(createdAt: Date, now: Date): boolean {

@@ -15,12 +15,14 @@ describe("outbound idempotency", () => {
       references: "<message@example.com>",
       threadId: "thread-1",
       draftId: "draft-1",
+      attachmentIds: ["attachment-1"],
     };
 
     expect(isSameOutboundMessage(request, { ...request })).toBe(true);
     expect(isSameOutboundMessage(request, { ...request, textBody: "Changed" })).toBe(false);
     expect(isSameOutboundMessage(request, { ...request, threadId: "thread-2" })).toBe(false);
     expect(isSameOutboundMessage(request, { ...request, draftId: "draft-2" })).toBe(false);
+    expect(isSameOutboundMessage(request, { ...request, attachmentIds: ["attachment-2"] })).toBe(false);
   });
 
   it("recognizes the provider retry window and concurrency response", () => {

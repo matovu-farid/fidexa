@@ -26,3 +26,10 @@ export function threadCandidates(headers: ThreadHeaders): string[] {
   add(normalizeSubject(headers.subject));
   return candidates.filter(Boolean);
 }
+
+export function threadLookupCandidates(headers: ThreadHeaders): { messageReferences: string[]; normalizedSubject: string } {
+  return {
+    messageReferences: threadCandidates(headers).filter((candidate) => candidate.startsWith("<")),
+    normalizedSubject: normalizeSubject(headers.subject),
+  };
+}

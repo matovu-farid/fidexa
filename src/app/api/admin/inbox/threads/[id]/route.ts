@@ -1,6 +1,6 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, eq, inArray, or } from "drizzle-orm";
 import { getDb } from "@/db/client";
-import { mailMessages, mailThreads } from "@/db/schema";
+import { mailAttachments, mailMessages, mailThreads } from "@/db/schema";
 import { getAdminSession } from "@/lib/auth";
 import { recordAudit } from "@/lib/email/audit";
 
@@ -12,8 +12,19 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   const threads = await db.select().from(mailThreads).where(eq(mailThreads.id, id)).limit(1);
   if (!threads[0]) return Response.json({ error: "Not found" }, { status: 404 });
   const messages = await db.select().from(mailMessages).where(eq(mailMessages.threadId, id)).orderBy(asc(mailMessages.createdAt));
+  const messageIds = messages.map((message) => message.id);
+  const attachmentIds = messages.flatMap((message) => message.attachmentIds);
+  const attachments = messageIds.length > 0 ? await db.select().from(mailAttachments).where(attachmentIds.length > 0 ? or(inArray(mailAttachments.messageId, messageIds), inArray(mailAttachments.id, attachmentIds)) : inArray(mailAttachments.messageId, messageIds)) : [];
+  const attachmentsById = new Map(attachments.map((attachment) => [attachment.id, attachment]));
+  const attachmentsByMessage = new Map<string, typeof attachments>();
+  for (const attachment of attachments) {
+    const current = attachmentsByMessage.get(attachment.messageId) ?? [];
+    current.push(attachment);
+    attachmentsByMessage.set(attachment.messageId, current);
+  }
+  const messagesWithAttachments = messages.map((message) => ({ ...message, attachments: message.attachmentIds.length > 0 ? message.attachmentIds.map((attachmentId) => attachmentsById.get(attachmentId)).filter((attachment): attachment is (typeof attachments)[number] => Boolean(attachment)) : attachmentsByMessage.get(message.id) ?? [] }));
   try { await recordAudit({ actorEmail: session.user.email, action: "thread.viewed", objectType: "thread", objectId: id }); } catch (error) { console.error("Failed to write thread view audit log", error); }
-  return Response.json({ thread: threads[0], messages });
+  return Response.json({ thread: threads[0], messages: messagesWithAttachments });
 }
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {

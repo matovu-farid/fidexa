@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeSubject, threadCandidates } from "./headers";
+import { normalizeSubject, threadCandidates, threadLookupCandidates } from "./headers";
 
 describe("email threading headers", () => {
   it("normalizes reply and forward prefixes for subject fallback", () => {
@@ -15,5 +15,9 @@ describe("email threading headers", () => {
         subject: "Re: Project launch",
       }),
     ).toEqual(["<parent@example.com>", "<root@example.com>", "project launch"]);
+  });
+
+  it("keeps subject fallback available when RFC headers are absent", () => {
+    expect(threadLookupCandidates({ subject: "Re: Project launch" })).toEqual({ messageReferences: [], normalizedSubject: "project launch" });
   });
 });

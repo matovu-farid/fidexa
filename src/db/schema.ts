@@ -49,6 +49,7 @@ export const mailMessages = pgTable("mail_messages", {
   id: uuid("id").defaultRandom().primaryKey(),
   threadId: uuid("thread_id").notNull().references(() => mailThreads.id, { onDelete: "cascade" }),
   draftId: uuid("draft_id"),
+  attachmentIds: jsonb("attachment_ids").$type<string[]>().notNull().default([]),
   direction: messageDirection("direction").notNull(),
   status: messageStatus("status").notNull(),
   providerMessageId: text("provider_message_id"),
@@ -108,8 +109,11 @@ export const mailEvents = pgTable("mail_events", {
   id: uuid("id").defaultRandom().primaryKey(),
   source: eventSource("source").notNull(),
   providerEventId: text("provider_event_id").notNull(),
+  eventType: text("event_type"),
+  providerMessageId: text("provider_message_id"),
   idempotencyKey: text("idempotency_key"),
   payloadHash: text("payload_hash").notNull(),
+  processedAt: timestamp("processed_at", { withTimezone: true }),
   ...timestamps,
 }, (table) => [uniqueIndex("mail_events_provider_event_unique").on(table.source, table.providerEventId)]);
 

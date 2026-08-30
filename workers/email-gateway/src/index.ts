@@ -18,7 +18,7 @@ export type GatewayEnv = {
   GMAIL_FORWARD_TO: string;
   INBOX_INGEST_SECRET: string;
   INBOX_ATTACHMENT_SECRET: string;
-  CLEANUP_SECRET?: string;
+  CLEANUP_SECRET: string;
 };
 
 function base64Url(bytes: ArrayBuffer): string {
@@ -73,12 +73,31 @@ type IngestFetcher = (url: string, init: { method: "POST"; headers: HeadersInit;
 
 async function postWithRetry(url: string, body: string, headers: HeadersInit, fetcher: IngestFetcher): Promise<Response> {
   let lastResponse: Response | undefined;
+  let lastError: unknown;
   for (let attempt = 0; attempt < 3; attempt += 1) {
-    lastResponse = await fetcher(url, { method: "POST", headers, body });
-    if (!([429, 500, 502, 503, 504] as number[]).includes(lastResponse.status)) return lastResponse;
+    try {
+      lastResponse = await fetcher(url, { method: "POST", headers, body });
+      if (!([408, 429, 500, 502, 503, 504] as number[]).includes(lastResponse.status)) return lastResponse;
+    } catch (error) {
+      lastError = error;
+    }
     if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 50 * 2 ** attempt));
   }
+  if (!lastResponse && lastError) throw lastError;
   return lastResponse!;
+}
+
+async function forwardWithRetry(message: ForwardableEmailMessage, recipient: string): Promise<unknown> {
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 3; attempt += 1) {
+    try {
+      return await message.forward(recipient);
+    } catch (error) {
+      lastError = error;
+      if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 50 * 2 ** attempt));
+    }
+  }
+  throw lastError;
 }
 
 async function isDuplicateIngestResponse(response: Response): Promise<boolean> {
@@ -120,7 +139,7 @@ export async function handleInboundEmail(
   // Forwarding is independent after the message passes the same attachment safety gate used for R2.
   const canForward = (message as ForwardableEmailMessage & { canBeForwarded?: boolean }).canBeForwarded !== false && message.headers.get("x-fidexa-forwarded") !== "1";
   const forwardPromise = decision.rejected.length === 0 && canForward
-    ? Promise.resolve().then(() => message.forward(env.GMAIL_FORWARD_TO))
+    ? forwardWithRetry(message, env.GMAIL_FORWARD_TO)
     : Promise.resolve({ skipped: true });
   const writtenKeys: string[] = [];
   const deleteWrittenObjects = async () => {
@@ -142,13 +161,24 @@ export async function handleInboundEmail(
     const signed = await createSignedRequest(body, env.INBOX_INGEST_SECRET);
     const ingestPromise = postWithRetry(`${env.FIDEXA_APP_URL.replace(/\/$/, "")}/api/inbox/ingest`, body, signed.headers, fetcher);
     const [forwardResult, ingestResult] = await Promise.allSettled([forwardPromise, ingestPromise]);
-    if (forwardResult.status === "rejected") console.error(JSON.stringify({ event: "gmail_forward_failed", recipient, error: String(forwardResult.reason) }));
-    if (ingestResult.status === "rejected") console.error(JSON.stringify({ event: "fidexa_ingest_uncertain", recipient, error: String(ingestResult.reason) }));
+    let rejectReason: string | undefined;
+    if (forwardResult.status === "rejected") {
+      console.error(JSON.stringify({ event: "gmail_forward_failed", recipient, error: String(forwardResult.reason) }));
+      rejectReason = "Temporary forwarding failure";
+    }
+    if (ingestResult.status === "rejected") {
+      console.error(JSON.stringify({ event: "fidexa_ingest_uncertain", recipient, error: String(ingestResult.reason) }));
+      rejectReason = "Temporary inbox processing failure";
+    }
     if (ingestResult.status === "fulfilled" && !ingestResult.value.ok) {
       if (ingestResult.value.status >= 400 && ingestResult.value.status < 500 && ingestResult.value.status !== 408 && ingestResult.value.status !== 409 && ingestResult.value.status !== 429) await deleteWrittenObjects();
       console.error(JSON.stringify({ event: ingestResult.value.status >= 500 ? "fidexa_ingest_uncertain" : "fidexa_ingest_rejected", status: ingestResult.value.status, recipient }));
+      rejectReason = ingestResult.value.status >= 500 || ingestResult.value.status === 408 || ingestResult.value.status === 409 || ingestResult.value.status === 429
+        ? "Temporary inbox processing failure"
+        : "Inbox rejected message";
     }
-    if (ingestResult.status === "fulfilled" && await isDuplicateIngestResponse(ingestResult.value)) { await deleteWrittenObjects(); console.warn(JSON.stringify({ event: "fidexa_ingest_duplicate", recipient })); }
+    if (ingestResult.status === "fulfilled" && await isDuplicateIngestResponse(ingestResult.value)) { await deleteWrittenObjects(); console.warn(JSON.stringify({ event: "fidexa_ingest_duplicate", recipient })); rejectReason = forwardResult.status === "rejected" ? "Temporary forwarding failure" : undefined; }
+    if (rejectReason) message.setReject(rejectReason);
   } catch (error) {
     await deleteWrittenObjects();
     throw error;
@@ -185,7 +215,6 @@ export default {
           console.error(JSON.stringify({ event: "inbox_bucket_cleanup_failed", prefix, error: String(error) }));
         }
       }
-      if (!env.CLEANUP_SECRET) return;
       try {
         const request = new Request(`${env.FIDEXA_APP_URL.replace(/\/$/, "")}/api/admin/inbox/cleanup`, { method: "POST", headers: { authorization: `Bearer ${env.CLEANUP_SECRET}` } });
         const response = await fetch(request);

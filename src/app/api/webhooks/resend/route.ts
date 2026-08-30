@@ -1,5 +1,5 @@
 import { Webhook } from "svix";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { getDb } from "@/db/client";
 import { mailEvents, mailMessages } from "@/db/schema";
 import { getServerConfig } from "@/lib/config";
@@ -9,8 +9,6 @@ async function sha256Hex(value: string) {
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value));
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
 }
-
-class UnmatchedResendEventError extends Error {}
 
 export async function POST(request: Request) {
   const config = getServerConfig();
@@ -24,17 +22,23 @@ export async function POST(request: Request) {
   const db = getDb();
   try {
     const outcome = await db.transaction(async (tx) => {
-      const inserted = await tx.insert(mailEvents).values({ source: "resend", providerEventId, payloadHash: await sha256Hex(body) }).onConflictDoNothing().returning({ id: mailEvents.id });
-      if (inserted.length === 0) return "duplicate" as const;
+      const existingEvent = await tx.select({ id: mailEvents.id, processedAt: mailEvents.processedAt }).from(mailEvents).where(and(eq(mailEvents.source, "resend"), eq(mailEvents.providerEventId, providerEventId))).limit(1);
+      if (existingEvent[0]?.processedAt) return "duplicate" as const;
+      if (!existingEvent[0]) {
+        await tx.insert(mailEvents).values({ source: "resend", providerEventId, eventType: event.type ?? null, providerMessageId: event.data!.email_id!, payloadHash: await sha256Hex(body) });
+      } else {
+        await tx.update(mailEvents).set({ eventType: event.type ?? null, providerMessageId: event.data!.email_id!, payloadHash: await sha256Hex(body), updatedAt: new Date() }).where(eq(mailEvents.id, existingEvent[0].id));
+      }
       const current = await tx.select({ status: mailMessages.status }).from(mailMessages).where(eq(mailMessages.providerMessageId, event.data!.email_id!)).for("update").limit(1);
-      if (!current[0]) throw new UnmatchedResendEventError("Message has not been persisted yet");
+      if (!current[0]) return "deferred" as const;
       const currentStatus = current[0].status;
       if (canAdvanceMessageStatus(currentStatus === "received" ? "pending" : currentStatus, status)) await tx.update(mailMessages).set({ status, updatedAt: new Date(), sentAt: status === "sent" ? new Date() : undefined }).where(eq(mailMessages.providerMessageId, event.data!.email_id!));
+      await tx.update(mailEvents).set({ processedAt: new Date(), updatedAt: new Date() }).where(eq(mailEvents.providerEventId, providerEventId));
       return "processed" as const;
     });
+    if (outcome === "deferred") return Response.json({ error: "Message is not ready for this event" }, { status: 503 });
     return Response.json({ ok: true, ...(outcome === "duplicate" ? { duplicate: true } : {}) });
   } catch (error) {
-    if (error instanceof UnmatchedResendEventError) return Response.json({ error: "Message is not ready for this event" }, { status: 503 });
     console.error("Failed to process Resend webhook", error);
     return Response.json({ error: "Webhook processing failed" }, { status: 500 });
   }

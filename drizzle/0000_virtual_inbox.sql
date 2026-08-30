@@ -30,6 +30,7 @@ CREATE INDEX "mail_threads_last_message_idx" ON "mail_threads" ("last_message_at
 CREATE TABLE "mail_messages" (
   "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   "thread_id" uuid NOT NULL REFERENCES "mail_threads"("id") ON DELETE CASCADE,
+  "attachment_ids" jsonb NOT NULL DEFAULT '[]'::jsonb,
   "direction" "mail_message_direction" NOT NULL,
   "status" "mail_message_status" NOT NULL,
   "provider_message_id" text,
@@ -107,8 +108,11 @@ CREATE TABLE "mail_events" (
   "id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   "source" "mail_event_source" NOT NULL,
   "provider_event_id" text NOT NULL,
+  "event_type" text,
+  "provider_message_id" text,
   "idempotency_key" text,
   "payload_hash" text NOT NULL,
+  "processed_at" timestamptz,
   "created_at" timestamptz NOT NULL DEFAULT now(),
   "updated_at" timestamptz NOT NULL DEFAULT now()
 );
