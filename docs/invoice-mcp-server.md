@@ -2,6 +2,8 @@
 
 This repository includes a standalone MCP server for producing Fidexa-branded invoices. The server accepts private hour estimates and a UGX hourly rate, performs the arithmetic itself, and writes a client PDF, an internal statement PDF, and a JSON calculation audit.
 
+Feature agents should follow the dedicated [invoice and quotation agent playbook](./invoice-agent-playbook.md) for the end-to-end workflow and client/internal data boundary.
+
 ## Start the server
 
 Install dependencies, then run:
