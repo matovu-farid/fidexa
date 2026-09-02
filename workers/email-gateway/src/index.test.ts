@@ -43,6 +43,43 @@ describe("email gateway", () => {
     expect(fetch).toHaveBeenCalledWith("https://fidexa.org/api/inbox/ingest", expect.objectContaining({ method: "POST" }));
   });
 
+  it("starts forwarding before MIME parsing fails", async () => {
+    const raw = new TextEncoder().encode([
+      "From: customer@example.com",
+      "To: hello@fidexa.org",
+      "Subject: Parse failure",
+      "Content-Type: text/plain",
+      "",
+      "Hi",
+    ].join("\r\n"));
+    const forward = vi.fn(async () => ({ success: true }));
+    const fetch = vi.fn(async () => new Response("ok", { status: 202 }));
+    const parser = vi.fn(async () => { throw new Error("malformed MIME"); });
+    const setReject = vi.fn();
+    const ctx = { waitUntil: vi.fn() } as unknown as ExecutionContext;
+    const env = {
+      FIDEXA_APP_URL: "https://fidexa.org",
+      GMAIL_FORWARD_TO: "matovu90@gmail.com",
+      INBOX_INGEST_SECRET: "ingest-secret-123456",
+      INBOX_BUCKET: { put: vi.fn(async () => undefined) },
+    } as never;
+
+    await handleInboundEmail({
+      from: "customer@example.com",
+      to: "hello@fidexa.org",
+      headers: new Headers({ subject: "Parse failure" }),
+      raw: new ReadableStream({ start(controller) { controller.enqueue(raw); controller.close(); } }),
+      rawSize: raw.byteLength,
+      canBeForwarded: true,
+      forward,
+      setReject,
+    } as never, env, ctx, fetch, parser);
+
+    expect(parser).toHaveBeenCalledOnce();
+    expect(forward).toHaveBeenCalledWith("matovu90@gmail.com");
+    expect(setReject).toHaveBeenCalledWith("Message could not be safely parsed");
+  });
+
   it("removes staged R2 objects when Fidexa rejects ingestion", async () => {
     const raw = new TextEncoder().encode([
       "From: customer@example.com",
@@ -214,7 +251,7 @@ describe("email gateway", () => {
     expect(remove).toHaveBeenCalledWith(expect.arrayContaining([expect.stringMatching(/^raw\//)]));
   });
 
-  it("does not forward a message containing a rejected attachment", async () => {
+  it("forwards the original message while omitting rejected attachments from R2", async () => {
     const raw = new TextEncoder().encode([
       "From: customer@example.com",
       "To: hello@fidexa.org",
@@ -255,7 +292,7 @@ describe("email gateway", () => {
       setReject: vi.fn(),
     } as never, env, ctx, fetch);
 
-    expect(forward).not.toHaveBeenCalled();
+    expect(forward).toHaveBeenCalledWith("matovu90@gmail.com");
     expect(fetch).toHaveBeenCalledWith("https://fidexa.org/api/inbox/ingest", expect.objectContaining({ method: "POST" }));
   });
 

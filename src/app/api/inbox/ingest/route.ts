@@ -20,7 +20,7 @@ const inboundSchema = z.object({
   fromAddress: z.string().email().max(320), toAddresses: z.array(z.string().email().max(320)).min(1).max(5), ccAddresses: z.array(z.string().email().max(320)).max(50).default([]),
   subject: z.string().max(998).default("(no subject)"), textBody: z.string().max(2_000_000).default(""), htmlBody: z.string().max(5_000_000).default(""), receivedAt: z.string().datetime(), rawMimeKey: z.string().regex(/^raw\/[0-9]{4}-[0-9]{2}-[0-9]{2}\/[a-f0-9-]+$/).nullable().optional(), attachments: z.array(attachmentSchema).max(20).default([]),
 }).superRefine((value, context) => {
-  if (value.attachments.reduce((total, attachment) => total + attachment.sizeBytes, 0) > 15 * 1024 * 1024) context.addIssue({ code: z.ZodIssueCode.too_big, maximum: 15 * 1024 * 1024, type: "number", inclusive: true, path: ["attachments"], message: "Attachments exceed the aggregate size limit" });
+  if (value.attachments.reduce((total, attachment) => total + attachment.sizeBytes, 0) > 15 * 1024 * 1024) context.addIssue({ code: z.ZodIssueCode.too_big, maximum: 15 * 1024 * 1024, origin: "array", inclusive: true, path: ["attachments"], message: "Attachments exceed the aggregate size limit" });
 });
 
 class DuplicateInboundMessageError extends Error {}

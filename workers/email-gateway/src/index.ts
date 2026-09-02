@@ -21,6 +21,8 @@ export type GatewayEnv = {
   CLEANUP_SECRET: string;
 };
 
+type InboundMimeParser = (raw: Uint8Array) => Promise<ParsedInboundMime>;
+
 function base64Url(bytes: ArrayBuffer): string {
   let binary = "";
   for (const byte of new Uint8Array(bytes)) binary += String.fromCharCode(byte);
@@ -110,6 +112,7 @@ export async function handleInboundEmail(
   env: GatewayEnv,
   ctx: ExecutionContext,
   fetcher: IngestFetcher = fetch,
+  parser: InboundMimeParser = parseInboundMime,
 ): Promise<void> {
   const recipient = message.to.trim().toLowerCase();
   if (!isAllowedRecipient(recipient)) {
@@ -124,23 +127,27 @@ export async function handleInboundEmail(
   const raw = new Uint8Array(await new Response(message.raw as BodyInit).arrayBuffer());
   const rawId = crypto.randomUUID();
   const rawKey = storageKey("raw", rawId);
+  const canForward = (message as ForwardableEmailMessage & { canBeForwarded?: boolean }).canBeForwarded !== false && message.headers.get("x-fidexa-forwarded") !== "1";
+  const forwardPromise = canForward
+    ? forwardWithRetry(message, env.GMAIL_FORWARD_TO)
+    : Promise.resolve({ skipped: true });
   let parsed: ParsedInboundMime;
   try {
-    parsed = await parseInboundMime(raw);
+    parsed = await parser(raw);
   } catch (error) {
-    // Forwarding the original message is intentionally withheld when MIME cannot be parsed safely.
-    // This keeps the personal mailbox from becoming a policy bypass for malformed payloads.
     console.error(JSON.stringify({ event: "mime_parse_failed", recipient, error: String(error) }));
+    const forwardResult = await Promise.allSettled([forwardPromise]);
+    if (forwardResult[0].status === "rejected") {
+      console.error(JSON.stringify({ event: "gmail_forward_failed", recipient, error: String(forwardResult[0].reason) }));
+      message.setReject("Temporary forwarding failure");
+      return;
+    }
     message.setReject("Message could not be safely parsed");
     return;
   }
   const decision = filterAttachments(parsed.attachments);
   if (decision.rejected.length > 0) console.warn(JSON.stringify({ event: "attachments_rejected", recipient, count: decision.rejected.length }));
-  // Forwarding is independent after the message passes the same attachment safety gate used for R2.
-  const canForward = (message as ForwardableEmailMessage & { canBeForwarded?: boolean }).canBeForwarded !== false && message.headers.get("x-fidexa-forwarded") !== "1";
-  const forwardPromise = decision.rejected.length === 0 && canForward
-    ? forwardWithRetry(message, env.GMAIL_FORWARD_TO)
-    : Promise.resolve({ skipped: true });
+  // Gmail receives the original message independently; rejected attachments are excluded from R2 storage.
   const writtenKeys: string[] = [];
   const deleteWrittenObjects = async () => {
     if (writtenKeys.length === 0) return;

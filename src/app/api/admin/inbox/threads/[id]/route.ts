@@ -3,6 +3,7 @@ import { getDb } from "@/db/client";
 import { mailAttachments, mailMessages, mailThreads } from "@/db/schema";
 import { getAdminSession } from "@/lib/auth";
 import { recordAudit } from "@/lib/email/audit";
+import { parseThreadAction } from "@/lib/email/thread-actions";
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await getAdminSession(request.headers);
@@ -31,9 +32,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
   const session = await getAdminSession(request.headers);
   if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
   const { id } = await params;
-  let body: { action?: "read" | "unread" | "archive" | "restore" };
-  try { body = await request.json() as typeof body; } catch { return Response.json({ error: "Invalid JSON" }, { status: 400 }); }
-  const action = body.action;
+  let body: unknown;
+  try { body = await request.json(); } catch { return Response.json({ error: "Invalid JSON" }, { status: 400 }); }
+  const action = parseThreadAction(body);
   if (!action) return Response.json({ error: "Invalid action" }, { status: 400 });
   const db = getDb();
   await db.update(mailThreads).set(action === "archive" || action === "restore" ? { state: action === "archive" ? "archived" : "active", updatedAt: new Date() } : { isUnread: action === "unread", updatedAt: new Date() }).where(and(eq(mailThreads.id, id)));

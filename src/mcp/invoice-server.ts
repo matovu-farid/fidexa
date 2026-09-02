@@ -1,8 +1,21 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
 
 import { calculateInvoice, calculateQuotation } from "../invoice/calculator";
 import { createInvoiceBundle, createQuotationBundle, type InvoiceBundleOptions } from "../invoice";
-import { invoiceRequestSchema, quotationRequestSchema, type InvoiceRequest, type QuotationRequest } from "../invoice/schema";
+import {
+  invoiceRequestSchema,
+  invoiceRequestShape,
+  quotationRequestSchema,
+  quotationRequestShape,
+} from "../invoice/schema";
+
+function validationError(error: z.ZodError) {
+  return {
+    isError: true,
+    content: [{ type: "text" as const, text: error.issues.map((issue) => `${issue.path.join(".")}: ${issue.message}`).join("; ") }],
+  };
+}
 
 export function createInvoiceMcpServer(options: InvoiceBundleOptions = {}): McpServer {
   const server = new McpServer({
@@ -16,10 +29,12 @@ export function createInvoiceMcpServer(options: InvoiceBundleOptions = {}): McpS
       title: "Calculate Fidexa invoice",
       description:
         "Validate a Fidexa invoice request and calculate UGX task amounts, group subtotals, tax, and total. The calling AI supplies private hour estimates; the server performs all arithmetic.",
-      inputSchema: invoiceRequestSchema,
+      inputSchema: invoiceRequestShape,
     },
-    async (request) => {
-      const calculation = calculateInvoice(request as InvoiceRequest);
+    async (request: unknown) => {
+      const parsed = invoiceRequestSchema.safeParse(request);
+      if (!parsed.success) return validationError(parsed.error);
+      const calculation = calculateInvoice(parsed.data);
       return {
         content: [{ type: "text", text: JSON.stringify(calculation, null, 2) }],
       };
@@ -32,10 +47,12 @@ export function createInvoiceMcpServer(options: InvoiceBundleOptions = {}): McpS
       title: "Calculate Fidexa quotation",
       description:
         "Validate a Fidexa quotation request and calculate UGX task amounts, group subtotals, tax, and total. The calling AI supplies private hour estimates; the server performs all arithmetic.",
-      inputSchema: quotationRequestSchema,
+      inputSchema: quotationRequestShape,
     },
-    async (request) => {
-      const calculation = calculateQuotation(request as QuotationRequest);
+    async (request: unknown) => {
+      const parsed = quotationRequestSchema.safeParse(request);
+      if (!parsed.success) return validationError(parsed.error);
+      const calculation = calculateQuotation(parsed.data);
       return {
         content: [{ type: "text", text: JSON.stringify(calculation, null, 2) }],
       };
@@ -48,10 +65,12 @@ export function createInvoiceMcpServer(options: InvoiceBundleOptions = {}): McpS
       title: "Create Fidexa quotation bundle",
       description:
         "Calculate and write a branded Fidexa client quotation PDF, an internal estimate PDF with hours and rates, and a calculation JSON audit. Client output never exposes private hours or rates; long quotations paginate across A4 pages automatically.",
-      inputSchema: quotationRequestSchema,
+      inputSchema: quotationRequestShape,
     },
-    async (request) => {
-      const result = await createQuotationBundle(request as QuotationRequest, options);
+    async (request: unknown) => {
+      const parsed = quotationRequestSchema.safeParse(request);
+      if (!parsed.success) return validationError(parsed.error);
+      const result = await createQuotationBundle(parsed.data, options);
       return {
         content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
       };
@@ -64,10 +83,12 @@ export function createInvoiceMcpServer(options: InvoiceBundleOptions = {}): McpS
       title: "Create Fidexa invoice bundle",
       description:
         "Calculate and write a branded Fidexa client invoice PDF, an internal statement PDF with hours and rates, and a calculation JSON audit. Client output never exposes private hours or rates; long invoices paginate across A4 pages automatically.",
-      inputSchema: invoiceRequestSchema,
+      inputSchema: invoiceRequestShape,
     },
-    async (request) => {
-      const result = await createInvoiceBundle(request as InvoiceRequest, options);
+    async (request: unknown) => {
+      const parsed = invoiceRequestSchema.safeParse(request);
+      if (!parsed.success) return validationError(parsed.error);
+      const result = await createInvoiceBundle(parsed.data, options);
       return {
         content: [{ type: "text", text: JSON.stringify(result, null, 2) }],
       };
