@@ -1,0 +1,133 @@
+<svg width="1440" height="4200" viewBox="0 0 1440 4200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="4200" fill="#F7F9FC"/>
+  <style>
+    .ink{fill:#101828}.cloud{fill:#F7F9FC}.muted{fill:#667085}.dark-muted{fill:#AAB4C5}.mint{fill:#37D6C0}.violet{fill:#7C5CFC}.label{font:700 12px Inter,Arial,sans-serif;letter-spacing:1.6px}.nav{font:700 12px Inter,Arial,sans-serif;letter-spacing:1px}.h1{font:700 58px Inter,Arial,sans-serif;letter-spacing:-2px}.h2{font:700 42px Inter,Arial,sans-serif;letter-spacing:-1.5px}.h3{font:700 22px Inter,Arial,sans-serif}.body{font:400 18px Inter,Arial,sans-serif}.small{font:400 14px Inter,Arial,sans-serif}
+  </style>
+  <text x="60" y="54" class="label muted">FIDEXA / SITE REDESIGN REVIEW</text>
+  <text x="60" y="96" class="h2 ink">A clearer studio system.</text>
+  <text x="1130" y="54" class="label muted">PENCIL BOARD / V2</text>
+
+  <!-- Home -->
+  <rect x="60" y="140" width="1320" height="620" rx="28" fill="#101828"/>
+  <text x="94" y="184" class="label mint">01 / HOME</text>
+  <text x="94" y="230" class="h3 cloud">fidexa</text>
+  <text x="300" y="228" class="nav dark-muted">WORK     STUDIO     CONTACT</text>
+  <text x="1110" y="184" class="nav cloud">START A PROJECT ↗</text>
+  <text x="94" y="338" class="h1 cloud">We build software</text>
+  <text x="94" y="404" class="h1 cloud">for people moving forward.</text>
+  <text x="94" y="478" class="body dark-muted">Client work + own products.</text>
+  <text x="94" y="506" class="body dark-muted">One studio, two engines.</text>
+  <circle cx="1130" cy="404" r="190" fill="#18253A"/>
+  <circle cx="1180" cy="340" r="120" fill="#7C5CFC" opacity=".8"/>
+  <circle cx="1050" cy="500" r="105" fill="#37D6C0" opacity=".8"/>
+  <path d="M1092 278H1216L1182 320H1132V338H1180L1148 380H1132V426H1092V278Z" fill="#F7F9FC"/>
+  <path d="M1092 278H1216L1182 320H1132V300H1092V278Z" fill="#7C5CFC"/>
+  <path d="M1132 338H1180L1148 380H1132V338Z" fill="#37D6C0"/>
+  <text x="116" y="664" class="label mint">CLIENT SOLUTIONS</text>
+  <text x="116" y="704" class="h3 cloud">Build what matters.</text>
+  <text x="518" y="664" class="label violet">INNOVATION LAB</text>
+  <text x="518" y="704" class="h3 cloud">Make the next thing.</text>
+  <text x="920" y="664" class="label mint">FEATURED / RISHI</text>
+  <text x="920" y="704" class="h3 cloud">Read more like yourself.</text>
+
+  <!-- Work -->
+  <rect x="60" y="820" width="1320" height="620" rx="28" fill="#FFFFFF" stroke="#D0D5DD"/>
+  <text x="94" y="864" class="label muted">02 / WORK</text>
+  <text x="94" y="948" class="h1 ink">Work with a point of view.</text>
+  <text x="94" y="1002" class="body muted">Products, platforms, and experiments built to make complex things feel simple.</text>
+  <rect x="94" y="1050" width="105" height="36" rx="18" fill="#101828"/>
+  <text x="125" y="1074" class="nav cloud">ALL</text>
+  <rect x="212" y="1050" width="180" height="36" rx="18" fill="#EEF2FF"/>
+  <text x="240" y="1074" class="nav ink">AI &amp; AUTOMATION</text>
+  <rect x="406" y="1050" width="180" height="36" rx="18" fill="#E6FFFB"/>
+  <text x="435" y="1074" class="nav ink">CROSS-PLATFORM</text>
+  <rect x="94" y="1130" width="602" height="250" rx="22" fill="#101828"/>
+  <text x="120" y="1220" class="h3 cloud">RISHI</text>
+  <text x="120" y="1252" class="label mint">INNOVATION · CROSS-PLATFORM</text>
+  <text x="120" y="1290" class="body dark-muted">A calmer way to read with AI.</text>
+  <rect x="724" y="1130" width="298" height="250" rx="22" fill="#EEF2FF"/>
+  <text x="752" y="1200" class="h3 ink">MONEY LENDING</text>
+  <text x="752" y="1232" class="label muted">SAAS · FINANCE</text>
+  <text x="752" y="1270" class="small muted">Make the numbers work harder.</text>
+  <rect x="1048" y="1130" width="298" height="250" rx="22" fill="#E6FFFB"/>
+  <text x="1076" y="1200" class="h3 ink">AI SCRAPING</text>
+  <text x="1076" y="1232" class="label muted">AI · DEVELOPER TOOL</text>
+  <text x="1076" y="1270" class="small muted">Turn the web into signal.</text>
+
+  <!-- Case study -->
+  <rect x="60" y="1500" width="1320" height="620" rx="28" fill="#101828"/>
+  <text x="94" y="1544" class="label mint">03 / CASE STUDY / RISHI</text>
+  <text x="94" y="1630" class="h1 cloud">A calmer way</text>
+  <text x="94" y="1696" class="h1 cloud">to read with AI.</text>
+  <text x="94" y="1760" class="body dark-muted">A cross-platform reading space that keeps intelligence close, quiet, and useful.</text>
+  <text x="94" y="1810" class="label dark-muted">TAURI · RUST   /   REACT NATIVE   /   ON-DEVICE AI</text>
+  <rect x="770" y="1580" width="540" height="340" rx="22" fill="#18253A"/>
+  <rect x="830" y="1640" width="420" height="240" rx="16" fill="#0F1725" stroke="#31425C"/>
+  <rect x="868" y="1680" width="260" height="12" rx="6" fill="#F7F9FC" opacity=".9"/>
+  <rect x="868" y="1710" width="330" height="8" rx="4" fill="#AAB4C5" opacity=".7"/>
+  <rect x="868" y="1750" width="340" height="96" rx="12" fill="#7C5CFC" opacity=".82"/>
+  <circle cx="1192" cy="1800" r="38" fill="#37D6C0" opacity=".82"/>
+  <text x="850" y="1960" class="h3 cloud">Read deeply. Ask better questions.</text>
+  <text x="120" y="2050" class="label mint">THE PROBLEM</text>
+  <text x="120" y="2084" class="h3 cloud">Reading apps got noisy.</text>
+  <text x="522" y="2050" class="label violet">THE APPROACH</text>
+  <text x="522" y="2084" class="h3 cloud">AI that knows when to stay quiet.</text>
+  <text x="924" y="2050" class="label mint">THE RESULT</text>
+  <text x="924" y="2084" class="h3 cloud">A calmer way to learn.</text>
+
+  <!-- Studio -->
+  <rect x="60" y="2180" width="1320" height="620" rx="28" fill="#FFFFFF" stroke="#D0D5DD"/>
+  <text x="94" y="2224" class="label muted">04 / STUDIO</text>
+  <text x="94" y="2308" class="h1 ink">One studio. Two engines.</text>
+  <text x="94" y="2362" class="body muted">We partner with ambitious teams—and build the tools we wish existed.</text>
+  <rect x="94" y="2420" width="604" height="250" rx="22" fill="#101828"/>
+  <text x="124" y="2480" class="label mint">CLIENT SOLUTIONS</text>
+  <text x="124" y="2530" class="h3 cloud">Build what matters.</text>
+  <text x="124" y="2570" class="small dark-muted">Web, mobile, and full-stack systems for teams ready to move.</text>
+  <rect x="738" y="2420" width="608" height="250" rx="22" fill="#E6FFFB"/>
+  <text x="768" y="2480" class="label violet">INNOVATION LAB</text>
+  <text x="768" y="2530" class="h3 ink">Make the next thing.</text>
+  <text x="768" y="2570" class="small muted">Own products and experiments shaped by real constraints.</text>
+  <text x="94" y="2750" class="label muted">HOW WE WORK</text>
+  <text x="320" y="2750" class="nav ink">01 / FIND THE SIGNAL</text>
+  <text x="560" y="2750" class="nav ink">02 / SHAPE THE SYSTEM</text>
+  <text x="820" y="2750" class="nav ink">03 / SHIP WITH CARE</text>
+  <text x="1080" y="2750" class="nav ink">04 / KEEP LEARNING</text>
+
+  <!-- Contact -->
+  <rect x="60" y="2860" width="1320" height="620" rx="28" fill="#101828"/>
+  <text x="94" y="2904" class="label mint">05 / CONTACT</text>
+  <text x="94" y="2990" class="h1 cloud">Have a hard problem?</text>
+  <text x="94" y="3056" class="h1 cloud">Let’s make it clearer.</text>
+  <text x="94" y="3120" class="body dark-muted">Tell us what you want to make better. We’ll bring the questions, structure, and a clear next step.</text>
+  <text x="94" y="3280" class="h3 cloud">A good project starts with a specific problem.</text>
+  <rect x="770" y="2940" width="540" height="440" rx="22" fill="#F7F9FC"/>
+  <text x="812" y="3010" class="label muted">YOUR NAME</text>
+  <text x="1050" y="3010" class="label muted">EMAIL ADDRESS</text>
+  <rect x="800" y="3032" width="214" height="48" rx="10" fill="#FFFFFF" stroke="#D0D5DD"/>
+  <rect x="1038" y="3032" width="230" height="48" rx="10" fill="#FFFFFF" stroke="#D0D5DD"/>
+  <text x="820" y="3063" class="small muted">Jane Doe</text>
+  <text x="1058" y="3063" class="small muted">jane@company.com</text>
+  <text x="812" y="3130" class="label muted">WHAT ARE YOU WORKING ON?</text>
+  <rect x="800" y="3152" width="468" height="110" rx="10" fill="#FFFFFF" stroke="#D0D5DD"/>
+  <text x="820" y="3185" class="small muted">A new product, a stuck system, or a better way to do the work.</text>
+  <rect x="800" y="3290" width="164" height="48" rx="10" fill="#101828"/>
+  <rect x="982" y="3290" width="164" height="48" rx="10" fill="#E6E9EF"/>
+  <text x="826" y="3320" class="nav cloud">SEND BRIEF ↗</text>
+  <text x="1005" y="3320" class="nav ink">ASK AI INSTEAD</text>
+
+  <!-- System -->
+  <rect x="60" y="3540" width="1320" height="600" rx="28" fill="#FFFFFF" stroke="#D0D5DD"/>
+  <text x="94" y="3584" class="label muted">06 / COMPONENTS</text>
+  <text x="94" y="3668" class="h1 ink">The system behind the screens.</text>
+  <text x="94" y="3722" class="body muted">Clear roles for color, type, spacing, interaction, and motion.</text>
+  <rect x="94" y="3800" width="250" height="180" rx="18" fill="#101828"/>
+  <rect x="368" y="3800" width="250" height="180" rx="18" fill="#7C5CFC"/>
+  <rect x="642" y="3800" width="250" height="180" rx="18" fill="#37D6C0"/>
+  <text x="120" y="3860" class="label cloud">INK / #101828</text>
+  <text x="394" y="3860" class="label cloud">VIOLET / #7C5CFC</text>
+  <text x="668" y="3860" class="label ink">MINT / #37D6C0</text>
+  <rect x="916" y="3800" width="430" height="180" rx="18" fill="#FFFFFF" stroke="#D0D5DD"/>
+  <text x="950" y="3860" class="label muted">CARD / PROJECT</text>
+  <text x="950" y="3915" class="h3 ink">Readable by design.</text>
+</svg>

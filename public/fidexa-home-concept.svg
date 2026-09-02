@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="1120" viewBox="0 0 1440 1120">
+  <g>
+    <g>
+      <path d="M0 0L1440 0L1440 1120L0 1120L0 0Z" fill="#101828"/>
+      <path d="M0 0L1440 0L1440 84L0 84L0 0Z" fill="#101828"/>
+      <path d="M72 84L1368 84L1368 85L72 85L72 84Z" fill="#263449"/>
+      <path d="M812 350C812 504.64 937.36 630 1092 630C1246.64 630 1372 504.64 1372 350C1372 195.36 1246.64 70 1092 70C937.36 70 812 195.36 812 350Z" fill="#18253A"/>
+      <path d="M1016 260C1016 356.1 1093.9 434 1190 434C1286.1 434 1364 356.1 1364 260C1364 163.9 1286.1 86 1190 86C1093.9 86 1016 163.9 1016 260Z" fill="#7C5CFC"/>
+      <path d="M870 480C870 566.16 939.84 636 1026 636C1112.16 636 1182 566.16 1182 480C1182 393.84 1112.16 324 1026 324C939.84 324 870 393.84 870 480Z" fill="#37D6C0"/>
+      <path d="M1123 323.5L1311.5 323.5L1260.75 384.4L1188.25 384.4L1188.25 410.5L1253.5 410.5L1207.1 471.4L1188.25 471.4L1188.25 535.2L1123 535.2L1123 323.5Z" fill="#F7F9FC"/>
+      <path d="M1123 323.5L1311.5 323.5L1260.75 384.4L1188.25 384.4L1188.25 355.4L1123 355.4L1123 323.5Z" fill="#7C5CFC"/>
+      <path d="M1188.25 410.5L1253.5 410.5L1207.1 471.4L1188.25 471.4L1188.25 410.5Z" fill="#37D6C0"/>
+      <path d="M72 724L1368 724L1368 725L72 725L72 724Z" fill="#263449"/>
+      <path d="M92 778L462 778C473.05 778 482 786.95 482 798L482 968C482 979.05 473.05 988 462 988L92 988C80.95 988 72 979.05 72 968L72 798C72 786.95 80.95 778 92 778Z" fill="#18253A"/>
+      <path d="M534 778L904 778C915.05 778 924 786.95 924 798L924 968C924 979.05 915.05 988 904 988L534 988C522.95 988 514 979.05 514 968L514 798C514 786.95 522.95 778 534 778Z" fill="#18253A"/>
+      <path d="M976 778L1348 778C1359.05 778 1368 786.95 1368 798L1368 968C1368 979.05 1359.05 988 1348 988L976 988C964.95 988 956 979.05 956 968L956 798C956 786.95 964.95 778 976 778Z" fill="#18253A"/>
+      <path d="M1024 828L1126 828C1128.21 828 1130 829.79 1130 832L1130 832C1130 834.21 1128.21 836 1126 836L1024 836C1021.79 836 1020 834.21 1020 832L1020 832C1020 829.79 1021.79 828 1024 828Z" fill="#7C5CFC"/>
+      <path d="M1026 858L1234 858C1237.31 858 1240 860.69 1240 864L1240 864C1240 867.31 1237.31 870 1234 870L1026 870C1022.69 870 1020 867.31 1020 864L1020 864C1020 860.69 1022.69 858 1026 858Z" fill="#F7F9FC"/>
+      <path d="M1025 884L1185 884C1187.76 884 1190 886.24 1190 889L1190 889C1190 891.76 1187.76 894 1185 894L1025 894C1022.24 894 1020 891.76 1020 889L1020 889C1020 886.24 1022.24 884 1025 884Z" fill="#AAB4C5"/>
+    </g>
+    <g transform="translate(250, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">WORK</text>
+    </g>
+    <g transform="translate(72, 28)">
+      <text x="0" y="22" font-family="Inter" font-size="22" font-weight="700" fill="#F7F9FC">fidexa</text>
+    </g>
+    <g transform="translate(350, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">STUDIO</text>
+    </g>
+    <g transform="translate(450, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">CONTACT</text>
+    </g>
+    <g transform="translate(72, 150)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#37D6C0">SOFTWARE STUDIO / KAMPALA ↗</text>
+    </g>
+    <g transform="translate(1180, 28)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#AAB4C5">START A PROJECT ↗</text>
+    </g>
+    <g transform="translate(72, 202)">
+      <text x="0" y="58" font-family="Inter" font-size="58" font-weight="700" fill="#F7F9FC">We build software
+for people moving forward.</text>
+    </g>
+    <g transform="translate(72, 558)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#AAB4C5">VIEW SELECTED WORK</text>
+    </g>
+    <g transform="translate(72, 442)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#AAB4C5">Client work funds our own products.
+One studio, two engines, a shared point of view.</text>
+    </g>
+    <g transform="translate(304, 558)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#AAB4C5">START A CONVERSATION</text>
+    </g>
+    <g transform="translate(1015, 594)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#AAB4C5">CLIENT WORK / OWN PRODUCTS</text>
+    </g>
+    <g transform="translate(72, 758)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#37D6C0">01 / CLIENT SOLUTIONS</text>
+    </g>
+    <g transform="translate(72, 794)">
+      <text x="0" y="28" font-family="Inter" font-size="28" font-weight="700" fill="#F7F9FC">Build what matters.</text>
+    </g>
+    <g transform="translate(72, 856)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#AAB4C5">Web, mobile, and full-stack systems for teams ready to move.</text>
+    </g>
+    <g transform="translate(514, 758)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#7C5CFC">02 / INNOVATION LAB</text>
+    </g>
+    <g transform="translate(514, 794)">
+      <text x="0" y="28" font-family="Inter" font-size="28" font-weight="700" fill="#F7F9FC">Make the next thing.</text>
+    </g>
+    <g transform="translate(514, 856)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#AAB4C5">Our own products, experiments, and tools for a changing world.</text>
+    </g>
+    <g transform="translate(956, 758)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#37D6C0">FEATURED / RISHI</text>
+    </g>
+    <g transform="translate(956, 794)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#AAB4C5">Read more like yourself.</text>
+    </g>
+    <g transform="translate(956, 856)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#AAB4C5">A cross-platform reader with on-device AI and voice chat.</text>
+    </g>
+  </g>
+</svg>

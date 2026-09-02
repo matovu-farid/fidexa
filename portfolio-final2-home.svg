@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1640" height="820" viewBox="0 0 1640 820">
+  <g>
+    <rect width="1640" height="820" rx="24" ry="24" fill="#151821"/>
+    <g transform="translate(48, 44)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#36D6BF">FARID MATOVU / SOFTWARE ENGINEER</text>
+    </g>
+    <g transform="translate(700, 44)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#B8C7DD">WORK  /  EXPERIENCE  /  CONTACT</text>
+    </g>
+    <g transform="translate(48, 300)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#B8C7DD">Native Apple products, full-stack platforms, and AI systems built from first principles.</text>
+    </g>
+    <g transform="translate(48, 410)">
+      <text x="0" y="13" font-family="Inter" font-size="13" font-weight="700" fill="#FFFEFA">VIEW PROJECTS ↗</text>
+    </g>
+    <g transform="translate(220, 410)">
+      <text x="0" y="13" font-family="Inter" font-size="13" font-weight="700" fill="#36D6BF">GET IN TOUCH ↗</text>
+    </g>
+    <g transform="translate(950, 92)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#B8C7DD">FM / SYSTEMS THAT SHIP</text>
+    </g>
+    <g transform="translate(1170, 20)">
+      <ellipse cx="95" cy="95" rx="95" ry="95" fill="#6F55E8"/>
+    </g>
+    <g transform="translate(1050, 165)">
+      <ellipse cx="65" cy="65" rx="65" ry="65" fill="#36D6BF"/>
+    </g>
+    <g transform="translate(820, 430)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#36D6BF">SELECTED SIGNAL</text>
+    </g>
+    <g transform="translate(820, 468)">
+      <text x="0" y="28" font-family="Inter" font-size="28" font-weight="700" fill="#FFFEFA">Evidence over adjectives.</text>
+    </g>
+    <g transform="translate(820, 505)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#B8C7DD">Rishi · Money Lending · Inventory + Trade</text>
+    </g>
+    <g transform="translate(820, 540)">
+      <rect width="620" height="110" rx="18" ry="18" fill="#1C2740"/>
+      <g transform="translate(30, 32)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#FFFEFA">15+ PROJECTS</text>
+      </g>
+      <g transform="translate(230, 32)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#FFFEFA">6 LANGUAGES</text>
+      </g>
+      <g transform="translate(430, 32)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#FFFEFA">5+ YEARS</text>
+      </g>
+    </g>
+    <g transform="translate(48, 700)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#36D6BF">CAPABILITY SYSTEM</text>
+    </g>
+    <g transform="translate(820, 738)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#B8C7DD">RISHI / MONEY LENDING / INVENTORY + TRADE</text>
+    </g>
+    <g transform="translate(48, 130)">
+      <text x="0" y="56" font-family="Inter" font-size="56" font-weight="700" fill="#FFFEFA">I build</text>
+    </g>
+    <g transform="translate(48, 192)">
+      <text x="0" y="56" font-family="Inter" font-size="56" font-weight="700" fill="#FFFEFA">systems that ship.</text>
+    </g>
+    <g transform="translate(48, 700)">
+      <rect width="170" height="44" fill="#242E49"/>
+      <g transform="translate(18, 13)">
+        <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000"></text>
+      </g>
+    </g>
+    <g transform="translate(234, 700)">
+      <rect width="170" height="44" fill="#242E49"/>
+      <g transform="translate(18, 13)">
+        <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000"></text>
+      </g>
+    </g>
+    <g transform="translate(420, 700)">
+      <rect width="170" height="44" fill="#36D6BF"/>
+      <g transform="translate(18, 13)">
+        <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000"></text>
+      </g>
+    </g>
+    <g transform="translate(606, 700)">
+      <rect width="170" height="44" fill="#E9E0D1"/>
+      <g transform="translate(18, 13)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#151821">DevOps + Infra</text>
+      </g>
+    </g>
+  </g>
+</svg>

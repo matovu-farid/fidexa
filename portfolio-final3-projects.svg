@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1640" height="1040" viewBox="0 0 1640 1040">
+  <g>
+    <rect width="1640" height="1040" rx="24" ry="24" fill="#F3EEE4"/>
+    <g transform="translate(48, 48)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#6F55E8">SELECTED WORK / 18 PROJECTS</text>
+    </g>
+    <g transform="translate(48, 94)">
+      <text x="0" y="42" font-family="Inter" font-size="42" font-weight="700" fill="#151821">Work with a point of view.</text>
+    </g>
+    <g transform="translate(48, 166)">
+      <text x="0" y="16" font-family="Inter" font-size="16" fill="#667085">Search the catalog. Follow the decisions.</text>
+    </g>
+    <g transform="translate(1040, 94)">
+      <rect width="260" height="42" rx="21" ry="21" fill="#FFFEFA"/>
+      <g transform="translate(20, 12)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">SEARCH PROJECTS</text>
+      </g>
+    </g>
+    <g transform="translate(1320, 94)">
+      <rect width="70" height="42" rx="21" ry="21" fill="#151821"/>
+      <g transform="translate(16, 12)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#FFFEFA">ALL</text>
+      </g>
+    </g>
+    <g transform="translate(1410, 94)">
+      <rect width="120" height="42" rx="21" ry="21" fill="#E9E0D1"/>
+      <g transform="translate(12, 12)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#151821">NATIVE APPLE</text>
+      </g>
+    </g>
+    <g transform="translate(48, 205)">
+      <rect width="360" height="286" rx="20" ry="20" fill="#151821"/>
+      <g transform="translate(22, 32)">
+        <text x="0" y="15" font-family="Inter" font-size="15" font-weight="700" fill="#FFFEFA">RISHI</text>
+      </g>
+      <g transform="translate(22, 57)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#B8C7DD">Native Apple Apps</text>
+      </g>
+      <g transform="translate(22, 102)">
+        <text x="0" y="20" font-family="Inter" font-size="20" font-weight="700" fill="#FFFEFA">A calmer way to read.</text>
+      </g>
+      <g transform="translate(22, 150)">
+        <rect width="312" height="72" rx="14" ry="14" fill="#242E49"/>
+        <g transform="translate(18, 18)">
+          <text x="0" y="10" font-family="Inter" font-size="10" font-weight="700" fill="#36D6BF">PROJECT SNAPSHOT</text>
+        </g>
+        <g transform="translate(18, 42)">
+          <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#FFFEFA">READ / LISTEN</text>
+        </g>
+      </g>
+      <g transform="translate(22, 250)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#FFFEFA">CASE STUDY ↗</text>
+      </g>
+    </g>
+    <g transform="translate(428, 205)">
+      <rect width="360" height="286" rx="20" ry="20" fill="#E9E0D1"/>
+      <g transform="translate(22, 32)">
+        <text x="0" y="15" font-family="Inter" font-size="15" font-weight="700" fill="#151821">MONEY LENDING MANAGEMENT SYSTEM</text>
+      </g>
+      <g transform="translate(22, 57)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">Web Applications</text>
+      </g>
+      <g transform="translate(22, 102)">
+        <text x="0" y="20" font-family="Inter" font-size="20" font-weight="700" fill="#151821">Make the numbers work harder.</text>
+      </g>
+      <g transform="translate(22, 150)">
+        <rect width="312" height="72" rx="14" ry="14" fill="#FFFEFA"/>
+        <g transform="translate(18, 18)">
+          <text x="0" y="10" font-family="Inter" font-size="10" font-weight="700" fill="#8A6A3D">PROJECT SNAPSHOT</text>
+        </g>
+        <g transform="translate(18, 42)">
+          <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#151821">LEDGER / LIVE</text>
+        </g>
+      </g>
+      <g transform="translate(22, 250)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#151821">CASE STUDY ↗</text>
+      </g>
+    </g>
+    <g transform="translate(808, 205)">
+      <rect width="360" height="286" rx="20" ry="20" fill="#36D6BF"/>
+      <g transform="translate(22, 32)">
+        <text x="0" y="15" font-family="Inter" font-size="15" font-weight="700" fill="#151821">INVENTORY AND TRADE MANAGEMENT SYSTEM</text>
+      </g>
+      <g transform="translate(22, 57)">
+        <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000"></text>
+      </g>
+      <g transform="translate(22, 102)">
+        <text x="0" y="20" font-family="Inter" font-size="20" font-weight="700" fill="#151821">One ledger for every handoff.</text>
+      </g>
+      <g transform="translate(22, 150)">
+        <rect width="312" height="72" rx="14" ry="14" fill="#FFFEFA"/>
+        <g transform="translate(18, 18)">
+          <text x="0" y="10" font-family="Inter" font-size="10" font-weight="700" fill="#8A6A3D">PROJECT SNAPSHOT</text>
+        </g>
+        <g transform="translate(18, 42)">
+          <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#151821">LEDGER / LIVE</text>
+        </g>
+      </g>
+      <g transform="translate(22, 250)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#151821">CASE STUDY ↗</text>
+      </g>
+    </g>
+    <g transform="translate(1188, 205)">
+      <rect width="360" height="286" rx="20" ry="20" fill="#6F55E8"/>
+      <g transform="translate(22, 32)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#000000">Maria</text>
+      </g>
+      <g transform="translate(22, 57)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#E6E0FF">AI &amp; Automation</text>
+      </g>
+      <g transform="translate(22, 102)">
+        <text x="0" y="20" font-family="Inter" font-size="20" font-weight="700" fill="#FFFEFA">Trading without the noise.</text>
+      </g>
+      <g transform="translate(22, 250)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#FFFEFA">NO PUBLIC LINK</text>
+      </g>
+    </g>
+    <g transform="translate(48, 525)">
+      <rect width="360" height="180" rx="18" ry="18" fill="#FFFEFA"/>
+      <g transform="translate(22, 30)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#151821">AI Scraping Ecosystem</text>
+      </g>
+      <g transform="translate(22, 120)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">AI + Developer tool</text>
+      </g>
+      <g transform="translate(22, 80)">
+        <text x="0" y="10" font-family="Inter" font-size="10" font-weight="700" fill="#513AC5">CASE STUDY / SOURCE</text>
+      </g>
+    </g>
+    <g transform="translate(428, 525)">
+      <rect width="360" height="180" rx="18" ry="18" fill="#E9E0D1"/>
+      <g transform="translate(22, 30)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#151821">CaseMedInsurance</text>
+      </g>
+      <g transform="translate(22, 120)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">Cross-Platform Apps</text>
+      </g>
+      <g transform="translate(22, 80)">
+        <text x="0" y="10" font-family="Inter" font-size="10" font-weight="700" fill="#513AC5">CASE STUDY / SOURCE</text>
+      </g>
+    </g>
+    <g transform="translate(808, 525)">
+      <rect width="360" height="180" rx="18" ry="18" fill="#FFFEFA"/>
+      <g transform="translate(22, 30)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#151821">Painter</text>
+      </g>
+      <g transform="translate(22, 120)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">Web Applications</text>
+      </g>
+      <g transform="translate(22, 80)">
+        <text x="0" y="10" font-family="Inter" font-size="10" font-weight="700" fill="#513AC5">CASE STUDY / SOURCE</text>
+      </g>
+    </g>
+    <g transform="translate(1188, 525)">
+      <rect width="360" height="180" rx="18" ry="18" fill="#E9E0D1"/>
+      <g transform="translate(22, 30)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#151821">Apartment Manager</text>
+      </g>
+      <g transform="translate(22, 120)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">Web Applications</text>
+      </g>
+      <g transform="translate(22, 80)">
+        <text x="0" y="10" font-family="Inter" font-size="10" font-weight="700" fill="#513AC5">CASE STUDY / SOURCE</text>
+      </g>
+    </g>
+    <g transform="translate(48, 755)">
+      <rect width="1512" height="208" rx="18" ry="18" fill="#151821"/>
+      <g transform="translate(30, 40)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#36D6BF">FULL CATALOG / 18 PROJECTS</text>
+      </g>
+      <g transform="translate(1210, 40)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#E9E0D1">ALL / CATEGORY / SEARCH / PAGE 1</text>
+      </g>
+      <g transform="translate(30, 84)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#FFFEFA">Book Reader / Proxy Service / Realtime Analytics / RC-Textfield / Pearl of Africa Tour</text>
+      </g>
+      <g transform="translate(30, 120)">
+        <text x="0" y="14" font-family="Inter" font-size="14" font-weight="700" fill="#B8C7DD">Case Dashboard / Sophie Website / Stocks App / Space Travellers / Apartment Manager (Rails)</text>
+      </g>
+    </g>
+  </g>
+</svg>

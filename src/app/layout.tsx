@@ -1,5 +1,16 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const fidexaSans = localFont({
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-fidexa-sans",
+  display: "swap",
+  weight: "100 900",
+  style: "normal",
+  preload: true,
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+});
 
 export const metadata: Metadata = {
   title: "Fidexa — Software Studio",
@@ -16,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className={`${fidexaSans.variable} antialiased`}>{children}</body>
     </html>
   );
 }

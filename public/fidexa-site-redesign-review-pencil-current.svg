@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="5400" viewBox="0 0 1440 5400">
+  <g>
+    <g>
+      <path d="M0 0L1440 0L1440 5400L0 5400L0 0Z" fill="#F7F9FC"/>
+      <path d="M60 120L1380 120L1380 121L60 121L60 120Z" fill="#D0D5DD"/>
+      <path d="M88 180L1352 180C1367.46 180 1380 192.54 1380 208L1380 912C1380 927.46 1367.46 940 1352 940L88 940C72.54 940 60 927.46 60 912L60 208C60 192.54 72.54 180 88 180Z" fill="#101828"/>
+      <path d="M60 180L1380 180L1380 181L60 181L60 180Z" fill="#31425C"/>
+      <path d="M870 430C870 573.59 986.41 690 1130 690C1273.59 690 1390 573.59 1390 430C1390 286.41 1273.59 170 1130 170C986.41 170 870 286.41 870 430Z" fill="#18253A"/>
+      <path d="M1030 350C1030 438.37 1101.63 510 1190 510C1278.37 510 1350 438.37 1350 350C1350 261.63 1278.37 190 1190 190C1101.63 190 1030 261.63 1030 350Z" fill="#7C5CFC"/>
+      <path d="M888 550C888 628.42 951.58 692 1030 692C1108.42 692 1172 628.42 1172 550C1172 471.58 1108.42 408 1030 408C951.58 408 888 471.58 888 550Z" fill="#37D6C0"/>
+      <path d="M1088 290L1230 290L1192 336L1138 336L1138 356L1190 356L1154 404L1138 404L1138 456L1088 456L1088 290Z" fill="#F7F9FC"/>
+      <path d="M1088 290L1230 290L1192 336L1138 336L1138 314L1088 314L1088 290Z" fill="#7C5CFC"/>
+      <path d="M1138 356L1190 356L1154 404L1138 404L1138 356Z" fill="#37D6C0"/>
+      <path d="M110 782L456 782C464.84 782 472 789.16 472 798L472 880C472 888.84 464.84 896 456 896L110 896C101.16 896 94 888.84 94 880L94 798C94 789.16 101.16 782 110 782Z" fill="#18253A"/>
+      <path d="M512 782L858 782C866.84 782 874 789.16 874 798L874 880C874 888.84 866.84 896 858 896L512 896C503.16 896 496 888.84 496 880L496 798C496 789.16 503.16 782 512 782Z" fill="#18253A"/>
+      <path d="M914 782L1310 782C1318.84 782 1326 789.16 1326 798L1326 880C1326 888.84 1318.84 896 1310 896L914 896C905.16 896 898 888.84 898 880L898 798C898 789.16 905.16 782 914 782Z" fill="#18253A"/>
+    </g>
+    <g transform="translate(60, 1050)">
+      <path d="M28 0L1292 0C1307.46 0 1320 12.54 1320 28L1320 732C1320 747.46 1307.46 760 1292 760L28 760C12.54 760 0 747.46 0 732L0 28C0 12.54 12.54 0 28 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(60, 1220)">
+      <path d="M34 0L1286 0L1286 1L34 1L34 0Z" fill="#D0D5DD"/>
+      <path d="M53 50L120 50C130.49 50 139 58.51 139 69L139 69C139 79.49 130.49 88 120 88L53 88C42.51 88 34 79.49 34 69L34 69C34 58.51 42.51 50 53 50Z" fill="#101828"/>
+      <path d="M171 50L313 50C323.49 50 332 58.51 332 69L332 69C332 79.49 323.49 88 313 88L171 88C160.51 88 152 79.49 152 69L152 69C152 58.51 160.51 50 171 50Z" fill="#EEF2FF"/>
+      <path d="M365 50L507 50C517.49 50 526 58.51 526 69L526 69C526 79.49 517.49 88 507 88L365 88C354.51 88 346 79.49 346 69L346 69C346 58.51 354.51 50 365 50Z" fill="#E6FFFB"/>
+      <path d="M559 50L691 50C701.49 50 710 58.51 710 69L710 69C710 79.49 701.49 88 691 88L559 88C548.51 88 540 79.49 540 69L540 69C540 58.51 548.51 50 559 50Z" fill="#FFF2E7"/>
+      <path d="M56 140L614 140C626.15 140 636 149.85 636 162L636 488C636 500.15 626.15 510 614 510L56 510C43.85 510 34 500.15 34 488L34 162C34 149.85 43.85 140 56 140Z" fill="#101828"/>
+      <path d="M686 140L940 140C952.15 140 962 149.85 962 162L962 488C962 500.15 952.15 510 940 510L686 510C673.85 510 664 500.15 664 488L664 162C664 149.85 673.85 140 686 140Z" fill="#EEF2FF"/>
+      <path d="M1010 140L1264 140C1276.15 140 1286 149.85 1286 162L1286 488C1286 500.15 1276.15 510 1264 510L1010 510C997.85 510 988 500.15 988 488L988 162C988 149.85 997.85 140 1010 140Z" fill="#E6FFFB"/>
+      <path d="M160 230L300 230L264 276L208 276L208 296L260 296L226 342L208 342L208 394L160 394L160 230Z" fill="#F7F9FC"/>
+      <path d="M160 230L300 230L264 276L208 276L208 254L160 254L160 230Z" fill="#7C5CFC"/>
+      <path d="M208 296L260 296L226 342L208 342L208 296Z" fill="#37D6C0"/>
+      <path d="M34 530L636 530L636 531L34 531L34 530Z" fill="#D0D5DD"/>
+      <path d="M28 700L1292 700C1307.46 700 1320 712.54 1320 728L1320 1432C1320 1447.46 1307.46 1460 1292 1460L28 1460C12.54 1460 0 1447.46 0 1432L0 728C0 712.54 12.54 700 28 700Z" fill="#101828"/>
+      <path d="M682 790L1228 790C1240.15 790 1250 799.85 1250 812L1250 1188C1250 1200.15 1240.15 1210 1228 1210L682 1210C669.85 1210 660 1200.15 660 1188L660 812C660 799.85 669.85 790 682 790Z" fill="#18253A"/>
+    </g>
+    <g transform="translate(785, 2075)">
+      <path d="M16 0L414 0C422.84 0 430 7.16 430 16L430 274C430 282.84 422.84 290 414 290L16 290C7.16 290 0 282.84 0 274L0 16C0 7.16 7.16 0 16 0Z" fill="#0F1725" stroke="#31425C" stroke-width="1"/>
+    </g>
+    <g transform="translate(94, 2120)">
+      <path d="M737 0L995 0C998.31 0 1001 2.69 1001 6L1001 6C1001 9.31 998.31 12 995 12L737 12C733.69 12 731 9.31 731 6L731 6C731 2.69 733.69 0 737 0Z" fill="#F7F9FC"/>
+      <path d="M735 30L1067 30C1069.21 30 1071 31.79 1071 34L1071 34C1071 36.21 1069.21 38 1067 38L735 38C732.79 38 731 36.21 731 34L731 34C731 31.79 732.79 30 735 30Z" fill="#AAB4C5"/>
+      <path d="M743 80L1069 80C1075.63 80 1081 85.37 1081 92L1081 188C1081 194.63 1075.63 200 1069 200L743 200C736.37 200 731 194.63 731 188L731 92C731 85.37 736.37 80 743 80Z" fill="#7C5CFC"/>
+      <path d="M1037 140C1037 164.3 1056.7 184 1081 184C1105.3 184 1125 164.3 1125 140C1125 115.7 1105.3 96 1081 96C1056.7 96 1037 115.7 1037 140Z" fill="#37D6C0"/>
+      <path d="M16 360L364 360C372.84 360 380 367.16 380 376L380 464C380 472.84 372.84 480 364 480L16 480C7.16 480 0 472.84 0 464L0 376C0 367.16 7.16 360 16 360Z" fill="#18253A"/>
+      <path d="M418 360L766 360C774.84 360 782 367.16 782 376L782 464C782 472.84 774.84 480 766 480L418 480C409.16 480 402 472.84 402 464L402 376C402 367.16 409.16 360 418 360Z" fill="#18253A"/>
+      <path d="M820 360L1216 360C1224.84 360 1232 367.16 1232 376L1232 464C1232 472.84 1224.84 480 1216 480L820 480C811.16 480 804 472.84 804 464L804 376C804 367.16 811.16 360 820 360Z" fill="#18253A"/>
+    </g>
+    <g transform="translate(60, 2790)">
+      <path d="M28 0L1292 0C1307.46 0 1320 12.54 1320 28L1320 732C1320 747.46 1307.46 760 1292 760L28 760C12.54 760 0 747.46 0 732L0 28C0 12.54 12.54 0 28 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(94, 3000)">
+      <path d="M22 0L582 0C594.15 0 604 9.85 604 22L604 308C604 320.15 594.15 330 582 330L22 330C9.85 330 0 320.15 0 308L0 22C0 9.85 9.85 0 22 0Z" fill="#101828"/>
+      <path d="M666 0L1230 0C1242.15 0 1252 9.85 1252 22L1252 308C1252 320.15 1242.15 330 1230 330L666 330C653.85 330 644 320.15 644 308L644 22C644 9.85 653.85 0 666 0Z" fill="#E6FFFB"/>
+      <path d="M0 400L1252 400L1252 401L0 401L0 400Z" fill="#D0D5DD"/>
+    </g>
+    <g transform="translate(94, 3450)">
+      <path d="M12 0L268 0C274.63 0 280 5.37 280 12L280 38C280 44.63 274.63 50 268 50L12 50C5.37 50 0 44.63 0 38L0 12C0 5.37 5.37 0 12 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(394, 3450)">
+      <path d="M12 0L268 0C274.63 0 280 5.37 280 12L280 38C280 44.63 274.63 50 268 50L12 50C5.37 50 0 44.63 0 38L0 12C0 5.37 5.37 0 12 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(694, 3450)">
+      <path d="M12 0L268 0C274.63 0 280 5.37 280 12L280 38C280 44.63 274.63 50 268 50L12 50C5.37 50 0 44.63 0 38L0 12C0 5.37 5.37 0 12 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(60, 3450)">
+      <path d="M946 0L1274 0C1280.63 0 1286 5.37 1286 12L1286 38C1286 44.63 1280.63 50 1274 50L946 50C939.37 50 934 44.63 934 38L934 12C934 5.37 939.37 0 946 0Z" fill="#7C5CFC"/>
+      <path d="M28 210L1292 210C1307.46 210 1320 222.54 1320 238L1320 942C1320 957.46 1307.46 970 1292 970L28 970C12.54 970 0 957.46 0 942L0 238C0 222.54 12.54 210 28 210Z" fill="#101828"/>
+      <path d="M682 320L1228 320C1240.15 320 1250 329.85 1250 342L1250 838C1250 850.15 1240.15 860 1228 860L682 860C669.85 860 660 850.15 660 838L660 342C660 329.85 669.85 320 682 320Z" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(778, 3870)">
+      <path d="M10 0L224 0C229.52 0 234 4.48 234 10L234 38C234 43.52 229.52 48 224 48L10 48C4.48 48 0 43.52 0 38L0 10C0 4.48 4.48 0 10 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(1028, 3870)">
+      <path d="M10 0L214 0C219.52 0 224 4.48 224 10L224 38C224 43.52 219.52 48 214 48L10 48C4.48 48 0 43.52 0 38L0 10C0 4.48 4.48 0 10 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(778, 3960)">
+      <path d="M10 0L464 0C469.52 0 474 4.48 474 10L474 140C474 145.52 469.52 150 464 150L10 150C4.48 150 0 145.52 0 140L0 10C0 4.48 4.48 0 10 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(274, 3890)">
+      <path d="M514 270L658 270C663.52 270 668 274.48 668 280L668 308C668 313.52 663.52 318 658 318L514 318C508.48 318 504 313.52 504 308L504 280C504 274.48 508.48 270 514 270Z" fill="#101828"/>
+      <path d="M698 270L842 270C847.52 270 852 274.48 852 280L852 308C852 313.52 847.52 318 842 318L698 318C692.48 318 688 313.52 688 308L688 280C688 274.48 692.48 270 698 270Z" fill="#E6E9EF"/>
+      <path d="M0 0L156 0L116 50L54 50L54 72L112 72L74 122L54 122L54 178L0 178L0 0Z" fill="#F7F9FC"/>
+      <path d="M0 0L156 0L116 50L54 50L54 25L0 25L0 0Z" fill="#7C5CFC"/>
+      <path d="M54 72L112 72L74 122L54 122L54 72Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(60, 4530)">
+      <path d="M28 0L1292 0C1307.46 0 1320 12.54 1320 28L1320 732C1320 747.46 1307.46 760 1292 760L28 760C12.54 760 0 747.46 0 732L0 28C0 12.54 12.54 0 28 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(94, 4760)">
+      <path d="M18 0L232 0C241.94 0 250 8.06 250 18L250 202C250 211.94 241.94 220 232 220L18 220C8.06 220 0 211.94 0 202L0 18C0 8.06 8.06 0 18 0Z" fill="#101828"/>
+      <path d="M292 0L506 0C515.94 0 524 8.06 524 18L524 202C524 211.94 515.94 220 506 220L292 220C282.06 220 274 211.94 274 202L274 18C274 8.06 282.06 0 292 0Z" fill="#7C5CFC"/>
+      <path d="M566 0L780 0C789.94 0 798 8.06 798 18L798 202C798 211.94 789.94 220 780 220L566 220C556.06 220 548 211.94 548 202L548 18C548 8.06 556.06 0 566 0Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(916, 4760)">
+      <path d="M18 0L412 0C421.94 0 430 8.06 430 18L430 202C430 211.94 421.94 220 412 220L18 220C8.06 220 0 211.94 0 202L0 18C0 8.06 8.06 0 18 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(94, 5060)">
+      <path d="M0 0L1252 0L1252 1L0 1L0 0Z" fill="#D0D5DD"/>
+    </g>
+    <g transform="translate(60, 34)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#101828">FIDEXA / SITE REDESIGN REVIEW</text>
+    </g>
+    <g transform="translate(60, 62)">
+      <text x="0" y="34" font-family="Arial" font-size="34" font-weight="700" fill="#101828">A clearer studio system.</text>
+    </g>
+    <g transform="translate(1100, 44)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#101828">PENCIL BOARD / V2</text>
+    </g>
+    <g transform="translate(94, 258)">
+      <text x="0" y="24" font-family="Arial" font-size="24" font-weight="700" fill="#F7F9FC">fidexa</text>
+    </g>
+    <g transform="translate(94, 210)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#37D6C0">01 / HOME</text>
+    </g>
+    <g transform="translate(1140, 262)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#F7F9FC">START A PROJECT ↗</text>
+    </g>
+    <g transform="translate(310, 262)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#AAB4C5">WORK     STUDIO     CONTACT</text>
+    </g>
+    <g transform="translate(94, 360)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#F7F9FC">We build software</text>
+    </g>
+    <g transform="translate(94, 520)">
+      <text x="0" y="18" font-family="Arial" font-size="18" fill="#AAB4C5">Client work + own products · one studio, two engines.</text>
+    </g>
+    <g transform="translate(116, 818)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#37D6C0">CLIENT SOLUTIONS</text>
+    </g>
+    <g transform="translate(116, 848)">
+      <text x="0" y="20" font-family="Arial" font-size="20" font-weight="700" fill="#F7F9FC">Build what matters.</text>
+    </g>
+    <g transform="translate(518, 818)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#7C5CFC">INNOVATION LAB</text>
+    </g>
+    <g transform="translate(518, 848)">
+      <text x="0" y="20" font-family="Arial" font-size="20" font-weight="700" fill="#F7F9FC">Make the next thing.</text>
+    </g>
+    <g transform="translate(920, 818)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#37D6C0">FEATURED / RISHI</text>
+    </g>
+    <g transform="translate(920, 848)">
+      <text x="0" y="20" font-family="Arial" font-size="20" font-weight="700" fill="#F7F9FC">Read more like yourself.</text>
+    </g>
+    <g transform="translate(94, 1080)">
+      <text x="0" y="14" font-family="Arial" font-size="14" fill="#667085">02 / WORK</text>
+    </g>
+    <g transform="translate(1080, 1460)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#667085">AI · Developer Tool</text>
+    </g>
+    <g transform="translate(94, 1135)">
+      <text x="0" y="48" font-family="Arial" font-size="48" font-weight="700" fill="#101828">Work with a</text>
+    </g>
+    <g transform="translate(120, 1588)">
+      <text x="0" y="28" font-family="Arial" font-size="28" font-weight="700" fill="#F7F9FC">RISHI</text>
+    </g>
+    <g transform="translate(94, 1248)">
+      <text x="0" y="17" font-family="Arial" font-size="17" fill="#667085">Products, platforms, and experiments built to make complex things feel simple.</text>
+    </g>
+    <g transform="translate(760, 1460)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#667085">SaaS · Finance</text>
+    </g>
+    <g transform="translate(1080, 1420)">
+      <text x="0" y="18" font-family="Arial" font-size="18" font-weight="700" fill="#101828">AI SCRAPING</text>
+    </g>
+    <g transform="translate(94, 1950)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#37D6C0">03 / CASE STUDY / RISHI</text>
+    </g>
+    <g transform="translate(120, 1630)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#37D6C0">Innovation · Cross-platform</text>
+    </g>
+    <g transform="translate(94, 2025)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#F7F9FC">A calmer way</text>
+    </g>
+    <g transform="translate(760, 1420)">
+      <text x="0" y="18" font-family="Arial" font-size="18" font-weight="700" fill="#101828">MONEY LENDING</text>
+    </g>
+    <g transform="translate(94, 2195)">
+      <text x="0" y="20" font-family="Arial" font-size="20" font-weight="700" fill="#F7F9FC">A cross-platform reading space that keeps intelligence close, quiet, and useful.</text>
+    </g>
+    <g transform="translate(94, 2315)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#AAB4C5">TAURI · RUST   /   REACT NATIVE   /   ON-DEVICE AI</text>
+    </g>
+    <g transform="translate(785, 2045)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#AAB4C5">RISHI / 2026</text>
+    </g>
+    <g transform="translate(825, 2390)">
+      <text x="0" y="20" font-family="Arial" font-size="20" font-weight="700" fill="#F7F9FC">Read deeply. Ask better questions.</text>
+    </g>
+    <g transform="translate(120, 2530)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#37D6C0">THE PROBLEM</text>
+    </g>
+    <g transform="translate(120, 2560)">
+      <text x="0" y="20" font-family="Arial" font-size="20" font-weight="700" fill="#F7F9FC">Reading apps got noisy.</text>
+    </g>
+    <g transform="translate(522, 2530)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#7C5CFC">THE APPROACH</text>
+    </g>
+    <g transform="translate(522, 2560)">
+      <text x="0" y="20" font-family="Arial" font-size="20" font-weight="700" fill="#F7F9FC">AI that knows when to stay quiet.</text>
+    </g>
+    <g transform="translate(924, 2530)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#37D6C0">THE RESULT</text>
+    </g>
+    <g transform="translate(924, 2560)">
+      <text x="0" y="20" font-family="Arial" font-size="20" font-weight="700" fill="#F7F9FC">A calmer way to learn.</text>
+    </g>
+    <g transform="translate(94, 2820)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#667085">04 / STUDIO</text>
+    </g>
+    <g transform="translate(94, 2875)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#101828">One studio.</text>
+    </g>
+    <g transform="translate(94, 3015)">
+      <text x="0" y="17" font-family="Arial" font-size="17" fill="#667085">We partner with ambitious teams—and build the tools we wish existed.</text>
+    </g>
+    <g transform="translate(130, 3060)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#37D6C0">CLIENT SOLUTIONS</text>
+    </g>
+    <g transform="translate(130, 3110)">
+      <text x="0" y="22" font-family="Arial" font-size="22" font-weight="700" fill="#F7F9FC">Build what matters.</text>
+    </g>
+    <g transform="translate(774, 3060)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#7C5CFC">INNOVATION LAB</text>
+    </g>
+    <g transform="translate(774, 3110)">
+      <text x="0" y="22" font-family="Arial" font-size="22" font-weight="700" fill="#101828">Make the next thing.</text>
+    </g>
+    <g transform="translate(94, 3380)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#667085">HOW WE WORK</text>
+    </g>
+    <g transform="translate(94, 3420)">
+      <text x="0" y="14" font-family="Arial" font-size="14" font-weight="700" fill="#101828">01 / Find the signal</text>
+    </g>
+    <g transform="translate(394, 3420)">
+      <text x="0" y="14" font-family="Arial" font-size="14" font-weight="700" fill="#101828">02 / Shape the system</text>
+    </g>
+    <g transform="translate(694, 3420)">
+      <text x="0" y="14" font-family="Arial" font-size="14" font-weight="700" fill="#101828">03 / Ship with care</text>
+    </g>
+    <g transform="translate(994, 3420)">
+      <text x="0" y="14" font-family="Arial" font-size="14" font-weight="700" fill="#101828">04 / Keep learning</text>
+    </g>
+    <g transform="translate(94, 3690)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#37D6C0">05 / CONTACT</text>
+    </g>
+    <g transform="translate(94, 3760)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#F7F9FC">Have a hard problem?</text>
+    </g>
+    <g transform="translate(94, 3910)">
+      <text x="0" y="17" font-family="Arial" font-size="17" fill="#AAB4C5">Tell us what you want to make better. We’ll bring the questions, structure, and a clear next step.</text>
+    </g>
+    <g transform="translate(118, 3995)">
+      <text x="0" y="22" font-family="Arial" font-size="22" font-weight="700" fill="#F7F9FC">A good project starts with a specific problem.</text>
+    </g>
+    <g transform="translate(780, 3800)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">YOUR NAME</text>
+    </g>
+    <g transform="translate(1030, 3800)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">EMAIL ADDRESS</text>
+    </g>
+    <g transform="translate(800, 3885)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">Jane Doe</text>
+    </g>
+    <g transform="translate(1050, 3885)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">jane@company.com</text>
+    </g>
+    <g transform="translate(780, 3975)">
+      <text x="0" y="16" font-family="Arial" font-size="16" fill="#667085">WHAT ARE YOU WORKING ON?</text>
+    </g>
+    <g transform="translate(800, 4010)">
+      <text x="0" y="16" font-family="Arial" font-size="16" fill="#667085">A new product, a stuck system, or a better way to do the work.</text>
+    </g>
+    <g transform="translate(800, 4172)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">SEND BRIEF ↗</text>
+    </g>
+    <g transform="translate(984, 4172)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">ASK AI INSTEAD</text>
+    </g>
+    <g transform="translate(94, 4560)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#667085">06 / COMPONENTS</text>
+    </g>
+    <g transform="translate(120, 4870)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#F7F9FC">INK / #101828</text>
+    </g>
+    <g transform="translate(394, 4870)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#F7F9FC">VIOLET / #7C5CFC</text>
+    </g>
+    <g transform="translate(94, 4615)">
+      <text x="0" y="44" font-family="Arial" font-size="44" font-weight="700" fill="#101828">The system behind the screens.</text>
+    </g>
+    <g transform="translate(950, 4900)">
+      <text x="0" y="22" font-family="Arial" font-size="22" font-weight="700" fill="#101828">Readable by design.</text>
+    </g>
+    <g transform="translate(668, 4870)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#101828">MINT / #37D6C0</text>
+    </g>
+    <g transform="translate(950, 4850)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#667085">CARD / PROJECT</text>
+    </g>
+    <g transform="translate(94, 4705)">
+      <text x="0" y="17" font-family="Arial" font-size="17" fill="#667085">Clear roles for color, type, spacing, interaction, and motion.</text>
+    </g>
+    <g transform="translate(94, 424)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#F7F9FC">for people moving forward.</text>
+    </g>
+    <g transform="translate(94, 1195)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#101828">point of view.</text>
+    </g>
+    <g transform="translate(94, 2085)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#F7F9FC">to read with AI.</text>
+    </g>
+    <g transform="translate(94, 2935)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#101828">Two engines.</text>
+    </g>
+    <g transform="translate(94, 3820)">
+      <text x="0" y="52" font-family="Arial" font-size="52" font-weight="700" fill="#F7F9FC">Let’s make it clearer.</text>
+    </g>
+  </g>
+</svg>

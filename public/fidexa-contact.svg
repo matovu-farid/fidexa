@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="1020" viewBox="0 0 1440 1020">
+  <g>
+    <g>
+      <path d="M0 0L1440 0L1440 1020L0 1020L0 0Z" fill="#101828"/>
+      <path d="M0 0L1440 0L1440 84L0 84L0 0Z" fill="#101828"/>
+      <path d="M72 160L1368 160L1368 161L72 161L72 160Z" fill="#263449"/>
+      <path d="M100 240L576 240C591.46 240 604 252.54 604 268L604 812C604 827.46 591.46 840 576 840L100 840C84.54 840 72 827.46 72 812L72 268C72 252.54 84.54 240 100 240Z" fill="#18253A"/>
+      <path d="M688 240L1340 240C1355.46 240 1368 252.54 1368 268L1368 812C1368 827.46 1355.46 840 1340 840L688 840C672.54 840 660 827.46 660 812L660 268C660 252.54 672.54 240 688 240Z" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(720, 330)">
+      <path d="M12 0L272 0C278.63 0 284 5.37 284 12L284 42C284 48.63 278.63 54 272 54L12 54C5.37 54 0 48.63 0 42L0 12C0 5.37 5.37 0 12 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(1030, 330)">
+      <path d="M12 0L272 0C278.63 0 284 5.37 284 12L284 42C284 48.63 278.63 54 272 54L12 54C5.37 54 0 48.63 0 42L0 12C0 5.37 5.37 0 12 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(720, 420)">
+      <path d="M12 0L582 0C588.63 0 594 5.37 594 12L594 136C594 142.63 588.63 148 582 148L12 148C5.37 148 0 142.63 0 136L0 12C0 5.37 5.37 0 12 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(412, 415.4)">
+      <path d="M320 196.6L472 196.6C478.63 196.6 484 201.97 484 208.6L484 238.6C484 245.23 478.63 250.6 472 250.6L320 250.6C313.37 250.6 308 245.23 308 238.6L308 208.6C308 201.97 313.37 196.6 320 196.6Z" fill="#101828"/>
+      <path d="M516 196.6L668 196.6C674.63 196.6 680 201.97 680 208.6L680 238.6C680 245.23 674.63 250.6 668 250.6L516 250.6C509.37 250.6 504 245.23 504 238.6L504 208.6C504 201.97 509.37 196.6 516 196.6Z" fill="#E6E9EF"/>
+      <path d="M55.2 0L208.6 0L167.3 49.56L108.3 49.56L108.3 70.8L161.4 70.8L123.64 120.36L108.3 120.36L108.3 172.28L55.2 172.28L55.2 0Z" fill="#F7F9FC"/>
+      <path d="M55.2 0L208.6 0L167.3 49.56L108.3 49.56L108.3 25.96L55.2 25.96L55.2 0Z" fill="#7C5CFC"/>
+      <path d="M108.3 70.8L161.4 70.8L123.64 120.36L108.3 120.36L108.3 70.8Z" fill="#37D6C0"/>
+      <path d="M0 242.6C0 247.02 3.58 250.6 8 250.6C12.42 250.6 16 247.02 16 242.6C16 238.18 12.42 234.6 8 234.6C3.58 234.6 0 238.18 0 242.6Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(72, 28)">
+      <text x="0" y="22" font-family="Inter" font-size="22" font-weight="700" fill="#F7F9FC">fidexa</text>
+    </g>
+    <g transform="translate(250, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">WORK</text>
+    </g>
+    <g transform="translate(450, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">CONTACT</text>
+    </g>
+    <g transform="translate(350, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">STUDIO</text>
+    </g>
+    <g transform="translate(72, 110)">
+      <text x="0" y="16" font-family="Inter" font-size="16" fill="#AAB4C5">04 / CONTACT</text>
+    </g>
+    <g transform="translate(72, 154)">
+      <text x="0" y="58" font-family="Inter" font-size="58" font-weight="700" fill="#F7F9FC">Have a hard problem?
+Let's make it clearer.</text>
+    </g>
+    <g transform="translate(72, 344)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#AAB4C5">Tell us what you want to make better. We’ll bring the questions, structure, and a clear next step.</text>
+    </g>
+    <g transform="translate(112, 608)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#AAB4C5">A good project starts with a
+specific problem.</text>
+    </g>
+    <g transform="translate(112, 708)">
+      <text x="0" y="16" font-family="Inter" font-size="16" fill="#AAB4C5">TYPICAL RESPONSE / 2 BUSINESS DAYS</text>
+    </g>
+    <g transform="translate(720, 270)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">YOUR NAME</text>
+    </g>
+    <g transform="translate(1030, 270)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">EMAIL ADDRESS</text>
+    </g>
+    <g transform="translate(746, 350)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">Jane Doe</text>
+    </g>
+    <g transform="translate(1056, 350)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">jane@company.com</text>
+    </g>
+    <g transform="translate(720, 442)">
+      <text x="0" y="16" font-family="Inter" font-size="16" fill="#667085">WHAT ARE YOU WORKING ON?</text>
+    </g>
+    <g transform="translate(746, 474)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#AAB4C5">A new product, a stuck system,
+or a better way to do the work.</text>
+    </g>
+    <g transform="translate(720, 630)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">SEND BRIEF ↗</text>
+    </g>
+    <g transform="translate(916, 630)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">ASK AI INSTEAD</text>
+    </g>
+    <g transform="translate(72, 902)">
+      <text x="0" y="16" font-family="Inter" font-size="16" fill="#AAB4C5">FIDEXA / SOFTWARE STUDIO</text>
+    </g>
+    <g transform="translate(1060, 902)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">KAMPALA · UTC+3</text>
+    </g>
+  </g>
+</svg>
