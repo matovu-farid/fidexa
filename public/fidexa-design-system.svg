@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="960" viewBox="0 0 1440 960">
+  <g>
+    <g>
+      <path d="M0 0L1440 0L1440 960L0 960L0 0Z" fill="#F7F9FC"/>
+      <path d="M0 0L1440 0L1440 84L0 84L0 0Z" fill="#101828"/>
+      <path d="M72 156L1368 156L1368 157L72 157L72 156Z" fill="#D0D5DD"/>
+      <path d="M96 228L330 228C343.25 228 354 238.75 354 252L354 518C354 531.25 343.25 542 330 542L96 542C82.75 542 72 531.25 72 518L72 252C72 238.75 82.75 228 96 228Z" fill="#101828"/>
+      <path d="M406 228L640 228C653.25 228 664 238.75 664 252L664 518C664 531.25 653.25 542 640 542L406 542C392.75 542 382 531.25 382 518L382 252C382 238.75 392.75 228 406 228Z" fill="#7C5CFC"/>
+      <path d="M716 228L950 228C963.25 228 974 238.75 974 252L974 518C974 531.25 963.25 542 950 542L716 542C702.75 542 692 531.25 692 518L692 252C692 238.75 702.75 228 716 228Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(1002, 228)">
+      <path d="M24 0L342 0C355.25 0 366 10.75 366 24L366 290C366 303.25 355.25 314 342 314L24 314C10.75 314 0 303.25 0 290L0 24C0 10.75 10.75 0 24 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(72, 592)">
+      <path d="M0 0L1296 0L1296 1L0 1L0 0Z" fill="#D0D5DD"/>
+      <path d="M24 62L1272 62C1285.25 62 1296 72.75 1296 86L1296 238C1296 251.25 1285.25 262 1272 262L24 262C10.75 262 0 251.25 0 238L0 86C0 72.75 10.75 62 24 62Z" fill="#101828"/>
+      <path d="M1068.8 119.6L1162.4 119.6L1137.2 149.84L1101.2 149.84L1101.2 162.8L1133.6 162.8L1110.56 193.04L1101.2 193.04L1101.2 224.72L1068.8 224.72L1068.8 119.6Z" fill="#F7F9FC"/>
+      <path d="M1068.8 119.6L1162.4 119.6L1137.2 149.84L1101.2 149.84L1101.2 135.44L1068.8 135.44L1068.8 119.6Z" fill="#7C5CFC"/>
+      <path d="M1101.2 162.8L1133.6 162.8L1110.56 193.04L1101.2 193.04L1101.2 162.8Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(72, 28)">
+      <text x="0" y="22" font-family="Inter" font-size="22" font-weight="700" fill="#101828">fidexa</text>
+    </g>
+    <g transform="translate(406, 262)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">VIOLET</text>
+    </g>
+    <g transform="translate(72, 104)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">01 / DESIGN SYSTEM</text>
+    </g>
+    <g transform="translate(96, 262)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">INK</text>
+    </g>
+    <g transform="translate(72, 132)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">A precise system with room to move.</text>
+    </g>
+    <g transform="translate(72, 192)">
+      <text x="0" y="17" font-family="Inter" font-size="17" fill="#667085">A visual language for products, partnerships, and the people behind them.</text>
+    </g>
+    <g transform="translate(96, 296)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">#101828</text>
+    </g>
+    <g transform="translate(250, 31)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#667085">FIDEXA STUDIO SYSTEM</text>
+    </g>
+    <g transform="translate(716, 262)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">MINT</text>
+    </g>
+    <g transform="translate(406, 296)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">#7C5CFC</text>
+    </g>
+    <g transform="translate(1030, 604)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">COMPONENT / PROJECT CARD</text>
+    </g>
+    <g transform="translate(716, 296)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">#37D6C0</text>
+    </g>
+    <g transform="translate(1015, 724)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">type / Inter Bold</text>
+    </g>
+    <g transform="translate(1030, 262)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">CLOUD / #F7F9FC</text>
+    </g>
+    <g transform="translate(110, 680)">
+      <text x="0" y="16" font-family="Inter" font-size="16" font-weight="700" fill="#101828">Principles</text>
+    </g>
+    <g transform="translate(110, 744)">
+      <text x="0" y="17" font-family="Inter" font-size="17" fill="#667085">Precise in structure. Generous in spacing. Quietly expressive in detail.</text>
+    </g>
+  </g>
+</svg>

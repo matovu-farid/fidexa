@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="1080" viewBox="0 0 1440 1080">
+  <g>
+    <g>
+      <path d="M0 0L1440 0L1440 1080L0 1080L0 0Z" fill="#F7F9FC"/>
+      <path d="M0 0L1440 0L1440 84L0 84L0 0Z" fill="#F7F9FC"/>
+      <path d="M72 180L1368 180L1368 181L72 181L72 180Z" fill="#D0D5DD"/>
+      <path d="M100 248L664 248C679.46 248 692 260.54 692 276L692 602C692 617.46 679.46 630 664 630L100 630C84.54 630 72 617.46 72 602L72 276C72 260.54 84.54 248 100 248Z" fill="#101828"/>
+      <path d="M748 248L1340 248C1355.46 248 1368 260.54 1368 276L1368 602C1368 617.46 1355.46 630 1340 630L748 630C732.54 630 720 617.46 720 602L720 276C720 260.54 732.54 248 748 248Z" fill="#E6FFFB"/>
+      <path d="M72 704L1368 704L1368 705L72 705L72 704Z" fill="#D0D5DD"/>
+    </g>
+    <g transform="translate(72, 760)">
+      <path d="M18 0L182 0C191.94 0 200 8.06 200 18L200 102C200 111.94 191.94 120 182 120L18 120C8.06 120 0 111.94 0 102L0 18C0 8.06 8.06 0 18 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(296, 760)">
+      <path d="M18 0L182 0C191.94 0 200 8.06 200 18L200 102C200 111.94 191.94 120 182 120L18 120C8.06 120 0 111.94 0 102L0 18C0 8.06 8.06 0 18 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(520, 760)">
+      <path d="M18 0L182 0C191.94 0 200 8.06 200 18L200 102C200 111.94 191.94 120 182 120L18 120C8.06 120 0 111.94 0 102L0 18C0 8.06 8.06 0 18 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(744, 760)">
+      <path d="M18 0L182 0C191.94 0 200 8.06 200 18L200 102C200 111.94 191.94 120 182 120L18 120C8.06 120 0 111.94 0 102L0 18C0 8.06 8.06 0 18 0Z" fill="#FFFFFF" stroke="#D0D5DD" stroke-width="1"/>
+    </g>
+    <g transform="translate(968, 363)">
+      <path d="M18 397L382 397C391.94 397 400 405.06 400 415L400 499C400 508.94 391.94 517 382 517L18 517C8.06 517 0 508.94 0 499L0 415C0 405.06 8.06 397 18 397Z" fill="#7C5CFC"/>
+      <path d="M106 0L249 0L210.5 46.2L155.5 46.2L155.5 66L205 66L169.8 112.2L155.5 112.2L155.5 160.6L106 160.6L106 0Z" fill="#F7F9FC"/>
+      <path d="M106 0L249 0L210.5 46.2L155.5 46.2L155.5 24.2L106 24.2L106 0Z" fill="#7C5CFC"/>
+      <path d="M155.5 66L205 66L169.8 112.2L155.5 112.2L155.5 66Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(104, 350)">
+      <text x="0" y="32" font-family="Inter" font-size="32" font-weight="700" fill="#000000">Build what matters.</text>
+    </g>
+    <g transform="translate(450, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#000000">CONTACT</text>
+    </g>
+    <g transform="translate(72, 28)">
+      <text x="0" y="22" font-family="Inter" font-size="22" font-weight="700" fill="#000000">fidexa</text>
+    </g>
+    <g transform="translate(72, 112)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#000000">03 / STUDIO</text>
+    </g>
+    <g transform="translate(104, 296)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#000000">CLIENT SOLUTIONS</text>
+    </g>
+    <g transform="translate(72, 318)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#000000">We partner with ambitious teams—and build the tools we wish existed.</text>
+    </g>
+    <g transform="translate(250, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#000000">WORK</text>
+    </g>
+    <g transform="translate(350, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#000000">STUDIO</text>
+    </g>
+    <g transform="translate(72, 150)">
+      <text x="0" y="66" font-family="Inter" font-size="66" font-weight="700" fill="#000000">One studio.
+Two engines.</text>
+    </g>
+    <g transform="translate(104, 414)">
+      <text x="0" y="16" font-family="Inter" font-size="16" fill="#000000">Web apps, mobile products, and systems that help teams move.</text>
+    </g>
+    <g transform="translate(752, 414)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">Own products and experiments shaped by real-world constraints.</text>
+    </g>
+    <g transform="translate(752, 350)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">Make the next thing.</text>
+    </g>
+    <g transform="translate(752, 296)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#000000">INNOVATION LAB</text>
+    </g>
+    <g transform="translate(72, 792)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">01 / Find the signal</text>
+    </g>
+    <g transform="translate(296, 792)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">02 / Shape the system</text>
+    </g>
+    <g transform="translate(520, 792)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">03 / Ship with care</text>
+    </g>
+    <g transform="translate(992, 792)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">CAPABILITIES</text>
+    </g>
+    <g transform="translate(744, 792)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">04 / Keep learning</text>
+    </g>
+    <g transform="translate(72, 746)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">HOW WE WORK</text>
+    </g>
+    <g transform="translate(992, 830)">
+      <text x="0" y="14" font-family="Inter" font-size="14" fill="#000000">Web · Mobile · AI · Desktop</text>
+    </g>
+  </g>
+</svg>
