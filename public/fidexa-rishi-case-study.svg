@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="1180" viewBox="0 0 1440 1180">
+  <g>
+    <g>
+      <path d="M0 0L1440 0L1440 1180L0 1180L0 0Z" fill="#101828"/>
+      <path d="M0 0L1440 0L1440 84L0 84L0 0Z" fill="#101828"/>
+      <path d="M72 164L1368 164L1368 165L72 165L72 164Z" fill="#263449"/>
+      <path d="M100 240L1340 240C1355.46 240 1368 252.54 1368 268L1368 598C1368 613.46 1355.46 626 1340 626L100 626C84.54 626 72 613.46 72 598L72 268C72 252.54 84.54 240 100 240Z" fill="#18253A"/>
+    </g>
+    <g transform="translate(804, 274)">
+      <path d="M16 0L464 0C472.84 0 480 7.16 480 16L480 302C480 310.84 472.84 318 464 318L16 318C7.16 318 0 310.84 0 302L0 16C0 7.16 7.16 0 16 0Z" fill="#0F1725" stroke="#31425C" stroke-width="1"/>
+    </g>
+    <g transform="translate(72, 314)">
+      <path d="M779 0L1025 0C1028.87 0 1032 3.13 1032 7L1032 7C1032 10.87 1028.87 14 1025 14L779 14C775.13 14 772 10.87 772 7L772 7C772 3.13 775.13 0 779 0Z" fill="#F7F9FC"/>
+      <path d="M777 34L1099 34C1101.76 34 1104 36.24 1104 39L1104 39C1104 41.76 1101.76 44 1099 44L777 44C774.24 44 772 41.76 772 39L772 39C772 36.24 774.24 34 777 34Z" fill="#AAB4C5"/>
+      <path d="M784 88L1120 88C1126.63 88 1132 93.37 1132 100L1132 200C1132 206.63 1126.63 212 1120 212L784 212C777.37 212 772 206.63 772 200L772 100C772 93.37 777.37 88 784 88Z" fill="#7C5CFC"/>
+      <path d="M1086 138C1086 166.72 1109.28 190 1138 190C1166.72 190 1190 166.72 1190 138C1190 109.28 1166.72 86 1138 86C1109.28 86 1086 109.28 1086 138Z" fill="#37D6C0"/>
+      <path d="M20 392L390 392C401.05 392 410 400.95 410 412L410 596C410 607.05 401.05 616 390 616L20 616C8.95 616 0 607.05 0 596L0 412C0 400.95 8.95 392 20 392Z" fill="#18253A"/>
+      <path d="M462 392L832 392C843.05 392 852 400.95 852 412L852 596C852 607.05 843.05 616 832 616L462 616C450.95 616 442 607.05 442 596L442 412C442 400.95 450.95 392 462 392Z" fill="#18253A"/>
+      <path d="M904 392L1276 392C1287.05 392 1296 400.95 1296 412L1296 596C1296 607.05 1287.05 616 1276 616L904 616C892.95 616 884 607.05 884 596L884 412C884 400.95 892.95 392 904 392Z" fill="#18253A"/>
+      <path d="M1030.8 28.6L1137.4 28.6L1108.7 63.04L1067.7 63.04L1067.7 77.8L1104.6 77.8L1078.36 112.24L1067.7 112.24L1067.7 148.32L1030.8 148.32L1030.8 28.6Z" fill="#F7F9FC"/>
+      <path d="M1030.8 28.6L1137.4 28.6L1108.7 63.04L1067.7 63.04L1067.7 46.64L1030.8 46.64L1030.8 28.6Z" fill="#7C5CFC"/>
+      <path d="M1067.7 77.8L1104.6 77.8L1078.36 112.24L1067.7 112.24L1067.7 77.8Z" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(72, 28)">
+      <text x="0" y="22" font-family="Inter" font-size="22" font-weight="700" fill="#F7F9FC">fidexa</text>
+    </g>
+    <g transform="translate(250, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">WORK</text>
+    </g>
+    <g transform="translate(350, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">STUDIO</text>
+    </g>
+    <g transform="translate(450, 31)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">CONTACT</text>
+    </g>
+    <g transform="translate(72, 116)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#37D6C0">CASE STUDY / RISHI</text>
+    </g>
+    <g transform="translate(72, 410)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">TAURI · RUST</text>
+    </g>
+    <g transform="translate(850, 284)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">RISHI / 2026</text>
+    </g>
+    <g transform="translate(72, 170)">
+      <text x="0" y="64" font-family="Inter" font-size="64" font-weight="700" fill="#F7F9FC">A calmer way
+to read with AI.</text>
+    </g>
+    <g transform="translate(486, 410)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">ON-DEVICE AI</text>
+    </g>
+    <g transform="translate(72, 330)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#AAB4C5">Rishi is a cross-platform reading space that keeps intelligence close, quiet, and useful.</text>
+    </g>
+    <g transform="translate(264, 410)">
+      <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#AAB4C5">REACT NATIVE</text>
+    </g>
+    <g transform="translate(72, 716)">
+      <text x="0" y="28" font-family="Inter" font-size="28" font-weight="700" fill="#F7F9FC">Reading apps got noisy.</text>
+    </g>
+    <g transform="translate(514, 674)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#7C5CFC">THE APPROACH</text>
+    </g>
+    <g transform="translate(956, 716)">
+      <text x="0" y="28" font-family="Inter" font-size="28" font-weight="700" fill="#000000">A calmer way to learn.</text>
+    </g>
+    <g transform="translate(72, 966)">
+      <text x="0" y="18" font-family="Inter" font-size="18" fill="#000000">Next: product strategy, interaction design, and the parts nobody sees.</text>
+    </g>
+    <g transform="translate(844, 548)">
+      <text x="0" y="28" font-family="Inter" font-size="28" font-weight="700" fill="#000000">Read deeply. Ask better questions.</text>
+    </g>
+    <g transform="translate(72, 674)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#000000">THE PROBLEM</text>
+    </g>
+    <g transform="translate(514, 716)">
+      <text x="0" y="28" font-family="Inter" font-size="28" font-weight="700" fill="#000000">AI that knows when to stay quiet.</text>
+    </g>
+    <g transform="translate(956, 674)">
+      <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#000000">THE RESULT</text>
+    </g>
+  </g>
+</svg>
