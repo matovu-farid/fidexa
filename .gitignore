@@ -2,12 +2,14 @@
 
 # dependencies
 /node_modules
+/.pnpm-store/
 /.pnp
 .pnp.js
 .yarn/install-state.gz
 
 # testing
 /coverage
+/generated/invoices/
 
 # next.js
 /.next/
@@ -34,6 +36,13 @@ yarn-error.log*
 
 # local isolated worktrees
 .worktrees/
+
+# archived implementation drafts
+*.legacy
+
+# Cloudflare local state
+workers/*/.wrangler/
+workers/*/worker-configuration.d.ts
 
 # typescript
 *.tsbuildinfo
