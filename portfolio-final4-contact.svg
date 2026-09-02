@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1640" height="620" viewBox="0 0 1640 620">
+  <g>
+    <rect width="1640" height="620" rx="24" ry="24" fill="#36D6BF"/>
+    <g transform="translate(48, 66)">
+      <rect width="940" height="488" rx="20" ry="20" fill="#FFFEFA"/>
+      <g transform="translate(32, 44)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#8A6A3D">CONTACT / PROJECT BRIEF</text>
+      </g>
+      <g transform="translate(32, 98)">
+        <text x="0" y="36" font-family="Inter" font-size="36" font-weight="700" fill="#151821">Let’s build the useful part.</text>
+      </g>
+      <g transform="translate(32, 205)">
+        <rect width="390" height="48" rx="12" ry="12" fill="#F3EEE4"/>
+      </g>
+      <g transform="translate(442, 205)">
+        <rect width="458" height="48" rx="12" ry="12" fill="#F3EEE4"/>
+      </g>
+      <g transform="translate(32, 260)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#5E625E">WHAT ARE YOU BUILDING?</text>
+      </g>
+      <g transform="translate(32, 290)">
+        <rect width="872" height="66" rx="12" ry="12" fill="#F3EEE4"/>
+      </g>
+      <g transform="translate(32, 392)">
+        <rect width="190" height="40" rx="20" ry="20" fill="#513AC5"/>
+        <g transform="translate(30, 11)">
+          <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#FFFEFA">SEND MESSAGE ↗</text>
+        </g>
+      </g>
+      <g transform="translate(32, 456)">
+        <text x="0" y="10" font-family="Inter" font-size="10" font-weight="700" fill="#8A6A3D">DEFAULT · MESSAGE SENT · UNABLE TO SEND</text>
+      </g>
+      <g transform="translate(32, 166)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#5E625E">YOUR NAME</text>
+      </g>
+      <g transform="translate(470, 166)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#5E625E">EMAIL</text>
+      </g>
+    </g>
+    <g transform="translate(1028, 66)">
+      <rect width="562" height="488" rx="20" ry="20" fill="#151821"/>
+      <g transform="translate(32, 44)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#36D6BF">START WITH THE HARD PART</text>
+      </g>
+      <g transform="translate(32, 98)">
+        <text x="0" y="32" font-family="Inter" font-size="32" font-weight="700" fill="#FFFEFA">Tell me what you are building.</text>
+      </g>
+      <g transform="translate(32, 400)">
+        <text x="0" y="12" font-family="Inter" font-size="12" font-weight="700" fill="#36D6BF">EMAIL FARID ↗</text>
+      </g>
+      <g transform="translate(32, 450)">
+        <text x="0" y="11" font-family="Inter" font-size="11" font-weight="700" fill="#B8C7DD">FORM ACTION / SEND EMAIL</text>
+      </g>
+      <g transform="translate(32, 220)">
+        <text x="0" y="15" font-family="Inter" font-size="15" fill="#B8C7DD">Native apps · platforms · AI systems</text>
+      </g>
+      <g transform="translate(32, 250)">
+        <text x="0" y="15" font-family="Inter" font-size="15" fill="#B8C7DD">Clear scope · strong evidence</text>
+      </g>
+    </g>
+  </g>
+</svg>

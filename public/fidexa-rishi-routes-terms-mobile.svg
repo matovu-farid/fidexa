@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1280" height="2020" viewBox="0 0 1280 2020">
+  <g>
+    <rect width="1280" height="900" rx="24" ry="24" fill="#FFFFFF" stroke="#DDE3ED" stroke-width="1"/>
+    <rect width="1280" height="64" fill="#FFFFFF"/>
+    <g transform="translate(40, 18)">
+      <rect width="28" height="28" rx="8" ry="8" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(47, 18)">
+      <text x="7" y="17" font-family="Arial" font-size="17" font-weight="700" fill="#101828" text-anchor="middle">F</text>
+    </g>
+    <g transform="translate(78, 18)">
+      <text x="0" y="17" font-family="Arial" font-size="17" font-weight="700" fill="#101828">rishi</text>
+    </g>
+    <g transform="translate(580, 18)">
+      <text x="42" y="12" font-family="Arial" font-size="12" fill="#667085" text-anchor="middle">Features</text>
+    </g>
+    <g transform="translate(672, 18)">
+      <text x="42" y="12" font-family="Arial" font-size="12" fill="#667085" text-anchor="middle">How it Works</text>
+    </g>
+    <g transform="translate(764, 18)">
+      <text x="42" y="12" font-family="Arial" font-size="12" fill="#667085" text-anchor="middle">Pricing</text>
+    </g>
+    <g transform="translate(856, 18)">
+      <text x="42" y="12" font-family="Arial" font-size="12" fill="#667085" text-anchor="middle">Docs</text>
+    </g>
+    <g transform="translate(948, 18)">
+      <text x="42" y="12" font-family="Arial" font-size="12" fill="#667085" text-anchor="middle">Support</text>
+    </g>
+    <g transform="translate(1112, 16)">
+      <rect width="126" height="32" rx="16" ry="16" fill="#101828"/>
+    </g>
+    <g transform="translate(1122, 16)">
+      <text x="53" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Download for macOS</text>
+    </g>
+    <g transform="translate(40, 94)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#7C5CFC">/terms</text>
+    </g>
+    <g transform="translate(40, 122)">
+      <text x="0" y="31" font-family="Arial" font-size="31" font-weight="700" fill="#101828">Terms that set clear expectations.</text>
+    </g>
+    <g transform="translate(40, 174)">
+      <text x="0" y="14" font-family="Arial" font-size="14" fill="#667085">Straightforward service terms with a calm reading experience and an always-visible effective date.</text>
+    </g>
+    <g transform="translate(40, 250)">
+      <text x="0" y="32" font-family="Arial" font-size="32" font-weight="700" fill="#101828">Terms and Conditions</text>
+    </g>
+    <g transform="translate(40, 304)">
+      <rect width="194" height="24" rx="12" ry="12" fill="#EEF2FF"/>
+    </g>
+    <g transform="translate(50, 304)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#7C5CFC">EFFECTIVE APR 23, 2026</text>
+    </g>
+    <g transform="translate(40, 356)">
+      <text x="0" y="17" font-family="Arial" font-size="17" font-weight="700" fill="#101828">These terms explain how Rishi works, what you can expect from us, and how to use the service responsibly.</text>
+    </g>
+    <g transform="translate(40, 470)">
+      <rect width="540" height="116" rx="14" ry="14" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(62, 488)">
+      <text x="0" y="13" font-family="Arial" font-size="13" font-weight="700" fill="#7C5CFC">01</text>
+    </g>
+    <g transform="translate(118, 486)">
+      <text x="0" y="16" font-family="Arial" font-size="16" font-weight="700" fill="#101828">Acceptance of terms</text>
+    </g>
+    <g transform="translate(118, 518)">
+      <text x="0" y="12" font-family="Arial" font-size="12" fill="#667085">By using Rishi, you agree to these terms and the policies linked below.</text>
+    </g>
+    <g transform="translate(630, 470)">
+      <rect width="540" height="116" rx="14" ry="14" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(652, 488)">
+      <text x="0" y="13" font-family="Arial" font-size="13" font-weight="700" fill="#7C5CFC">02</text>
+    </g>
+    <g transform="translate(708, 486)">
+      <text x="0" y="16" font-family="Arial" font-size="16" font-weight="700" fill="#101828">Description of service</text>
+    </g>
+    <g transform="translate(708, 518)">
+      <text x="0" y="12" font-family="Arial" font-size="12" fill="#667085">Rishi is a reading application with optional cloud sync, text-to-speech, and AI features.</text>
+    </g>
+    <g transform="translate(40, 620)">
+      <rect width="540" height="116" rx="14" ry="14" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(62, 638)">
+      <text x="0" y="13" font-family="Arial" font-size="13" font-weight="700" fill="#7C5CFC">03</text>
+    </g>
+    <g transform="translate(118, 636)">
+      <text x="0" y="16" font-family="Arial" font-size="16" font-weight="700" fill="#101828">User responsibilities</text>
+    </g>
+    <g transform="translate(118, 668)">
+      <text x="0" y="12" font-family="Arial" font-size="12" fill="#667085">Keep your account secure, respect copyright, and use the service only for lawful purposes.</text>
+    </g>
+    <g transform="translate(630, 620)">
+      <rect width="540" height="116" rx="14" ry="14" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(652, 638)">
+      <text x="0" y="13" font-family="Arial" font-size="13" font-weight="700" fill="#7C5CFC">04</text>
+    </g>
+    <g transform="translate(708, 636)">
+      <text x="0" y="16" font-family="Arial" font-size="16" font-weight="700" fill="#101828">Intellectual property</text>
+    </g>
+    <g transform="translate(708, 668)">
+      <text x="0" y="12" font-family="Arial" font-size="12" fill="#667085">Rishi and its underlying software remain the property of Fidexa LLC and its licensors.</text>
+    </g>
+    <g transform="translate(40, 790)">
+      <rect width="1120" height="52" rx="12" ry="12" fill="#FFF2E7"/>
+    </g>
+    <g transform="translate(64, 790)">
+      <text x="0" y="13" font-family="Arial" font-size="13" font-weight="700" fill="#101828">Questions about these terms? Contact support@fidexa.org.</text>
+    </g>
+  </g>
+  <g transform="translate(0, 960)">
+    <rect width="1280" height="1060" rx="24" ry="24" fill="#101828"/>
+    <g transform="translate(40, 36)">
+      <text x="0" y="12" font-family="Arial" font-size="12" font-weight="700" fill="#37D6C0">RESPONSIVE / MOBILE</text>
+    </g>
+    <g transform="translate(40, 68)">
+      <text x="0" y="28" font-family="Arial" font-size="28" font-weight="700" fill="#FFFFFF">The same calm system, stacked for small screens.</text>
+    </g>
+    <g transform="translate(40, 116)">
+      <text x="0" y="14" font-family="Arial" font-size="14" fill="#B8C2D1">Thumb-friendly actions, one-column content, and legal copy that stays readable.</text>
+    </g>
+    <g transform="translate(40, 192)">
+      <rect width="240" height="790" rx="24" ry="24" fill="#FFFFFF"/>
+    </g>
+    <g transform="translate(56, 208)">
+      <rect width="208" height="32" rx="16" ry="16" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(68, 208)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">rishi  /  pricing</text>
+    </g>
+    <g transform="translate(62, 278)">
+      <text x="0" y="22" font-family="Arial" font-size="22" font-weight="700" fill="#101828">Pricing</text>
+    </g>
+    <g transform="translate(62, 330)">
+      <text x="0" y="14" font-family="Arial" font-size="14" fill="#667085">Free
+$0 / month
+
+Premium
+$4.99 / month
+
+Start Premium</text>
+    </g>
+    <g transform="translate(62, 872)">
+      <rect width="196" height="36" rx="18" ry="18" fill="#7C5CFC"/>
+    </g>
+    <g transform="translate(62, 872)">
+      <text x="98" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Continue  →</text>
+    </g>
+    <g transform="translate(330, 192)">
+      <rect width="240" height="790" rx="24" ry="24" fill="#37D6C0"/>
+    </g>
+    <g transform="translate(346, 208)">
+      <rect width="208" height="32" rx="16" ry="16" fill="#101828"/>
+    </g>
+    <g transform="translate(358, 208)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#37D6C0">rishi  /  support</text>
+    </g>
+    <g transform="translate(352, 278)">
+      <text x="0" y="22" font-family="Arial" font-size="22" font-weight="700" fill="#101828">Support</text>
+    </g>
+    <g transform="translate(352, 330)">
+      <text x="0" y="14" font-family="Arial" font-size="14" fill="#101828">Help that feels human.
+
+support@fidexa.org
+
+Common topics
+→ Installation
+→ Account issues</text>
+    </g>
+    <g transform="translate(352, 872)">
+      <rect width="196" height="36" rx="18" ry="18" fill="#101828"/>
+    </g>
+    <g transform="translate(352, 872)">
+      <text x="98" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Email support</text>
+    </g>
+    <g transform="translate(620, 192)">
+      <rect width="240" height="790" rx="24" ry="24" fill="#FFFFFF"/>
+    </g>
+    <g transform="translate(636, 208)">
+      <rect width="208" height="32" rx="16" ry="16" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(648, 208)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">rishi  /  privacy</text>
+    </g>
+    <g transform="translate(642, 278)">
+      <text x="0" y="22" font-family="Arial" font-size="22" font-weight="700" fill="#101828">Privacy</text>
+    </g>
+    <g transform="translate(642, 330)">
+      <text x="0" y="14" font-family="Arial" font-size="14" fill="#667085">Privacy Policy
+
+Effective Aug 01, 2026
+
+Contents
+Information we collect
+Cloud sync
+AI features</text>
+    </g>
+    <g transform="translate(642, 872)">
+      <rect width="196" height="36" rx="18" ry="18" fill="#7C5CFC"/>
+    </g>
+    <g transform="translate(642, 872)">
+      <text x="98" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Continue  →</text>
+    </g>
+    <g transform="translate(910, 192)">
+      <rect width="240" height="790" rx="24" ry="24" fill="#FFFFFF"/>
+    </g>
+    <g transform="translate(926, 208)">
+      <rect width="208" height="32" rx="16" ry="16" fill="#F7F9FC"/>
+    </g>
+    <g transform="translate(938, 208)">
+      <text x="0" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#667085">rishi  /  terms</text>
+    </g>
+    <g transform="translate(932, 278)">
+      <text x="0" y="22" font-family="Arial" font-size="22" font-weight="700" fill="#101828">Terms</text>
+    </g>
+    <g transform="translate(932, 330)">
+      <text x="0" y="14" font-family="Arial" font-size="14" fill="#667085">Terms and Conditions
+
+Effective Apr 23, 2026
+
+01 Acceptance
+02 Service
+03 Responsibilities</text>
+    </g>
+    <g transform="translate(932, 872)">
+      <rect width="196" height="36" rx="18" ry="18" fill="#7C5CFC"/>
+    </g>
+    <g transform="translate(932, 872)">
+      <text x="98" y="11" font-family="Arial" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Continue  →</text>
+    </g>
+  </g>
+</svg>

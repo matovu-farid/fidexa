@@ -1,0 +1,27 @@
+{
+  "date": "2026-08-28",
+  "file": "fidexa",
+  "page": "Portfolio Site Redesign",
+  "workflow": "penpot-build-screen",
+  "review": "Penpot MCP export review plus connected-browser canvas review",
+  "changes": [
+    "Removed stale counts and retired toy-project references",
+    "Added real Rishi, Money Lending, and Inventory product media",
+    "Added Mobile Experience and expanded Mobile Projects",
+    "Normalized text to auto-height and corrected case-study spacing",
+    "Corrected sampled contrast failures with existing semantic tokens",
+    "Removed empty text layers and corrected contact form state copy"
+  ],
+  "checks": {
+    "boardSiblingCollisions": 0,
+    "textSiblingCollisions": 0,
+    "textOutsideBoardBounds": 0,
+    "emptyTextLayers": 0,
+    "staleToyProjectMatches": 0,
+    "autoHeightMismatches": 0,
+    "sampledContrastFailures": 0,
+    "primaryMobileBoards": "5 boards at 393x852",
+    "browserReview": "PASS"
+  },
+  "verdict": "PASS"
+}

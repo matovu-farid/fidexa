@@ -1,0 +1,210 @@
+================================================================================
+LINKEDIN PROJECTS — COPY/PASTE READY
+================================================================================
+Each block maps to LinkedIn's "Add project" form:
+  - Project name (max 255 chars)
+  - Description (max 2,000 chars)
+  - Skills (top 5)
+  - Start date / End date / Currently working
+================================================================================
+
+
+--------------------------------------------------------------------------------
+PROJECT 1 — Rishi (AI-Powered Book Reader)
+--------------------------------------------------------------------------------
+
+PROJECT NAME:
+Rishi — AI-Powered Book Reader
+
+DESCRIPTION:
+Rishi is an AI-powered reading companion that turns any book into an interactive learning experience. It lets readers import EPUBs from their library or by URL, then chat with an AI agent that has full context of the text — asking questions, getting explanations, exploring themes, and generating summaries on demand.
+
+I designed and built Rishi end-to-end as a cross-platform product: a Next.js web app, an Electron desktop client (Mac/Windows/Linux), and an Expo / React Native mobile app, all sharing a single TypeScript codebase via a pnpm monorepo with a shared package layer.
+
+Key engineering work:
+• Architected a pnpm + Turborepo monorepo with shared business logic, types, and DB schema consumed by web, desktop, and mobile clients.
+• Built an AI agent using the OpenAI Agents SDK with retrieval over book content, so the model answers grounded in the actual text the reader is viewing.
+• Implemented EPUB parsing, pagination, and a synchronized reader UI using epubjs across Electron and React Native.
+• Set up auth with Clerk, storage with Drizzle ORM, and Sentry-based error tracking across all three clients.
+• Built Electron packaging and signing for Mac (x64 + arm64), Windows, and Linux, with Playwright E2E tests for the desktop app.
+• Implemented offline-first behavior on mobile using expo-sqlite and secure store for credentials and library state.
+
+Rishi is the flagship product of my studio, Fidexa.
+
+SKILLS (pick 5):
+TypeScript • React • Next.js • React Native (Expo) • Electron
+(Alternates: Monorepos / Turborepo, OpenAI Agents SDK, Drizzle ORM, Clerk Auth, AI Engineering)
+
+START DATE: October 2025
+END DATE: (leave blank — check "I am currently working on this project")
+
+ASSOCIATED WITH: Fidexa
+
+
+--------------------------------------------------------------------------------
+PROJECT 2 — Maria (Crypto Trading Bot)
+--------------------------------------------------------------------------------
+
+PROJECT NAME:
+Maria — Automated Crypto Trading Bot (Effect-TS)
+
+DESCRIPTION:
+Maria is a production cryptocurrency trading bot that runs automated strategies on Binance Futures. It's built in TypeScript with Effect-TS, giving the entire trading pipeline — market data ingestion, signal generation, order routing, position tracking, and reconciliation — typed errors, structured concurrency, and dependency injection from the ground up.
+
+Highlights:
+• Pluggable strategy interface: new strategies are added as standalone modules with their own configuration, logging namespace, and tests.
+• Real-time market data analysis combining technical indicators, sentiment signals, and risk-aware position sizing.
+• Automated order lifecycle — submission, partial fill handling, stop-loss / take-profit management, and reconciliation against exchange state on startup so the bot recovers cleanly from crashes.
+• Type-safe configuration and secrets management via Effect's Layer / Context model — no hidden globals.
+• Containerized with Docker Compose for both dev and production, with structured per-strategy logging and log rotation.
+• Comprehensive Vitest unit and integration tests; runs 24/7 against a live exchange.
+
+The result is a trading system I can extend and operate with confidence — adding a new strategy or risk rule is a typed, isolated change rather than a refactor.
+
+SKILLS (pick 5):
+TypeScript • Effect-TS • Algorithmic Trading • Docker • Node.js
+(Alternates: Functional Programming, Binance API, Vitest, System Design)
+
+START DATE: July 2025
+END DATE: (currently working — or set to the month you stopped active dev)
+
+
+--------------------------------------------------------------------------------
+PROJECT 3 — Fidexa (Software Studio Platform)
+--------------------------------------------------------------------------------
+
+PROJECT NAME:
+Fidexa — Software Studio Site & Client Intake Platform
+
+DESCRIPTION:
+Fidexa is the public site and client-facing platform for my software studio of the same name. Built on Next.js 16 (App Router) with React 19, Tailwind v4, and the Vercel AI SDK, it doubles as a marketing site and a working showcase of the studio's technical stack.
+
+What I built:
+• A Next.js 16 App Router site using React Server Components, Radix UI primitives, and Tailwind v4 for a fast, accessible, design-system-driven UI.
+• An AI-powered project intake assistant using the Vercel AI SDK and OpenAI — visitors describe their project conversationally and the assistant produces a structured brief for me.
+• Transactional email (proposals, follow-ups) via Resend with React Email templates.
+• Markdown-driven case studies and capability pages using react-markdown + remark-gfm.
+• Deployed on Vercel with edge-friendly streaming, preview deployments per branch, and Vercel Analytics.
+
+The site is intentionally minimal in surface area but technically current — Next.js 16, React 19, Tailwind v4, and AI SDK v4 — so prospective clients see the stack they're hiring.
+
+SKILLS (pick 5):
+Next.js • React • TypeScript • Tailwind CSS • Vercel AI SDK
+(Alternates: Server Components, AI Engineering, Resend, UI/UX Design)
+
+START DATE: April 2025
+END DATE: (currently working — ongoing)
+
+ASSOCIATED WITH: Fidexa
+
+
+--------------------------------------------------------------------------------
+PROJECT 4 — Money Lending Management System
+--------------------------------------------------------------------------------
+
+PROJECT NAME:
+Money Lending Management System
+
+DESCRIPTION:
+A full web platform for operating a money-lending business end-to-end — issuing loans, collecting repayments, tracking investor capital, monitoring borrower risk, and generating financial statements. Built and delivered for a real lender with multiple staff roles.
+
+Core capabilities:
+• Loan issuance with daily interest on a reducing balance, configurable monthly rate, 30-day default term, and a minimum interest period rule.
+• Payment collection with interest-first allocation, printable receipts, and a complete repayment ledger per customer.
+• Investor (creditor) capital tracking — recording deposits, computing interest owed, and reporting per-investor balances.
+• Borrower risk monitoring with predictive alerts 5 days before due dates and automatic watchlists when fewer than 30 days remain.
+• Expenses and income tracking, plus generated P&L and Balance Sheet statements with PDF/Excel export.
+• Role-based access for Super Admin, Admin, Loan Officer, and Viewer.
+
+Stack: Next.js 16 (App Router) + React 19 + Tailwind v4 on the frontend, Next.js API routes on Node, PostgreSQL for data, Clerk for auth and roles, and a daily cron job for interest accrual.
+
+Delivered across six planned phases totaling ~488 engineering hours — from core loan operations through monitoring, creditor management, expenses, dashboards, and QA.
+
+SKILLS (pick 5):
+Next.js • PostgreSQL • TypeScript • Financial Systems • Clerk Auth
+(Alternates: React, Tailwind CSS, Prisma/Drizzle, Cron / Scheduled Jobs, Role-Based Access Control)
+
+START DATE: March 2026
+END DATE: May 2026
+(Adjust to the real dates of the engagement — these are placeholders based on recent activity.)
+
+ASSOCIATED WITH: Fidexa
+
+
+--------------------------------------------------------------------------------
+PROJECT 5 — Facet (AI Knowledge-Base Chat)
+--------------------------------------------------------------------------------
+
+PROJECT NAME:
+Facet — AI Chat with Retrieval, Tool Use & Parallel Execution
+
+DESCRIPTION:
+Facet is a T3-stack web app that combines authenticated workspaces with an AI chat that retrieves context from a Pinecone vector store and calls tools against the app's own database. It was an experiment in making AI assistants feel responsive and trustworthy by exposing what they're actually doing in real time.
+
+What's interesting about the build:
+• Retrieval-augmented chat powered by LlamaIndex with Pinecone as the vector store — sources are surfaced inline with relevance scores so users can verify answers.
+• Tool calling against the app's own data (e.g., `getOrganizationById`), with named badges in the UI showing which tools fire on each turn.
+• Parallel tool execution — when the model requests multiple tools, they run concurrently rather than sequentially, cutting response latency 40–60% on complex requests.
+• Granular status surface: "context retrieved", "thinking", "tool running", "tool success/error", "generating", "complete" — each with its own badge color and animation.
+• T3 Stack foundation: Next.js App Router, NextAuth.js (Prisma adapter), Prisma + PostgreSQL, shadcn/ui, TanStack Query, and React Hook Form + Zod.
+• Tested with Vitest and Cypress; emails via Resend.
+
+Facet became my reference implementation for "AI features that show their work" — a pattern I now reuse in client projects.
+
+SKILLS (pick 5):
+Next.js • LlamaIndex • Pinecone • AI Engineering • TypeScript
+(Alternates: tRPC, Prisma, NextAuth.js, shadcn/ui, Retrieval-Augmented Generation)
+
+START DATE: (set to when you started Facet)
+END DATE: (set or mark currently working)
+
+
+--------------------------------------------------------------------------------
+PROJECT 6 — Inventory (Edge-Native TanStack Start App)
+--------------------------------------------------------------------------------
+
+PROJECT NAME:
+Inventory — Edge-Native Stock Management on Cloudflare
+
+DESCRIPTION:
+An inventory management web app built on TanStack Start, deployed to Cloudflare Workers with a Neon serverless Postgres backend. Built to explore the modern edge-rendered React stack end-to-end.
+
+Technical highlights:
+• TanStack Start for full-stack React with file-based routing, server functions, and type-safe data loaders.
+• TanStack DB (`@tanstack/react-db`) with a query-backed collection — optimistic local mutations that sync against the server with conflict-aware reconciliation.
+• Drizzle ORM with a generate / migrate / push / studio workflow, and a separate test database driven by `.env.test` and `dotenv`.
+• Deployed to Cloudflare Workers via the `@cloudflare/vite-plugin` and `wrangler deploy`.
+• Sentry instrumentation wired into TanStack Start via a server-side `instrument.server.mjs` import for production error tracking.
+• React Email templates rendered server-side for transactional mail.
+• End-to-end tests with Cypress, unit tests with Vitest, and strict ESLint + Prettier + TypeScript checks.
+
+SKILLS (pick 5):
+TanStack Start • Cloudflare Workers • Drizzle ORM • TypeScript • React
+(Alternates: Neon Postgres, Sentry, Vite, Cypress, Edge Computing)
+
+START DATE: (set to when you started Inventory)
+END DATE: (set or mark currently working)
+
+
+================================================================================
+SUGGESTED ORDER ON LINKEDIN (most impressive first)
+================================================================================
+1. Rishi — flagship product, cross-platform, AI agent.
+2. Maria — production trading bot, advanced TS / Effect-TS.
+3. Money Lending Management System — real paying client, full-stack delivery.
+4. Fidexa — your studio site, current stack showcase.
+5. Facet — AI/RAG depth.
+6. Inventory — edge stack depth.
+
+================================================================================
+NOTES BEFORE YOU PASTE
+================================================================================
+• Replace placeholder dates (e.g. "March 2026") with the real start/end months.
+• "I am currently working on this project" should be checked for Rishi, Fidexa,
+  and anything still active.
+• For client work (Money Lending), you can leave Contributors empty or tag
+  collaborators if any worked with you.
+• "Associated with" only shows organizations that exist on LinkedIn. If you have
+  a Fidexa company page, select it; otherwise leave blank.
+• Descriptions are all under the 2,000-character limit, but trim further if
+  any feel too long for your taste.

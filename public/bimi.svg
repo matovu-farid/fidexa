@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny-ps" viewBox="0 0 48 48" width="48" height="48">
+  <title>Fidexa</title>
+  <desc>Fidexa software studio mark</desc>
+  <rect width="48" height="48" fill="#FFFFFF"/>
+  <path d="M12 11H37L30.27 19H19V22.43H28.62L22.47 30.42H19V37H12V11Z" fill="#101828"/>
+  <path d="M12 11H37L30.27 19H19V15.2H12V11Z" fill="#7C5CFC"/>
+  <path d="M19 22.43H28.62L22.47 30.42H19V22.43Z" fill="#37D6C0"/>
+</svg>
