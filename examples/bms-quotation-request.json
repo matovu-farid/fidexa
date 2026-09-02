@@ -1,0 +1,53 @@
+{
+  "quotationNumber": "FDX-Q-2026-005",
+  "issueDate": "2026-09-02",
+  "validUntil": "2026-10-02",
+  "terms": "Net 30",
+  "client": {
+    "name": "CJ Engineering"
+  },
+  "currency": "UGX",
+  "hourlyRate": 150000,
+  "taxRate": 0,
+  "groups": [
+    {
+      "description": "Preventative maintenance of Alerton supervisor server operating system",
+      "tasks": [
+        { "description": "Pre-change health checks and backup verification", "hours": 2 },
+        { "description": "Operating system maintenance and patching", "hours": 4 },
+        { "description": "Alerton service validation and recovery checks", "hours": 2 }
+      ]
+    },
+    {
+      "description": "Alerton Compass software optimisation",
+      "tasks": [
+        { "description": "Supervisor configuration and response review", "hours": 3 },
+        { "description": "Alarm, trendlog, schedule, and navigation review", "hours": 3 },
+        { "description": "Performance validation and optimisation handoff", "hours": 2 }
+      ]
+    },
+    {
+      "description": "Database integrity verification and backup for the server",
+      "tasks": [
+        { "description": "SQL database integrity verification", "hours": 2 },
+        { "description": "Backup creation and restore validation", "hours": 4 }
+      ]
+    },
+    {
+      "description": "Alerton operator workstation PC system maintenance",
+      "tasks": [
+        { "description": "Software and operating system updates", "hours": 2 },
+        { "description": "Performance improvement and operator checks", "hours": 2 },
+        { "description": "Alerton workstation connectivity validation", "hours": 2 }
+      ]
+    },
+    {
+      "description": "Alerton OmniGraphics updates and point remapping",
+      "tasks": [
+        { "description": "Graphics inventory and point-map review", "hours": 2 },
+        { "description": "OmniGraphics display updates", "hours": 10 },
+        { "description": "Point binding and display quality assurance", "hours": 4 }
+      ]
+    }
+  ]
+}
