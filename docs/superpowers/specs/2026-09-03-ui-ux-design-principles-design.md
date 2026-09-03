@@ -25,6 +25,8 @@ The request for “everything on the internet” is interpreted as a broad, cura
 - **W3C WCAG 2.2:** the accessibility baseline; standards are treated as requirements, not aesthetic suggestions.
 - **Dieter Rams / Vitsœ:** useful, understandable, honest, durable, thorough, restrained, and “less, but better.” This is a craft lens, not a substitute for user research or accessibility standards.
 - **Microsoft Fluent / Windows guidance:** desktop windowing, density, layering, input diversity, and calm/familiar/coherent system behavior.
+- **Tableau and Microsoft Power BI:** dashboard purpose and audience, one-screen storytelling, KPI prioritization, chart choice, context, color restraint, device sizing, performance, and drill-down behavior.
+- **Apple charting guidance and Nielsen Norman Group data-visualization guidance:** glanceable summaries, contextual detail, preattentive emphasis, progressive disclosure, and chart readability.
 
 The handbook will clearly distinguish normative requirements, strong heuristics, platform conventions, and taste/craft principles. No source is treated as universally correct; platform rules are applied only where the target platform requires them.
 
@@ -73,7 +75,27 @@ Cover small-screen prioritization, thumb reach, touch target size and spacing, s
 
 Explain the difference between responsive reflow and adaptive transformation. Define invariants across breakpoints: task continuity, content priority, state visibility, focus order, readable type, no clipping, no accidental horizontal scroll, and preserved recovery paths.
 
-### 8. Prototyping principles
+### 8. Dashboard design principles
+
+Treat a dashboard as a decision surface, not a collage of charts. Cover:
+
+- purpose, audience, decision, and action before choosing metrics;
+- one-screen orientation and a clear visual reading path;
+- KPI selection, definitions, units, targets, thresholds, freshness, and comparison context;
+- progressive disclosure from summary to detail without losing the user’s place;
+- chart choice based on the question and data relationship, not novelty;
+- truthful scales, sorting, precision, baselines, and comparisons;
+- restrained and semantically consistent color, with non-color cues for status;
+- accessible charts, tables, labels, summaries, keyboard navigation, and screen-reader alternatives;
+- filters, drill-downs, tooltips, hover/focus behavior, reset states, and visible active scope;
+- loading, stale, empty, partial, error, permission, and data-quality states;
+- performance, refresh status, latency, and resilience for real operational use;
+- desktop dashboard composition, density, panes, and monitoring at a glance;
+- mobile dashboard transformation: fewer prioritized metrics, vertical flow, readable charts, and deliberate detail access.
+
+Dashboard do’s and don’ts will be explicit. Do design around a decision, show context, limit views, label clearly, highlight only what matters, and provide a reliable path to detail. Don’t fill every pixel, use decorative chart junk, mix incompatible scales, hide definitions or freshness, imply precision the data does not support, rely on hover alone, make every metric equally loud, or compress a desktop dashboard into an unreadable mobile grid.
+
+### 9. Prototyping principles
 
 Treat a prototype as a hypothesis, not a miniature finished product. Cover:
 
@@ -89,7 +111,7 @@ Treat a prototype as a hypothesis, not a miniature finished product. Cover:
 - separating visual preference feedback from usability evidence;
 - documenting findings, decisions, and unresolved risks.
 
-### 9. Mistakes to always avoid
+### 10. Mistakes to always avoid
 
 Include a concrete anti-pattern catalog covering:
 
@@ -111,12 +133,22 @@ Include a concrete anti-pattern catalog covering:
 - shipping without checking actual rendered output at target sizes;
 - allowing decorative layers, media crops, or motion to compete with content;
 - shipping unverified claims, manipulative patterns, or dark patterns.
+- treating a dashboard as a status poster when the user needs diagnosis or action;
+- showing KPIs without units, time range, baseline, target, or last-updated context;
+- using too many cards, charts, colors, filters, or competing alert states;
+- choosing a chart because it looks impressive rather than because it answers a question;
+- truncating labels, hiding chart values, or encoding meaning only through color/hover;
+- using misleading axes, inconsistent scales, 3D effects, dual axes without explanation, or excessive decimal precision;
+- mixing data freshness, time windows, populations, or aggregation levels without making the difference visible;
+- allowing filters to silently change the story or leaving users unsure what scope is active;
+- treating a desktop dashboard as a responsive collection of tiny mobile tiles;
+- ignoring loading, stale, missing, partial, or failed data states.
 
-### 10. Fidexa application rules
+### 11. Fidexa application rules
 
 Translate the general principles into Fidexa’s current workflow: Penpot tokens first, bounded content frames, auto-height text, semantic naming, real product media, deliberate desktop/iPad/iPhone boards, production-browser review, geometry checks plus visual review, and adversarial review before sign-off. Preserve the existing boundaries between Fidexa, Rishi, the design system, and case-study pages.
 
-### 11. Reference map
+### 12. Reference map
 
 Link every major section to a small number of primary sources. Include source title, organization/author, direct URL, and access/research date. Avoid a long undifferentiated bibliography; sources should explain which claim they support.
 
@@ -129,9 +161,10 @@ The checklist will be intentionally short enough to use in a live review:
 3. **Screen/component quality** — content, layout, states, affordance, feedback, consistency, visual craft.
 4. **Desktop review** — resize, density, panes, keyboard, pointer, hover/focus, shortcuts, multi-tasking.
 5. **Mobile review** — 393×852 baseline, touch targets, reach, safe areas, keyboard, orientation, no clipping/overflow.
-6. **Accessibility** — WCAG 2.2 checks, contrast, focus, semantics, keyboard, zoom, motion, non-color cues.
-7. **Prototype review** — hypothesis, fidelity, realistic data, complete states, test task, neutral facilitation, learning log.
-8. **Final evidence** — screenshots at target sizes, browser/device review, known tradeoffs, unresolved risks, approval owner.
+6. **Dashboard review** — purpose, audience, decision, KPI context, reading path, chart choice, truthful scales, color semantics, filters, drill-down, freshness, data states, performance, and mobile transformation.
+7. **Accessibility** — WCAG 2.2 checks, contrast, focus, semantics, keyboard, zoom, motion, non-color cues, and accessible chart/table alternatives.
+8. **Prototype review** — hypothesis, fidelity, realistic data, complete states, test task, neutral facilitation, learning log.
+9. **Final evidence** — screenshots at target sizes, browser/device review, known tradeoffs, unresolved risks, approval owner.
 
 Each section will contain checkboxes plus “fail if” statements for material defects. The checklist will link back to the handbook for rationale instead of duplicating long explanations.
 
@@ -139,7 +172,9 @@ Each section will contain checkboxes plus “fail if” statements for material 
 
 - The handbook is a useful canonical reference, not a source dump or generic design essay.
 - The handbook includes core UX/UI principles, prototypes, mistakes to avoid, desktop-specific guidance, mobile-specific guidance, responsive guidance, and Fidexa-specific application.
+- The handbook includes a separate dashboard section with dashboard do’s/don’ts, data-visualization guidance, operational states, desktop/mobile dashboard rules, and accessibility requirements.
 - The checklist can be used independently during design reviews and includes explicit accessibility, responsive, prototype, and evidence gates.
+- The checklist includes a dashboard-specific review gate for both analytical and operational dashboards.
 - The documents distinguish source-backed requirements from heuristics and taste/craft guidance.
 - Sources are direct links to the selected authorities and include research date.
 - Existing Penpot/design-system/process documents are preserved; only links and clearly scoped references are added.
