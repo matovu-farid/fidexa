@@ -12,6 +12,28 @@ Start with the person and the job. Then make the experience clear, efficient, ac
 
 This is a curated synthesis, not a source dump. The source set combines platform guidance, usability research, accessibility requirements, product practice, and craft philosophy. It gives Fidexa a shared vocabulary for deciding what to build, what to test, and what to reject. It does not replace product judgment, user research, or platform-specific implementation guidance.
 
+### UI and UX lenses
+
+**UX concerns usefulness, context, flows, behavior, outcomes, and the relationship with the product. UI concerns the visible and interactive presentation and how it communicates behavior.** They are different lenses on the same experience, and neither is sufficient alone: a useful flow can fail when its interface is unreadable or misleading, while a beautiful interface can fail when it solves the wrong problem or leaves people without agency.
+
+Use these labels throughout the handbook: **[UI]** marks visual and interactive presentation; **[UX]** marks purpose, context, behavior, and outcomes; **[Shared]** marks concerns that must be reviewed through both lenses together. The sections remain one handbook so a visual decision can be checked against its user and product consequences.
+
+### Reading map: two navigation lenses
+
+The numbered chapters below are the canonical handbook chapters. Part I and Part II are navigation lenses over those chapters, not additional or replacement sections; UI and UX remain separate parts handled together in one context.
+
+#### Part I — Principles of UI design (navigation lens)
+
+This lens covers visible and interactive presentation: how visual craft, layout, components, states, and device-specific guidance communicate and support behavior. See [Visual and interaction craft](#3-visual-and-interaction-craft), [Desktop-specific guidance](#4-desktop-specific-guidance), [Mobile-specific and responsive guidance](#5-mobile-specific-and-responsive-guidance), and the UI side of [Dashboard design principles](#6-dashboard-design-principles).
+
+#### Part II — Principles of UX design (navigation lens)
+
+This lens covers usefulness, context, flows, behavior, and outcomes: how a product addresses a real need and helps people act, recover, and achieve the intended result. See [Foundations](#1-foundations), [Core principles](#2-core-principles), [Prototype principles](#7-prototype-principles), [Mistakes to always avoid](#8-mistakes-to-always-avoid), and [Fidexa application rules](#9-fidexa-application-rules).
+
+#### Shared context — UI and UX together (navigation lens)
+
+Use [Shared context](#shared-context-where-ui-and-ux-meet) for concerns that cannot be judged through only one lens. It is the canonical cross-lens chapter; the map points to it without adding another chapter to the numbered sequence.
+
 ### Source legend
 
 - **Requirement** — a legal, accessibility, project, or explicit product constraint. Treat failure as a defect until there is a documented exception.
@@ -22,6 +44,8 @@ This is a curated synthesis, not a source dump. The source set combines platform
 When sources disagree, preserve the user’s goal and the applicable requirement first, then the target platform’s conventions, then heuristics, then taste. Record meaningful tradeoffs instead of hiding them in polish.
 
 ## 1. Foundations
+
+**Lens: [UX]**
 
 ### Frame the problem before the interface
 
@@ -62,6 +86,8 @@ Use real feedback, realistic copy, representative data, and actual rendered outp
 
 ## 2. Core principles
 
+**Lens: [Shared] — apply each principle through both the UI and UX lens.**
+
 The table is the working core of the handbook. Every principle has a meaning, a default action, a failure mode, and a question for review.
 
 | Principle | Meaning | Do | Avoid | Review question |
@@ -86,6 +112,8 @@ The table is the working core of the handbook. Every principle has a meaning, a 
 | **Restraint** | Attention is scarce; use emphasis as a limited resource. | Let content, status, and action earn visual weight; prefer a few strong signals. | Decoration everywhere, constant motion, loud color, dense borders, and “more” mistaken for “better.” | What is the one thing this treatment is asking the user to notice? |
 
 ## 3. Visual and interaction craft
+
+**Lens: [UI]**
 
 Polish is the final expression of a good decision, not a substitute for one. A refined interface should make function easier to perceive, action easier to perform, and uncertainty harder to miss.
 
@@ -144,6 +172,8 @@ Design the state model before the final visual pass. “Loading,” “no result
 
 ## 4. Desktop-specific guidance
 
+**Lens: [UI] + [Shared] — presentation is UI; window, input, and task behavior are shared.**
+
 Desktop is not a large phone. It offers pointer precision, keyboard power, resizable windows, multitasking, and space for context. Use those capabilities without turning the screen into a warehouse of equal-priority panels.
 
 - **Respect resizable windows.** Test narrow, wide, tall, short, snapped, moved, and partially occluded windows. Do not depend on one “desktop” width.
@@ -160,6 +190,8 @@ Desktop is not a large phone. It offers pointer precision, keyboard power, resiz
 Desktop review question: **when the window is wider, what useful decision becomes easier? When it is narrower, what remains essential and what transforms?**
 
 ## 5. Mobile-specific and responsive guidance
+
+**Lens: [UI] + [Shared] — presentation is UI; adaptation, interruption, and task continuity are shared.**
 
 Mobile is a constrained, interruptible, touch-first environment. The priority is not to fit the desktop design into a smaller rectangle; it is to preserve the user’s core task with less space and less certainty about attention.
 
@@ -202,6 +234,8 @@ Use these as real review targets, not abstract device categories:
 Review actual rendered pages at these sizes. A design is not responsive because its frame is resized; it is responsive when the task, hierarchy, state visibility, and recovery behavior remain sound.
 
 ## 6. Dashboard design principles
+
+**Lens: [Shared] — dashboard presentation and dashboard decision context must be reviewed together.**
 
 A dashboard is a decision surface, not a collage of charts. Its job is to help a defined audience notice what matters, understand why, and decide what to do next.
 
@@ -285,6 +319,8 @@ On mobile, transform deliberately. Keep fewer, higher-priority metrics; use a ve
 
 ## 7. Prototype principles
 
+**Lens: [UX] + [Shared] — the learning question is UX; fidelity, states, and evidence cross both lenses.**
+
 A prototype is a hypothesis made tangible. It should help the team learn something before the cost of changing the product rises.
 
 1. **Name the learning question.** “Will people understand the information architecture?” is different from “Can they complete the approval flow?” and requires a different prototype.
@@ -301,6 +337,8 @@ A prototype is a hypothesis made tangible. It should help the team learn somethi
 Do not confuse a high-fidelity prototype with a validated product. A polished wrong idea is still wrong; a rough prototype that answers the right question is valuable.
 
 ## 8. Mistakes to always avoid
+
+**Lens: [Shared] — each anti-pattern can damage presentation, behavior, trust, or outcomes.**
 
 ### General anti-patterns
 
@@ -341,6 +379,8 @@ Do not confuse a high-fidelity prototype with a validated product. A polished wr
 
 ## 9. Fidexa application rules
 
+**Lens: [Shared] — these rules bind UI craft to UX purpose and evidence.**
+
 These rules turn the principles into the working contract for Fidexa design and implementation.
 
 1. **Tokens first in Penpot.** Establish the shared visual vocabulary—color, type, spacing, radii, borders, elevation, and component states—before composing one-off screens. Token changes should improve a family of screens, not only a hero.
@@ -356,7 +396,22 @@ These rules turn the principles into the working contract for Fidexa design and 
 
 The rendered site is the implementation source of truth. Penpot and Pencil explain intent and history; exported images do not override what the product actually does.
 
+## Shared context: where UI and UX meet
+
+UI and UX are not separate deliverables: this shared section is where presentation, behavior, context, and outcomes are reviewed together.
+
+| Concern | UI lens | UX lens | Review evidence |
+| --- | --- | --- | --- |
+| Dashboard | Hierarchy, legibility, chart and state presentation | Audience, decisions, scope, freshness, and next actions | Rendered dashboard review with representative data and task walkthroughs |
+| Responsive behavior | Reflow, composition, spacing, and readable controls | Task continuity, reach, interruption, and preserved priorities | Target-size captures plus core-task checks across devices |
+| Accessibility | Contrast, focus, semantics, labels, and non-color cues | Independent completion, comprehension, and recovery | Keyboard, screen-reader, zoom, reduced-motion, and touch checks |
+| Prototypes | Fidelity, interaction cues, content, and state detail | Learning question, test task, assumptions, and findings | Task-based tests with findings tied to design decisions |
+| States and errors | Visible loading, empty, disabled, success, and error treatments | Status comprehension, prevention, recovery, and trust | State inventory plus recovery walkthroughs using realistic failures |
+| Design systems | Tokens, components, variants, and visual consistency | Shared behavior, flexibility, governance, and product fit | Component/state matrix and cross-screen consistency review |
+
 ## 10. Compact source map
+
+**Lens: [Shared] — sources support the UI, UX, and combined review decisions above.**
 
 All sources below were checked for this handbook on **2026-09-03**. The links are direct, and the claim area explains why each source is here.
 

@@ -4,7 +4,44 @@ Canonical reference: [Fidexa UI/UX Design Principles](./ui-ux-design-principles.
 
 Use this during a live review. Check what is true in the rendered experience, record evidence, and call out risks plainly. Link back to the [foundations](./ui-ux-design-principles.md#1-foundations), [core principles](./ui-ux-design-principles.md#2-core-principles), and [Fidexa application rules](./ui-ux-design-principles.md#9-fidexa-application-rules) when a decision needs more context.
 
+### Lens legend
+
+- **[UI]** — visible and interactive presentation: visual craft, hierarchy, layout, spacing, alignment, typography, color, imagery, components, states, and device-specific presentation.
+- **[UX]** — usefulness and relationship with the product: context, purpose, problem framing, evidence, flows, behavior, research, testing, agency, recovery, and outcomes.
+- **[Shared]** — a concern where presentation and experience quality must be judged together, including dashboards, responsive behavior, accessibility, prototypes, states/errors, and final evidence.
+
+### Reading map: Part I, Part II, and Shared review gates
+
+The numbered sections 1–9 below are the canonical checklist. Part I, Part II, and Shared are review-gate navigation lenses over those sections, not additional checklist sections; UI and UX remain separate review dimensions handled together in one context.
+
+#### Part I — UI review gates (navigation lens)
+
+- [Screen and component quality](#3-screen-and-component-quality)
+- [Desktop](#4-desktop)
+- [Mobile and responsive](#5-mobile-and-responsive)
+
+#### Part II — UX review gates (navigation lens)
+
+- [Problem and evidence](#1-problem-and-evidence)
+- [Flow and information architecture](#2-flow-and-information-architecture)
+- [Prototype](#8-prototype)
+
+#### Shared review gates (navigation lens)
+
+- [Desktop](#4-desktop)
+- [Mobile and responsive](#5-mobile-and-responsive)
+- [Dashboard](#6-dashboard)
+- [Accessibility](#7-accessibility)
+- [Prototype](#8-prototype)
+- [Final evidence](#9-final-evidence)
+
+The unnumbered [Verdicts](#verdicts), [Evidence policy](#evidence-policy), and [Review record](#review-record) support every numbered section; they are included here as shared review infrastructure.
+
+This is one combined checklist because UI and UX are different lenses, but they must be reviewed together to verify both presentation and the resulting experience.
+
 ## Verdicts
+
+**Lens: [Shared]**
 
 - **PASS** — The reviewed scope supports the intended task at the tested size and state; evidence and risks are recorded.
 - **NEEDS WORK** — The core task can still be reviewed, but a non-blocking clarity, craft, consistency, or polish issue remains.
@@ -13,6 +50,8 @@ Use this during a live review. Check what is true in the rendered experience, re
 **Automatic fail gate:** Any material accessibility, task-completion, data-truthfulness, clipping/overflow, or missing-state defect is a **FAIL** until fixed or explicitly re-scoped with an approved exception.
 
 ### Evidence policy
+
+**Lens: [Shared]**
 
 Minimum evidence is practical, rendered, and tied to the review type:
 
@@ -28,6 +67,8 @@ When behavior changes by viewport or state, multiple records are required: use o
 
 ## 1. Problem and evidence
 
+**Lens: [UX]**
+
 See [Frame the problem](./ui-ux-design-principles.md#frame-the-problem-before-the-interface), [Design around purpose](./ui-ux-design-principles.md#design-around-purpose), and [Treat evidence as a design material](./ui-ux-design-principles.md#treat-evidence-as-a-design-material).
 
 - [ ] User is named, including relevant knowledge, needs, and constraints.
@@ -41,6 +82,8 @@ See [Frame the problem](./ui-ux-design-principles.md#frame-the-problem-before-th
 **Fail if:** The review is defending a screenshot, feature request, or stakeholder preference without a verified user problem, task, evidence, or outcome.
 
 ## 2. Flow and information architecture
+
+**Lens: [UX]**
 
 See [Hierarchy](./ui-ux-design-principles.md#2-core-principles), [Agency](./ui-ux-design-principles.md#2-core-principles), [Progressive disclosure](./ui-ux-design-principles.md#2-core-principles), and [Recognition over recall](./ui-ux-design-principles.md#2-core-principles).
 
@@ -57,6 +100,8 @@ See [Hierarchy](./ui-ux-design-principles.md#2-core-principles), [Agency](./ui-u
 
 ## 3. Screen and component quality
 
+**Lens: [UI]**
+
 See [Visual and interaction craft](./ui-ux-design-principles.md#3-visual-and-interaction-craft), [Component anatomy](./ui-ux-design-principles.md#component-anatomy), and [Complete states](./ui-ux-design-principles.md#complete-states).
 
 - [ ] Content uses plain language, realistic length, useful labels, and meaningful media.
@@ -72,6 +117,8 @@ See [Visual and interaction craft](./ui-ux-design-principles.md#3-visual-and-int
 **Fail if:** A core control is ambiguous or inaccessible, content clips, a meaningful state is missing, feedback is false or absent, or visual craft contradicts task priority or product truth.
 
 ## 4. Desktop
+
+**Lens: [UI] + [Shared] — presentation is UI; window, input, and task behavior are shared.**
 
 See [Desktop-specific guidance](./ui-ux-design-principles.md#4-desktop-specific-guidance).
 
@@ -90,6 +137,8 @@ See [Desktop-specific guidance](./ui-ux-design-principles.md#4-desktop-specific-
 
 ## 5. Mobile and responsive
 
+**Lens: [UI] + [Shared] — presentation is UI; adaptation, interruption, and task continuity are shared.**
+
 See [Mobile-specific and responsive guidance](./ui-ux-design-principles.md#5-mobile-specific-and-responsive-guidance), [Responsive reflow and adaptive transformation](./ui-ux-design-principles.md#responsive-reflow-and-adaptive-transformation), and [Fidexa responsive targets](./ui-ux-design-principles.md#fidexa-responsive-targets).
 
 - [ ] Primary iPhone review: `393×852`.
@@ -106,6 +155,8 @@ See [Mobile-specific and responsive guidance](./ui-ux-design-principles.md#5-mob
 **Fail if:** Any recorded target clips or horizontally overflows; a fixed overlay covers content/action; touch or keyboard use blocks completion; or the recorded responsive result cannot complete the core task.
 
 ## 6. Dashboard
+
+**Lens: [Shared]**
 
 See [Dashboard design principles](./ui-ux-design-principles.md#6-dashboard-design-principles), [Tell the truth visually](./ui-ux-design-principles.md#tell-the-truth-visually), [Design the data states](./ui-ux-design-principles.md#design-the-data-states), and [Desktop and mobile dashboard composition](./ui-ux-design-principles.md#desktop-and-mobile-dashboard-composition).
 
@@ -139,6 +190,8 @@ See [Dashboard design principles](./ui-ux-design-principles.md#6-dashboard-desig
 
 ## 7. Accessibility
 
+**Lens: [Shared]**
+
 See [Accessibility](./ui-ux-design-principles.md#2-core-principles), [Accessibility and performance are part of dashboard design](./ui-ux-design-principles.md#accessibility-and-performance-are-part-of-dashboard-design), and [WCAG 2.2](https://www.w3.org/TR/wcag22/).
 
 - [ ] Scope-specific WCAG 2.2 criterion IDs are listed; each has a test step, result, and evidence link.
@@ -153,6 +206,8 @@ See [Accessibility](./ui-ux-design-principles.md#2-core-principles), [Accessibil
 **Fail if:** A scope-specific WCAG 2.2 failure or missing matrix result creates a material barrier in keyboard-only use, zoom/text enlargement, reduced motion, contrast/non-color interpretation, or the recorded representative screen reader/browser/device path.
 
 ## 8. Prototype
+
+**Lens: [UX] + [Shared] — the learning question is UX; fidelity, states, and evidence cross both lenses.**
 
 See [Prototype principles](./ui-ux-design-principles.md#7-prototype-principles).
 
@@ -169,6 +224,8 @@ See [Prototype principles](./ui-ux-design-principles.md#7-prototype-principles).
 
 ## 9. Final evidence
 
+**Lens: [Shared]**
+
 See [Review production output](./ui-ux-design-principles.md#9-fidexa-application-rules), [Run geometry and visual QA](./ui-ux-design-principles.md#9-fidexa-application-rules), and [Use adversarial review](./ui-ux-design-principles.md#9-fidexa-application-rules).
 
 - [ ] Screenshots/captures exist at the agreed target sizes, including the relevant states.
@@ -182,6 +239,8 @@ See [Review production output](./ui-ux-design-principles.md#9-fidexa-application
 **Fail if:** The decision relies on a static design file alone, target-size/device review is missing, a known material regression has no owner, or approval authority is unclear.
 
 ## Review record
+
+**Lens: [Shared]**
 
 | Field | Record |
 | --- | --- |

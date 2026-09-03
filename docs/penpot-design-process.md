@@ -10,7 +10,7 @@ The Penpot server is available at `http://localhost:9001/`. The working file is 
 
 ### Design principles and review gate
 
-Use the [Fidexa UI/UX Design Principles](./ui-ux-design-principles.md) as the design handbook and the [Fidexa UI/UX Design Review Checklist](./ui-ux-design-review-checklist.md) as the review gate. All new Fidexa visual work must be checked against the handbook before approval and the checklist before implementation handoff.
+Use the [Fidexa UI/UX Design Principles](./ui-ux-design-principles.md) as the design handbook. Its reading map presents **Part I — Principles of UI design** and **Part II — Principles of UX design** as navigation lenses over the canonical numbered chapters, with **Shared context** covering concerns that need both lenses. Use the [Fidexa UI/UX Design Review Checklist](./ui-ux-design-review-checklist.md) as one combined review gate that reviews both parts together. All new Fidexa visual work must be checked against the handbook before approval and the checklist before implementation handoff.
 
 Keep these design areas separate:
 
@@ -28,7 +28,7 @@ Before changing anything:
 2. Run `git status --short --branch` and preserve unrelated user changes.
 3. Open the `fidexa` file and confirm the intended page is active.
 4. Compare the current Penpot page with the old Fidexa site and the deployed product surfaces when deciding what to retain.
-5. Before editing, use the checklist's [Problem and evidence](./ui-ux-design-review-checklist.md#1-problem-and-evidence) section and the handbook's [Desktop-specific guidance](./ui-ux-design-principles.md#4-desktop-specific-guidance) or [Mobile-specific and responsive guidance](./ui-ux-design-principles.md#5-mobile-specific-and-responsive-guidance) for the target device. When a screen presents operational or analytical metrics, also use the handbook's [Dashboard design principles](./ui-ux-design-principles.md#6-dashboard-design-principles).
+5. Before editing, use the checklist's [Problem and evidence](./ui-ux-design-review-checklist.md#1-problem-and-evidence) section and the handbook's [Visual and interaction craft](./ui-ux-design-principles.md#3-visual-and-interaction-craft), [Desktop-specific guidance](./ui-ux-design-principles.md#4-desktop-specific-guidance), or [Mobile-specific and responsive guidance](./ui-ux-design-principles.md#5-mobile-specific-and-responsive-guidance) for the target device. These sections are labeled [UI] or [Shared] so presentation is reviewed with the relevant behavior. When a screen presents operational or analytical metrics, also use the handbook's [Dashboard design principles](./ui-ux-design-principles.md#6-dashboard-design-principles), labeled [Shared].
 
 ## Connecting and using the Penpot MCP
 
