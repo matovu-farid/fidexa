@@ -1,6 +1,6 @@
 # Fidexa Penpot design process
 
-Last updated: 2026-08-28
+Last updated: 2026-09-04
 
 This document is the handoff for agents working on Fidexa designs in the self-hosted Penpot file. It complements `AGENTS.md`; it does not replace the repository, product, or route rules there.
 
@@ -10,7 +10,7 @@ The Penpot server is available at `http://localhost:9001/`. The working file is 
 
 ### Design principles and review gate
 
-Use the [Fidexa UI/UX Design Principles](./ui-ux-design-principles.md) as the design handbook. Its reading map presents **Part I — Principles of UI design** and **Part II — Principles of UX design** as navigation lenses over the canonical numbered chapters, with **Shared context** covering concerns that need both lenses. Use the [Fidexa UI/UX Design Review Checklist](./ui-ux-design-review-checklist.md) as one combined review gate that reviews both parts together. All new Fidexa visual work must be checked against the handbook before approval and the checklist before implementation handoff.
+Use the [Fidexa UI/UX Design Principles](./ui-ux-design-principles.md) as the design handbook. Its reading map presents **Part I — Principles of UI design** and **Part II — Principles of UX design** as navigation lenses over the canonical numbered chapters, with **Shared context** covering concerns that need both lenses. Use the [Fidexa Color Principles for Modern UI](./ui-color-principles.md) for semantic color, expressive-accent, theme, state, dashboard, and accessibility decisions. Use the [Fidexa UI/UX Design Review Checklist](./ui-ux-design-review-checklist.md) as one combined review gate that reviews both parts together. All new Fidexa visual work must be checked against the handbooks before approval and the checklist before implementation handoff.
 
 Keep these design areas separate:
 
@@ -28,7 +28,7 @@ Before changing anything:
 2. Run `git status --short --branch` and preserve unrelated user changes.
 3. Open the `fidexa` file and confirm the intended page is active.
 4. Compare the current Penpot page with the old Fidexa site and the deployed product surfaces when deciding what to retain.
-5. Before editing, use the checklist's [Problem and evidence](./ui-ux-design-review-checklist.md#1-problem-and-evidence) section and the handbook's [Visual and interaction craft](./ui-ux-design-principles.md#3-visual-and-interaction-craft), [Desktop-specific guidance](./ui-ux-design-principles.md#4-desktop-specific-guidance), or [Mobile-specific and responsive guidance](./ui-ux-design-principles.md#5-mobile-specific-and-responsive-guidance) for the target device. These sections are labeled [UI] or [Shared] so presentation is reviewed with the relevant behavior. When a screen presents operational or analytical metrics, also use the handbook's [Dashboard design principles](./ui-ux-design-principles.md#6-dashboard-design-principles), labeled [Shared].
+5. Before editing, use the checklist's [Problem and evidence](./ui-ux-design-review-checklist.md#1-problem-and-evidence) section and the handbook's [Visual and interaction craft](./ui-ux-design-principles.md#3-visual-and-interaction-craft), [Desktop-specific guidance](./ui-ux-design-principles.md#4-desktop-specific-guidance), or [Mobile-specific and responsive guidance](./ui-ux-design-principles.md#5-mobile-specific-and-responsive-guidance) for the target device. Use the [Fidexa Color Principles for Modern UI](./ui-color-principles.md) for any palette, theme, surface, state, gradient, or dashboard-color decision. These sections are labeled [UI] or [Shared] so presentation is reviewed with the relevant behavior. When a screen presents operational or analytical metrics, also use the handbook's [Dashboard design principles](./ui-ux-design-principles.md#6-dashboard-design-principles), labeled [Shared].
 
 ## Connecting and using the Penpot MCP
 
@@ -96,7 +96,7 @@ The browser is the visual review surface. MCP is used to inspect and edit Penpot
 5. Inspect the screenshot itself, not only the selected layer: first fold, heading wraps, contrast, media crops, empty space, clipping, and visual hierarchy.
 6. Re-run the structural checks after any visual correction.
 
-Use the [UI/UX Design Review Checklist](./ui-ux-design-review-checklist.md) to capture evidence, responsive targets, accessibility results, dashboard states, prototype validation, and approval records.
+Use the [UI/UX Design Review Checklist](./ui-ux-design-review-checklist.md) and [Color Principles for Modern UI](./ui-color-principles.md) to capture evidence, responsive targets, accessibility results, dashboard states, palette/theme coverage, prototype validation, and approval records.
 
 For the implemented site, use the production build and the route checks in `AGENTS.md`. At minimum review the homepage, project catalog, project media, SMS disclosures, and mobile layout. Do not rely on a stale development tab after changing implementation code.
 

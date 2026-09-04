@@ -135,6 +135,8 @@ Color should communicate hierarchy, grouping, interaction, or semantic status. S
 
 Do not use brand color as a substitute for priority. A quiet surface can be more informative than a saturated one when the task is analytical or operational.
 
+For the color system behind these decisions, use the [Fidexa Color Principles for Modern UI](./ui-color-principles.md). It defines semantic roles, tonal ramps, expressive-accent limits, themes, component states, dashboard palettes, accessibility gates, and the provisional Fidexa starter mapping.
+
 ### Icons and imagery
 
 Icons should support a label or a well-established convention; they should not force users to decode a private symbol system. Give icon-only controls a name, accessible label, and visible state.

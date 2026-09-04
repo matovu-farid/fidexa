@@ -114,6 +114,18 @@ See [Visual and interaction craft](./ui-ux-design-principles.md#3-visual-and-int
 - [ ] Color, imagery, depth, motion, and polish serve comprehension and trust.
 - [ ] Decorative layers and intentional overlays do not compete with content flow.
 
+### Color and modern expression
+
+Use the [Fidexa Color Principles for Modern UI](./ui-color-principles.md) for the full rationale and token vocabulary.
+
+- [ ] Non-neutral colors have named semantic roles; components do not contain unexplained raw color values.
+- [ ] Neutral surfaces establish the reading field; accent moments are limited and tied to identity, action, insight, or real status.
+- [ ] Every colored surface has a tested foreground partner, including hover, pressed, selected, focus-visible, disabled, and dark-theme variants as relevant.
+- [ ] Normal text reaches `4.5:1`, large text reaches `3:1`, and meaningful controls/graphics reach `3:1` against adjacent colors where applicable.
+- [ ] Essential meaning survives without hue through labels, icons, shapes, patterns, position, or text.
+- [ ] Gradients, images, translucency, P3 colors, and thin lines were tested at their least-contrasting areas.
+- [ ] The design is expressive without making every card, control, metric, or state equally loud.
+
 **Fail if:** A core control is ambiguous or inaccessible, content clips, a meaningful state is missing, feedback is false or absent, or visual craft contradicts task priority or product truth.
 
 ## 4. Desktop
