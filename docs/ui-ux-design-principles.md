@@ -12,6 +12,23 @@ Start with the person and the job. Then make the experience clear, efficient, ac
 
 This is a curated synthesis, not a source dump. The source set combines platform guidance, usability research, accessibility requirements, product practice, and craft philosophy. It gives Fidexa a shared vocabulary for deciding what to build, what to test, and what to reject. It does not replace product judgment, user research, or platform-specific implementation guidance.
 
+### Design foundation handbooks
+
+Use the focused handbooks when a decision depends on a particular visual foundation:
+
+- [Layout and Grid](./ui-layout-grid-principles.md)
+- [Visual Hierarchy](./ui-visual-hierarchy-principles.md)
+- [Spacing](./ui-spacing-principles.md)
+- [Color](./ui-color-principles.md)
+- [Typography](./ui-typography-principles.md)
+- [Consistency](./ui-consistency-principles.md)
+- [Contrast](./ui-contrast-principles.md)
+- [Polish and Details](./ui-polish-details-principles.md)
+- [Shape Language](./ui-shape-language-principles.md)
+- [Imagery and Icons](./ui-imagery-icons-principles.md)
+
+These are separate authorities for focused review, but they are not isolated disciplines: a layout decision affects hierarchy, spacing affects typography, contrast affects color and type, and imagery/shape/polish affect interaction and trust.
+
 ### UI and UX lenses
 
 **UX concerns usefulness, context, flows, behavior, outcomes, and the relationship with the product. UI concerns the visible and interactive presentation and how it communicates behavior.** They are different lenses on the same experience, and neither is sufficient alone: a useful flow can fail when its interface is unreadable or misleading, while a beautiful interface can fail when it solves the wrong problem or leaves people without agency.

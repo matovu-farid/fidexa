@@ -39,6 +39,21 @@ The unnumbered [Verdicts](#verdicts), [Evidence policy](#evidence-policy), and [
 
 This is one combined checklist because UI and UX are different lenses, but they must be reviewed together to verify both presentation and the resulting experience.
 
+### Foundation handbooks
+
+Use the focused handbooks alongside this combined gate:
+
+- [Layout and Grid](./ui-layout-grid-principles.md)
+- [Visual Hierarchy](./ui-visual-hierarchy-principles.md)
+- [Spacing](./ui-spacing-principles.md)
+- [Color](./ui-color-principles.md)
+- [Typography](./ui-typography-principles.md)
+- [Consistency](./ui-consistency-principles.md)
+- [Contrast](./ui-contrast-principles.md)
+- [Polish and Details](./ui-polish-details-principles.md)
+- [Shape Language](./ui-shape-language-principles.md)
+- [Imagery and Icons](./ui-imagery-icons-principles.md)
+
 ## Verdicts
 
 **Lens: [Shared]**
@@ -140,6 +155,12 @@ Use the [Fidexa Color Principles for Modern UI](./ui-color-principles.md) for th
 - [ ] The design is expressive without making every card, control, metric, or state equally loud.
 
 **Fail if:** A core control is ambiguous or inaccessible, content clips, a meaningful state is missing, feedback is false or absent, or visual craft contradicts task priority or product truth.
+
+### Foundation cross-check
+
+- [ ] Layout/grid, hierarchy, spacing, consistency, contrast, polish/details, shape, imagery, and icon decisions have named roles and evidence.
+- [ ] The focused handbook for each in-scope decision was consulted; exceptions and provisional values are recorded.
+- [ ] The foundations agree: type, color, contrast, spacing, shape, imagery, and motion reinforce the same task hierarchy.
 
 ## 4. Desktop
 
