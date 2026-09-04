@@ -129,6 +129,8 @@ Type carries hierarchy, tone, and pace. Choose a small, coherent type system wit
 
 Do not use tiny type, excessive all-caps, low-contrast metadata, or fixed-height text containers that clip or conceal wrapping.
 
+For the typography system behind these decisions, use the [Fidexa Typography Principles](./ui-typography-principles.md). It defines typeface roles, named scales, hierarchy, responsive behavior, dashboard typography, accessibility requirements, recurring mistakes, and a provisional Fidexa typography contract.
+
 ### Color and contrast
 
 Color should communicate hierarchy, grouping, interaction, or semantic status. Start with a restrained neutral field and add accents where they carry meaning. Verify contrast and do not make color the only signal for status, selection, or error.

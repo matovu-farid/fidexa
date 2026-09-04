@@ -114,6 +114,19 @@ See [Visual and interaction craft](./ui-ux-design-principles.md#3-visual-and-int
 - [ ] Color, imagery, depth, motion, and polish serve comprehension and trust.
 - [ ] Decorative layers and intentional overlays do not compete with content flow.
 
+### Typography
+
+Use the [Fidexa Typography Principles](./ui-typography-principles.md) for the full rationale, type-role vocabulary, responsive guidance, and accessibility rules.
+
+- [ ] Typeface roles, fallback behavior, licensing, loading, and language coverage are understood.
+- [ ] Text styles use named family/size/weight/line-height/tracking/casing tokens; no unexplained local values remain.
+- [ ] Hierarchy and semantic heading order agree; reading order remains meaningful when layout changes.
+- [ ] Longest realistic, translated-length, empty, error, success, and user-created content has been tested.
+- [ ] Measure, line-height, paragraph spacing, wrapping, and truncation are readable at each target.
+- [ ] Buttons, fields, errors, tables, metrics, chart labels, legends, and icon/text pairs have intentional typography.
+- [ ] Text survives 200% enlargement, applicable reflow, larger platform text settings, fallback fonts, and responsive transformations.
+- [ ] Essential meaning does not rely on weight, size, case, color, hover, or position alone.
+
 ### Color and modern expression
 
 Use the [Fidexa Color Principles for Modern UI](./ui-color-principles.md) for the full rationale and token vocabulary.
