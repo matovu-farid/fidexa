@@ -1,6 +1,6 @@
 import { boolean, index, pgTable, text, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
 
-export const authUsers = pgTable("user", {
+export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull(),
@@ -10,7 +10,7 @@ export const authUsers = pgTable("user", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 }, (table) => [uniqueIndex("user_email_unique").on(table.email)]);
 
-export const authSessions = pgTable("session", {
+export const session = pgTable("session", {
   id: text("id").primaryKey(),
   expiresAt: timestamp("expires_at", { withTimezone: true }).notNull(),
   token: text("token").notNull(),
@@ -18,14 +18,14 @@ export const authSessions = pgTable("session", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   ipAddress: text("ip_address"),
   userAgent: text("user_agent"),
-  userId: text("user_id").notNull().references(() => authUsers.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
 }, (table) => [uniqueIndex("session_token_unique").on(table.token), index("session_user_idx").on(table.userId)]);
 
-export const authAccounts = pgTable("account", {
+export const account = pgTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
-  userId: text("user_id").notNull().references(() => authUsers.id, { onDelete: "cascade" }),
+  userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
   accessToken: text("access_token"),
   refreshToken: text("refresh_token"),
   idToken: text("id_token"),
@@ -37,7 +37,7 @@ export const authAccounts = pgTable("account", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
 }, (table) => [index("account_user_idx").on(table.userId)]);
 
-export const authVerifications = pgTable("verification", {
+export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
