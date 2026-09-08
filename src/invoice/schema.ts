@@ -35,23 +35,25 @@ export const invoiceGroupSchema = z
     }
   });
 
+const invoiceRequestValidationShape = {
+  invoiceNumber: z.string().trim().min(1, "Invoice number is required"),
+  issueDate: isoDateSchema,
+  dueDate: isoDateSchema.optional(),
+  terms: z.string().trim().min(1).default("Net 30"),
+  status: z.enum(["DRAFT", "AWAITING PAYMENT", "PAID", "VOID"]).default("AWAITING PAYMENT"),
+  client: z.object({
+    name: descriptionSchema,
+    email: z.string().email().optional(),
+    address: z.string().trim().min(1).optional(),
+  }),
+  currency: z.literal("UGX").default("UGX"),
+  hourlyRate: rateSchema,
+  taxRate: z.number().finite().min(0).max(100).default(0),
+  groups: z.array(invoiceGroupSchema).min(1, "At least one line-item group is required"),
+};
+
 export const invoiceRequestSchema = z
-  .object({
-    invoiceNumber: z.string().trim().min(1, "Invoice number is required"),
-    issueDate: isoDateSchema,
-    dueDate: isoDateSchema.optional(),
-    terms: z.string().trim().min(1).default("Net 30"),
-    status: z.enum(["DRAFT", "AWAITING PAYMENT", "PAID", "VOID"]).default("AWAITING PAYMENT"),
-    client: z.object({
-      name: descriptionSchema,
-      email: z.string().email().optional(),
-      address: z.string().trim().min(1).optional(),
-    }),
-    currency: z.literal("UGX").default("UGX"),
-    hourlyRate: rateSchema,
-    taxRate: z.number().finite().min(0).max(100).default(0),
-    groups: z.array(invoiceGroupSchema).min(1, "At least one line-item group is required"),
-  })
+  .object(invoiceRequestValidationShape)
   .superRefine((request, ctx) => {
     if (request.dueDate && request.dueDate < request.issueDate) {
       ctx.addIssue({
@@ -62,22 +64,24 @@ export const invoiceRequestSchema = z
     }
   });
 
+const quotationRequestValidationShape = {
+  quotationNumber: z.string().trim().min(1, "Quotation number is required"),
+  issueDate: isoDateSchema,
+  validUntil: isoDateSchema.optional(),
+  terms: z.string().trim().min(1).default("Net 30"),
+  client: z.object({
+    name: descriptionSchema,
+    email: z.string().email().optional(),
+    address: z.string().trim().min(1).optional(),
+  }),
+  currency: z.literal("UGX").default("UGX"),
+  hourlyRate: rateSchema,
+  taxRate: z.number().finite().min(0).max(100).default(0),
+  groups: z.array(invoiceGroupSchema).min(1, "At least one line-item group is required"),
+};
+
 export const quotationRequestSchema = z
-  .object({
-    quotationNumber: z.string().trim().min(1, "Quotation number is required"),
-    issueDate: isoDateSchema,
-    validUntil: isoDateSchema.optional(),
-    terms: z.string().trim().min(1).default("Net 30"),
-    client: z.object({
-      name: descriptionSchema,
-      email: z.string().email().optional(),
-      address: z.string().trim().min(1).optional(),
-    }),
-    currency: z.literal("UGX").default("UGX"),
-    hourlyRate: rateSchema,
-    taxRate: z.number().finite().min(0).max(100).default(0),
-    groups: z.array(invoiceGroupSchema).min(1, "At least one line-item group is required"),
-  })
+  .object(quotationRequestValidationShape)
   .superRefine((request, ctx) => {
     if (request.validUntil && request.validUntil < request.issueDate) {
       ctx.addIssue({
@@ -87,6 +91,44 @@ export const quotationRequestSchema = z
       });
     }
   });
+
+const mcpGroupSchema = z.object({
+  description: z.string(),
+  tasks: z.array(invoiceTaskSchema).optional(),
+  hours: z.number().optional(),
+  hourlyRate: z.number().optional(),
+});
+
+const mcpClientSchema = z.object({
+  name: z.string(),
+  email: z.string().optional(),
+  address: z.string().optional(),
+});
+
+export const invoiceRequestShape = {
+  invoiceNumber: z.string(),
+  issueDate: z.string(),
+  dueDate: z.string().optional(),
+  terms: z.string().optional(),
+  status: z.enum(["DRAFT", "AWAITING PAYMENT", "PAID", "VOID"]).optional(),
+  client: mcpClientSchema,
+  currency: z.literal("UGX").optional(),
+  hourlyRate: z.number(),
+  taxRate: z.number().optional(),
+  groups: z.array(mcpGroupSchema),
+};
+
+export const quotationRequestShape = {
+  quotationNumber: z.string(),
+  issueDate: z.string(),
+  validUntil: z.string().optional(),
+  terms: z.string().optional(),
+  client: mcpClientSchema,
+  currency: z.literal("UGX").optional(),
+  hourlyRate: z.number(),
+  taxRate: z.number().optional(),
+  groups: z.array(mcpGroupSchema),
+};
 
 export type InvoiceRequest = z.input<typeof invoiceRequestSchema>;
 export type QuotationRequest = z.input<typeof quotationRequestSchema>;

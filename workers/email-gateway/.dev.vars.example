@@ -1,0 +1,3 @@
+INBOX_INGEST_SECRET=replace-with-a-32-character-secret
+INBOX_ATTACHMENT_SECRET=replace-with-a-32-character-secret
+CLEANUP_SECRET=replace-with-a-32-character-secret

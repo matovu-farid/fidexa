@@ -4,8 +4,9 @@ import {
   createUIMessageStreamResponse,
   streamText,
   toUIMessageStream,
-  type UIMessage,
 } from "ai";
+
+import { parseChatMessages } from "@/lib/chat/request";
 
 const FIDEXA_DISCOVERY_SYSTEM_PROMPT = `You are Fidexa's project discovery consultant. Your job is to understand a prospective client's product idea, make the opportunity clearer, and guide a qualified prospect toward a sensible next step with Fidexa.
 
@@ -43,13 +44,16 @@ Tone and boundaries:
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
-  const { messages = [] } = await req.json();
-
-  if (!Array.isArray(messages)) {
+  let payload: unknown;
+  try {
+    payload = await req.json();
+  } catch {
     return new Response("Invalid messages", { status: 400 });
   }
+  const messages = parseChatMessages(payload);
+  if (!messages) return new Response("Invalid messages", { status: 400 });
 
-  const modelMessages = await convertToModelMessages(messages as UIMessage[]);
+  const modelMessages = await convertToModelMessages(messages);
 
   const result = streamText({
     model: openai(process.env.OPENAI_CHAT_MODEL ?? "gpt-5-mini"),

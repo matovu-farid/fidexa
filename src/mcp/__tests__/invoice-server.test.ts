@@ -7,6 +7,7 @@ import { InMemoryTransport } from "@modelcontextprotocol/sdk/inMemory.js";
 import { afterEach, describe, expect, it } from "vitest";
 
 import { createInvoiceMcpServer } from "../invoice-server";
+import { invoiceRequestShape } from "../../invoice/schema";
 
 const request = {
   invoiceNumber: "FDX-2026-003",
@@ -29,6 +30,11 @@ afterEach(async () => {
 });
 
 describe("invoice MCP server", () => {
+  it("uses the invoice object shape for MCP registration", () => {
+    expect(invoiceRequestShape).toHaveProperty("invoiceNumber");
+    expect(invoiceRequestShape).toHaveProperty("groups");
+  });
+
   it("lists calculation and invoice creation tools and returns calculated totals", async () => {
     const outputDirectory = await mkdtemp(join(tmpdir(), "fidexa-mcp-"));
     temporaryDirectories.push(outputDirectory);
