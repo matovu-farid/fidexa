@@ -20,6 +20,16 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Admin access
+
+The private admin area is available at `/admin`. It uses a Better Auth magic link sent through Resend and accepts addresses in the `@fidexa.org` domain.
+
+1. Copy `.env.example` to `.env.local` and set the database, Better Auth, and Resend values.
+2. Apply the auth tables with `pnpm db:migrate`.
+3. Start the app and open `/admin`.
+
+The admin area currently provides the protected sign-in boundary and workspace landing page. Mailbox, virtual-inbox, and inbound-email functionality are intentionally out of scope.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
