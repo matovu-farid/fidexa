@@ -22,9 +22,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Admin access
 
-The private admin area is available at `/admin`. It uses a Better Auth magic link sent through Resend and only accepts addresses listed in `FIDEXA_ADMIN_EMAILS`.
+The private admin area is available at `/admin`. It uses a Better Auth magic link sent through Resend and accepts addresses in the `@fidexa.org` domain.
 
-1. Copy `.env.example` to `.env.local` and set the database, Better Auth, Resend, and administrator values.
+1. Copy `.env.example` to `.env.local` and set the database, Better Auth, and Resend values.
 2. Apply the auth tables with `pnpm db:migrate`.
 3. Start the app and open `/admin`.
 

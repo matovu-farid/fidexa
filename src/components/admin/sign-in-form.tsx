@@ -25,7 +25,7 @@ export function SignInForm() {
       <div className="admin-sign-in-card">
         <p className="eyebrow">Fidexa / Admin</p>
         <h1>Open the workspace.</h1>
-        <p className="admin-muted">Use your allowlisted Fidexa email. We’ll send a one-time link through Resend.</p>
+        <p className="admin-muted">Use your @fidexa.org email. We’ll send a one-time link through Resend.</p>
         {sent ? (
           <div className="admin-success" role="status">
             Check your email for a sign-in link. It expires in 10 minutes.

@@ -14,13 +14,15 @@ function createAuth(config: ReturnType<typeof getServerConfig>, resend: Resend) 
     secret: config.betterAuthSecret,
     database: drizzleAdapter(getDb(), { provider: "pg" }),
     trustedOrigins: [config.fidexaAppUrl],
-    advanced: { useSecureCookies: true },
+    advanced: {
+      useSecureCookies: config.betterAuthUrl.startsWith("https://"),
+    },
     plugins: [
       magicLink({
         expiresIn: 600,
         storeToken: "hashed",
         sendMagicLink: async ({ email, url }) => {
-          if (!isAdminEmail(email, config)) return;
+          if (!isAdminEmail(email)) return;
 
           await resend.emails.send({
             from: "Fidexa <hello@fidexa.org>",
@@ -48,9 +50,8 @@ export function getAuth(): AuthInstance {
 
 export async function getAdminSession(headers: Headers) {
   try {
-    const config = getServerConfig();
     const session = await getAuth().api.getSession({ headers });
-    if (!session || !isAdminEmail(session.user.email, config)) return null;
+    if (!session || !isAdminEmail(session.user.email)) return null;
     return session;
   } catch {
     return null;
