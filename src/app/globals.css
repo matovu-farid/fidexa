@@ -215,4 +215,27 @@
     .hero-actions .button-primary, .hero-actions .button-secondary { padding-inline: .85rem; font-size: .7rem; }
   }
   @media (min-width: 768px) { .mobile-menu-button { display: none; } }
+
+  .admin-frame { min-height: 100svh; background: #f4f1eb; color: #101828; }
+  .admin-sign-in { display: grid; min-height: 100svh; place-items: center; background: #f4f1eb; padding: 1rem; }
+  .admin-sign-in-card { width: min(100%, 430px); border: 1px solid rgba(16,24,40,.12); border-radius: 1rem; background: #fcf9f0; padding: clamp(1.5rem, 6vw, 3rem); box-shadow: 0 18px 50px rgba(16,24,40,.07); }
+  .admin-sign-in-card h1 { margin: .7rem 0 .55rem; font-size: clamp(2rem, 7vw, 3rem); letter-spacing: -.07em; }
+  .admin-sign-in-form { display: grid; gap: .55rem; margin-top: 1.8rem; }
+  .admin-sign-in-form label { color: #364152; font-size: .68rem; font-weight: 800; }
+  .admin-sign-in-form input { min-height: 46px; border: 1px solid rgba(16,24,40,.16); border-radius: .6rem; background: #f7f2e8; padding: 0 .8rem; outline: none; font: inherit; font-size: .75rem; }
+  .admin-sign-in-form input:focus { border-color: #7c5cfc; box-shadow: 0 0 0 3px rgba(124,92,252,.16); }
+  .admin-primary, .admin-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border-radius: .65rem; padding: .6rem .8rem; font-size: .7rem; font-weight: 800; cursor: pointer; }
+  .admin-primary { border: 0; background: #101828; color: #fffdf8; }
+  .admin-primary:hover { background: #7c5cfc; }
+  .admin-secondary { border: 1px solid rgba(16,24,40,.16); background: transparent; color: #364152; }
+  .admin-secondary:hover { border-color: #7c5cfc; color: #7c5cfc; }
+  .admin-error { color: #b42318; font-size: .68rem; }
+  .admin-success { margin-top: 1.5rem; border-radius: .6rem; background: rgba(55,214,192,.18); padding: .8rem; color: #0c3f3d; font-size: .72rem; line-height: 1.5; }
+  .admin-muted { color: #7a8492; font-size: .72rem; line-height: 1.5; }
+  .admin-sign-in-foot { margin-top: 1.4rem; border-top: 1px solid rgba(16,24,40,.1); padding-top: 1rem; }
+  .admin-home { min-height: 100svh; padding: 1.25rem clamp(1rem, 6vw, 5rem) 3rem; }
+  .admin-home-header { display: flex; align-items: center; justify-content: space-between; max-width: 1120px; margin: 0 auto; }
+  .admin-home-header h1 { margin-top: .25rem; font-size: 1.65rem; letter-spacing: -.05em; }
+  .admin-home-card { max-width: 720px; margin: clamp(4rem, 14vh, 9rem) auto 0; border: 1px solid rgba(16,24,40,.12); border-radius: 1rem; background: #fcf9f0; padding: clamp(1.5rem, 6vw, 3.5rem); box-shadow: 0 18px 50px rgba(16,24,40,.07); }
+  .admin-home-card h2 { margin: .7rem 0 .55rem; font-size: clamp(2.5rem, 7vw, 5rem); letter-spacing: -.08em; line-height: .95; }
 }
