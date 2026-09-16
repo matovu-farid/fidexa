@@ -8,6 +8,7 @@ export const operatorTools = new Set([
   "store_evidence",
   "complete_research_run",
   "create_outreach_draft",
+  "submit_outreach_for_review",
   "submit_outreach_review",
   "send_approved_outreach",
   "schedule_follow_up",

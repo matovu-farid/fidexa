@@ -40,9 +40,9 @@
       "name": "fidexa-outreach-gateway-production",
       "vars": {
         "OUTREACH_APP_ORIGIN": "https://www.fidexa.org",
-        "OUTBOUND_ENABLED": "false",
+        "OUTBOUND_ENABLED": "true",
       "SYNC_ENABLED": "false",
-      "DAILY_SEND_LIMIT": "0",
+      "DAILY_SEND_LIMIT": "3",
       "ZOHO_MAILBOX": "hello@fidexa.org"
       },
       "d1_databases": [

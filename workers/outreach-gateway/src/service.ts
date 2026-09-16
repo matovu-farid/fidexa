@@ -53,6 +53,13 @@ const reviewSchema = z.object({
   checklist: approvalChecklistSchema.optional(),
 }).strict();
 
+const submitForReviewSchema = z.object({
+  schema_version: z.literal(1),
+  workflow_run_id: z.string().min(1).max(120),
+  idempotency_key: z.string().min(1).max(200),
+  draft_id: z.string().min(1).max(120),
+}).strict();
+
 const followUpSchema = z.object({
   schema_version: z.literal(1),
   workflow_run_id: z.string().min(1).max(120),
@@ -328,6 +335,16 @@ export async function createDraft(context: Context, input: unknown) {
     await context.db.prepare(`INSERT INTO outreach_drafts (id, schema_version, company_id, contact_id, workflow_run_id, idempotency_key, state, subject, body, claim_evidence_ids_json, source_urls_json, created_at, updated_at) VALUES (?, 1, ?, ?, ?, ?, 'drafted', ?, ?, ?, ?, ?, ?)`)
       .bind(id, value.company_id, value.contact_id, value.workflow_run_id, value.idempotency_key, value.subject, value.body, JSON.stringify(value.claim_evidence_ids), JSON.stringify(value.source_urls), now(context), now(context)).run();
     return { result: { id, state: "drafted" }, nextState: "drafted" };
+  });
+}
+
+export async function submitForReview(context: Context, input: unknown) {
+  const value = submitForReviewSchema.parse(input);
+  return executeIdempotentMutation(context, "review_submission", value.draft_id, value, "submit_outreach_for_review", async () => {
+    const draft = await context.db.prepare("SELECT state, company_id FROM outreach_drafts WHERE id = ? LIMIT 1").bind(value.draft_id).first<{ state: string; company_id: string }>();
+    if (!draft || !canTransition(draft.state as OutreachState, "in_review")) throw new Error("Draft is not eligible for independent review");
+    await context.db.prepare("UPDATE outreach_drafts SET state = 'in_review', updated_at = ? WHERE id = ?").bind(now(context), value.draft_id).run();
+    return { result: { draft_id: value.draft_id, state: "in_review" }, nextState: "in_review", companyId: draft.company_id };
   });
 }
 

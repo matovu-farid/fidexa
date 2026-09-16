@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { requireBinding, type OutreachEnv } from "./env";
 import { getDailySendCount } from "./d1";
-import { createCompany, createContact, createDraft, completeResearch, approveDraft, recordFinding, scheduleFollowUp, sendApproved, startResearch, storeEvidence, submitReview } from "./service";
+import { createCompany, createContact, createDraft, completeResearch, approveDraft, recordFinding, scheduleFollowUp, sendApproved, startResearch, storeEvidence, submitForReview, submitReview } from "./service";
 import { operatorTools, reviewerTools, type McpRole } from "./tool-policy";
 
 export function allowedToolsForRole(role: McpRole): string[] {
@@ -42,6 +42,10 @@ export function createOutreachMcpServer(role: McpRole, env: OutreachEnv): McpSer
       description: "Create an evidence-backed outreach draft for a verified contact.",
       inputSchema: { schema_version: z.literal(1), workflow_run_id: z.string(), idempotency_key: z.string(), company_id: z.string(), contact_id: z.string(), subject: z.string(), body: z.string(), claim_evidence_ids: z.array(z.string()), source_urls: z.array(z.string().url()) },
     }, (input) => createDraft(context("create_outreach_draft"), input));
+    server.registerTool("submit_outreach_for_review", {
+      description: "Move a drafted message into independent review without recording a reviewer decision.",
+      inputSchema: { schema_version: z.literal(1), workflow_run_id: z.string(), idempotency_key: z.string(), draft_id: z.string() },
+    }, (input) => submitForReview(context("submit_outreach_for_review"), input));
     server.registerTool("submit_outreach_review", {
       description: "Submit a draft for independent review; this does not approve the draft.",
       inputSchema: { schema_version: z.literal(1), workflow_run_id: z.string(), idempotency_key: z.string(), draft_id: z.string(), decision: z.literal("needs_changes"), policy_version: z.string(), findings: z.array(z.string()), reviewer_run_id: z.string().optional() },

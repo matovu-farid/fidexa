@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { DatabaseSync, type SQLInputValue } from "node:sqlite";
 import { readFileSync } from "node:fs";
-import { approveDraft, createCompany, createContact, recordFinding, scheduleFollowUp, sendApproved, storeEvidence } from "./service";
+import { approveDraft, createCompany, createContact, recordFinding, scheduleFollowUp, sendApproved, storeEvidence, submitForReview } from "./service";
 
 function text(result: unknown) {
   return JSON.parse((result as { content: Array<{ text: string }> }).content[0]!.text);
@@ -44,6 +44,23 @@ function context(first: (sql: string, args: unknown[]) => unknown, onBind?: (sql
 }
 
 describe("outreach service safety boundaries", () => {
+  it("submits a drafted outreach message for independent review without recording a negative review decision", async () => {
+    const bound: Array<{ sql: string; args: unknown[] }> = [];
+    const dbContext = context((sql) => sql.includes("FROM outreach_drafts")
+      ? { state: "drafted", company_id: "company-1" }
+      : null, (sql, args) => bound.push({ sql, args }));
+
+    await submitForReview(dbContext, {
+      schema_version: 1,
+      workflow_run_id: "author-run",
+      idempotency_key: "submit-for-review-1",
+      draft_id: "draft-1",
+    });
+
+    expect(bound.some(({ sql }) => sql.includes("INSERT INTO review_runs"))).toBe(false);
+    expect(bound.some(({ sql, args }) => sql.includes("UPDATE outreach_drafts SET state = 'in_review'") && args.includes("draft-1"))).toBe(true);
+  });
+
   it.each(["contacts", "messages"])("rejects a cross-company follow-up %s reference", async (table) => {
     const dbContext = context((sql) => {
       if (sql.includes("FROM companies")) return { id: "company-1" };

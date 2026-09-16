@@ -4,13 +4,15 @@ This Worker is Fidexa's isolated outreach data plane. Codex uses the narrow `/mc
 
 ## Safety state
 
-Staging and production must remain:
+Staging remains:
 
 ```text
 OUTBOUND_ENABLED=false
 SYNC_ENABLED=false
 DAILY_SEND_LIMIT=0
 ```
+
+Production is active for Fidexa's first controlled campaign with `OUTBOUND_ENABLED=true`, `DAILY_SEND_LIMIT=3`, and `SYNC_ENABLED=false`. Do not raise the cap or enable sync without an explicit operational decision.
 
 The current implementation is deployed to staging from code version `e854fe64-5c17-49a1-a665-8b43e5cfa42b`; the active version after staging credential rotation is `d6fb8009-0ba0-4d8e-ab3b-728d9784beb8`. Production runs Worker version `8f69e4ce-4757-4f0a-bed9-4c416c4d4638`. Migrations `0001`-`0006` are applied in both environments. Zoho OAuth/account/folder secrets remain pending.
 
@@ -65,7 +67,7 @@ pnpm exec wrangler deploy \
   --config workers/outreach-gateway/wrangler.jsonc --env staging
 ```
 
-Staging verification passed wrong-token rejection, 10 operator tools, reviewer-only approval, a controlled full workflow after the final safety fixes, `paused/outbound_disabled` send behavior, signed reporting/evidence reads, and replay rejection. The refreshed Vercel preview is `READY` at `https://fidexa-qlz8osau1-farids-projects-186e7dae.vercel.app`; unauthenticated redirect plus admin-auth no-overflow and console checks passed. The production deployment `dpl_HmUbb38bV4WtKZ3EDGroE1G6tcvZ` is live at `https://www.fidexa.org`; authenticated dashboard QA passed at the available 1280×720 viewport with the expected empty production state. Exact 1512×982 and 393×852 browser passes remain unverified because the Luna browser surface did not expose viewport controls. Keep outbound/sync disabled.
+Staging verification passed wrong-token rejection, 10 operator tools, reviewer-only approval, a controlled full workflow after the final safety fixes, `paused/outbound_disabled` send behavior, signed reporting/evidence reads, and replay rejection. The refreshed Vercel preview is `READY` at `https://fidexa-qlz8osau1-farids-projects-186e7dae.vercel.app`; unauthenticated redirect plus admin-auth no-overflow and console checks passed. The production deployment `dpl_HmUbb38bV4WtKZ3EDGroE1G6tcvZ` is live at `https://www.fidexa.org`. Exact 1512×982 and 393×852 browser passes remain unverified because the Luna browser surface did not expose viewport controls.
 
 Rollout record: the prior staging Worker was `0b9745b1-6f9c-40be-9581-92f4785c0741`, and the staging pre-change D1 bookmark is `00000005-00000000-000050e8-69dd80013636d4dbda8632d296298ea8`. The prior production Worker was `f0e766ac-a999-4b53-9668-811dcb389c57`, and the production pre-change bookmark is `0000000a-00000023-000050e8-5992bf575c391f09fca37f82f2b57e82`.
 
