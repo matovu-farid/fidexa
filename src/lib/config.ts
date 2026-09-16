@@ -6,6 +6,8 @@ const rawConfigSchema = z.object({
   BETTER_AUTH_URL: z.string().url(),
   RESEND_API_KEY: z.string().min(1),
   FIDEXA_APP_URL: z.string().url(),
+  OUTREACH_WORKER_URL: z.preprocess((value) => value === "" ? undefined : value, z.string().url().optional()),
+  OUTREACH_READ_SECRET: z.preprocess((value) => value === "" ? undefined : value, z.string().min(1).optional()),
 });
 
 export type ServerConfig = {
@@ -14,6 +16,8 @@ export type ServerConfig = {
   betterAuthUrl: string;
   resendApiKey: string;
   fidexaAppUrl: string;
+  outreachWorkerUrl?: string;
+  outreachReadSecret?: string;
 };
 
 export function parseServerConfig(input: Record<string, string | undefined>): ServerConfig {
@@ -25,6 +29,8 @@ export function parseServerConfig(input: Record<string, string | undefined>): Se
     betterAuthUrl: parsed.BETTER_AUTH_URL,
     resendApiKey: parsed.RESEND_API_KEY,
     fidexaAppUrl: parsed.FIDEXA_APP_URL,
+    outreachWorkerUrl: parsed.OUTREACH_WORKER_URL,
+    outreachReadSecret: parsed.OUTREACH_READ_SECRET,
   };
 }
 

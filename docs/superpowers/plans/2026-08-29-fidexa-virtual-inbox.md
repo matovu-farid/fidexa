@@ -1,4 +1,6 @@
-# Fidexa Virtual Inbox Implementation Plan
+# Fidexa Virtual Inbox Implementation Plan — Rejected
+
+> This plan is retained as historical design context only. It was never implemented and is superseded by the Zoho Mail workflow. Do not execute it or create the Cloudflare email gateway described below.
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 

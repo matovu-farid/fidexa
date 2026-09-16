@@ -1,14 +1,21 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { z } from "zod";
+
+const contactSchema = z.object({
+  name: z.string().trim().min(1).max(200),
+  email: z.string().email().max(320),
+  message: z.string().trim().min(1).max(10_000),
+}).strict();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
-  const { name, email, message } = await req.json();
-
-  if (!name || !email || !message) {
+  const parsed = contactSchema.safeParse(await req.json());
+  if (!parsed.success) {
     return NextResponse.json({ error: "All fields are required" }, { status: 400 });
   }
+  const { name, email, message } = parsed.data;
 
   const { error } = await resend.emails.send({
     from: "Fidexa Contact <contact@fidexa.org>",

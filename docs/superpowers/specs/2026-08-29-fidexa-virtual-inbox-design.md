@@ -1,7 +1,9 @@
 # Fidexa Virtual Inbox Design
 
 Date: 2026-08-29
-Status: Approved for implementation
+Status: Rejected — superseded by Zoho Mail
+
+> Historical design only. This virtual inbox was not implemented and must not be used as an implementation dependency. Fidexa outreach mail is handled through the Zoho Mail account instead.
 
 ## Goal
 

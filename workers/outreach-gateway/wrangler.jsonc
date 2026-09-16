@@ -1,0 +1,67 @@
+{
+  "name": "fidexa-outreach-gateway",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
+  "env": {
+    "staging": {
+      "name": "fidexa-outreach-gateway-staging",
+      "vars": {
+        "OUTREACH_APP_ORIGIN": "https://staging.fidexa.org",
+        "OUTBOUND_ENABLED": "false",
+      "SYNC_ENABLED": "false",
+      "DAILY_SEND_LIMIT": "0",
+      "ZOHO_MAILBOX": "hello@fidexa.org"
+      },
+      "d1_databases": [
+        {
+          "binding": "OUTREACH_DB",
+          "database_name": "fidexa-outreach-staging",
+          "database_id": "7a64df23-96bd-45d0-a866-0c2455173707",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "OUTREACH_BUCKET",
+          "bucket_name": "fidexa-outreach-staging"
+        }
+      ],
+      "triggers": {
+        "crons": ["*/15 * * * *"]
+      }
+    },
+    "production": {
+      "name": "fidexa-outreach-gateway-production",
+      "vars": {
+        "OUTREACH_APP_ORIGIN": "https://www.fidexa.org",
+        "OUTBOUND_ENABLED": "false",
+      "SYNC_ENABLED": "false",
+      "DAILY_SEND_LIMIT": "0",
+      "ZOHO_MAILBOX": "hello@fidexa.org"
+      },
+      "d1_databases": [
+        {
+          "binding": "OUTREACH_DB",
+          "database_name": "fidexa-outreach-production",
+          "database_id": "a78dd79a-f5d6-47ae-9c56-74d82308ceb9",
+          "migrations_dir": "migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "OUTREACH_BUCKET",
+          "bucket_name": "fidexa-outreach-production"
+        }
+      ],
+      "triggers": {
+        "crons": ["*/15 * * * *"]
+      }
+    }
+  }
+}

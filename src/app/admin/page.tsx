@@ -18,6 +18,7 @@ export default async function AdminPage() {
         <p className="eyebrow">Authenticated</p>
         <h2>Welcome back.</h2>
         <p className="admin-muted">You are signed in as {session?.user.email}. The private Fidexa workspace is ready for its next admin tools.</p>
+        <a className="admin-primary admin-home-link" href="/admin/outreach">Open outreach pipeline</a>
       </section>
     </main>
   );
