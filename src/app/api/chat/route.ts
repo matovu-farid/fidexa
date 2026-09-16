@@ -6,6 +6,7 @@ import {
   toUIMessageStream,
   type UIMessage,
 } from "ai";
+import { z } from "zod";
 
 const FIDEXA_DISCOVERY_SYSTEM_PROMPT = `You are Fidexa's project discovery consultant. Your job is to understand a prospective client's product idea, make the opportunity clearer, and guide a qualified prospect toward a sensible next step with Fidexa.
 
@@ -42,12 +43,14 @@ Tone and boundaries:
 // Allow streaming responses up to 30 seconds.
 export const maxDuration = 30;
 
-export async function POST(req: Request) {
-  const { messages = [] } = await req.json();
+const chatBodySchema = z.object({
+  messages: z.array(z.unknown()).default([]),
+}).strict();
 
-  if (!Array.isArray(messages)) {
-    return new Response("Invalid messages", { status: 400 });
-  }
+export async function POST(req: Request) {
+  const parsed = chatBodySchema.safeParse(await req.json());
+  if (!parsed.success) return new Response("Invalid messages", { status: 400 });
+  const { messages } = parsed.data;
 
   const modelMessages = await convertToModelMessages(messages as UIMessage[]);
 

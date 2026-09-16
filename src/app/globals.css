@@ -238,4 +238,58 @@
   .admin-home-header h1 { margin-top: .25rem; font-size: 1.65rem; letter-spacing: -.05em; }
   .admin-home-card { max-width: 720px; margin: clamp(4rem, 14vh, 9rem) auto 0; border: 1px solid rgba(16,24,40,.12); border-radius: 1rem; background: #fcf9f0; padding: clamp(1.5rem, 6vw, 3.5rem); box-shadow: 0 18px 50px rgba(16,24,40,.07); }
   .admin-home-card h2 { margin: .7rem 0 .55rem; font-size: clamp(2.5rem, 7vw, 5rem); letter-spacing: -.08em; line-height: .95; }
+  .admin-home-link { margin-top: 1.5rem; text-decoration: none; }
+  .admin-outreach { min-height: 100svh; padding: 1.25rem clamp(1rem, 6vw, 5rem) 3rem; }
+  .admin-outreach-header, .admin-stat-grid, .admin-outreach-card { width: min(100%, 1120px); margin-inline: auto; }
+  .admin-outreach-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .admin-outreach-header h1 { margin: .35rem 0 .5rem; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.08em; line-height: .95; }
+  .admin-stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 2.5rem; }
+  .admin-stat, .admin-outreach-card { border: 1px solid rgba(16,24,40,.12); border-radius: 1rem; background: #fcf9f0; box-shadow: 0 18px 50px rgba(16,24,40,.05); }
+  .admin-stat { display: grid; gap: .4rem; padding: 1.1rem; }
+  .admin-stat span, .admin-company-meta { color: #7a8492; font-size: .68rem; font-weight: 700; }
+  .admin-stat strong { font-size: 2rem; letter-spacing: -.06em; }
+  .admin-outreach-card { margin-top: .8rem; padding: clamp(1rem, 3vw, 1.6rem); }
+  .admin-section-heading, .admin-company-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .admin-section-heading h2 { margin: .3rem 0 1.2rem; font-size: 1.45rem; letter-spacing: -.05em; }
+  .admin-company-list { display: grid; gap: .2rem; }
+  .admin-company-row { border-top: 1px solid rgba(16,24,40,.09); padding: 1rem 0; }
+  .admin-company-row h3 { margin: 0 0 .25rem; font-size: .9rem; }
+  .admin-company-meta { display: flex; align-items: center; gap: .8rem; text-align: right; }
+  .admin-status { border-radius: 999px; background: rgba(124,92,252,.12); color: #5c43bf; padding: .35rem .55rem; }
+  .admin-outreach-split { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; width: min(100%, 1120px); margin: .8rem auto 0; }
+  .admin-outreach-split .admin-outreach-card { margin-top: 0; }
+  .admin-mini-list { display: grid; gap: .2rem; }
+  .admin-mini-row { display: flex; justify-content: space-between; gap: .8rem; align-items: center; border-top: 1px solid rgba(16,24,40,.09); padding: .7rem 0; color: #364152; font-size: .72rem; }
+  .admin-detail { width: min(100%, 1120px); margin: .8rem auto 0; }
+  .admin-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+  .admin-detail-grid > .admin-outreach-card { margin-top: .8rem; }
+  .admin-detail-intro h2 { margin: .3rem 0; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -.065em; }
+  .admin-detail-facts { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.2rem 0; color: #364152; font-size: .72rem; }
+  .admin-detail-facts dt { color: #7a8492; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+  .admin-detail-facts dd { margin: .2rem 0 0; font-weight: 700; }
+  .admin-prose { max-width: 75ch; margin: 0; color: #364152; font-size: .86rem; line-height: 1.65; overflow-wrap: anywhere; }
+  .admin-empty { margin: 0; }
+  .admin-table-scroll { max-width: 100%; overflow-x: auto; }
+  .admin-company-table { width: 100%; min-width: 580px; border-collapse: collapse; color: #364152; font-size: .75rem; text-align: left; }
+  .admin-company-table th, .admin-company-table td { border-top: 1px solid rgba(16,24,40,.09); padding: .85rem .7rem; vertical-align: top; }
+  .admin-company-table thead th { border-top: 0; color: #7a8492; font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; }
+  .admin-company-table tbody th { min-width: 13rem; }
+  .admin-company-table a, .admin-record-list a { color: #3d279b; font-weight: 700; text-decoration: underline; text-underline-offset: .16em; overflow-wrap: anywhere; }
+  .admin-company-table a:focus-visible, .admin-record-list a:focus-visible, .admin-secondary:focus-visible { outline: 3px solid #7c5cfc; outline-offset: 3px; border-radius: .18rem; }
+  .admin-company-table small { display: block; margin-top: .25rem; color: #7a8492; font-weight: 400; overflow-wrap: anywhere; }
+  .admin-record-list, .admin-audit-list { display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none; }
+  .admin-record-list li { display: grid; gap: .22rem; border-top: 1px solid rgba(16,24,40,.09); padding-top: .75rem; color: #364152; font-size: .75rem; min-width: 0; }
+  .admin-record-list span, .admin-record-list small { overflow-wrap: anywhere; }
+  .admin-record-list small { color: #7a8492; }
+  .admin-draft-list { display: grid; gap: 1rem; }
+  .admin-draft { border-top: 1px solid rgba(16,24,40,.09); padding-top: 1rem; min-width: 0; }
+  .admin-draft pre { max-width: 100%; margin: .75rem 0; padding: .8rem; overflow: auto; border-radius: .6rem; background: rgba(16,24,40,.045); color: #364152; font: inherit; font-size: .75rem; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .admin-review { margin-top: .8rem; padding: .8rem; border: 1px solid rgba(124,92,252,.28); border-radius: .6rem; background: rgba(124,92,252,.07); color: #364152; font-size: .75rem; overflow-wrap: anywhere; }
+  .admin-review p { margin: .5rem 0; }
+  .admin-review ul { margin: .5rem 0; padding-left: 1.1rem; }
+  .admin-review-entry + .admin-review-entry { margin-top: .8rem; border-top: 1px solid rgba(124,92,252,.18); padding-top: .8rem; }
+  .admin-audit-list li { display: grid; grid-template-columns: minmax(9rem, .8fr) minmax(0, 2fr); gap: .8rem; border-top: 1px solid rgba(16,24,40,.09); padding-top: .75rem; color: #364152; font-size: .75rem; }
+  .admin-audit-list time { color: #7a8492; }
+  .admin-audit-list p { margin: .25rem 0 0; }
+  @media (max-width: 640px) { .admin-outreach-header, .admin-company-row { align-items: flex-start; flex-direction: column; } .admin-stat-grid, .admin-outreach-split, .admin-detail-grid { gap: .5rem; } .admin-stat { padding: .8rem; } .admin-stat strong { font-size: 1.45rem; } .admin-company-meta { text-align: left; } .admin-outreach-split, .admin-detail-grid { grid-template-columns: 1fr; } .admin-table-scroll { margin-inline: -.2rem; } .admin-detail-facts { gap: 1rem; } .admin-audit-list li { grid-template-columns: 1fr; gap: .25rem; } }
 }

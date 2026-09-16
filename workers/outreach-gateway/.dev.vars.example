@@ -1,0 +1,15 @@
+OUTREACH_APP_ORIGIN=http://localhost:3000
+OUTBOUND_ENABLED=false
+SYNC_ENABLED=false
+DAILY_SEND_LIMIT=0
+MCP_OPERATOR_SECRET=replace-with-local-secret
+MCP_REVIEWER_SECRET=replace-with-local-secret
+FIDEXA_READ_SECRET=replace-with-local-secret
+RESEND_API_KEY=replace-with-local-secret
+RESEND_WEBHOOK_SECRET=replace-with-local-secret
+ZOHO_CLIENT_ID=replace-with-local-secret
+ZOHO_CLIENT_SECRET=replace-with-local-secret
+ZOHO_REFRESH_TOKEN=replace-with-local-secret
+ZOHO_ACCOUNT_ID=replace-with-local-secret
+ZOHO_MAILBOX=hello@fidexa.org
+ZOHO_FOLDER_ID=replace-with-local-folder-id
