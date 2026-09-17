@@ -7,12 +7,12 @@ export function CompanyProfile() {
             <p className="eyebrow">04 / Company</p>
             <h2 id="company-title" className="section-title mt-5">A focused studio, with clear accountability.</h2>
             <p className="body-copy mt-6">
-              Fidexa is an independent product studio. Founded and led by Farid Matovu, Founder &amp; Product Engineer, from Kampala, Uganda — working remotely across GMT+3.
+              Fidexa is an independent software studio based in Kampala, Uganda and working remotely in GMT+3. It builds and supports products for clients and through its own innovation lab. Founded and led by Farid Matovu, Founder &amp; Product Engineer.
             </p>
             <dl className="company-profile-facts">
               <div>
                 <dt>Base</dt>
-                <dd>Independent product studio</dd>
+                <dd>Kampala / Remote GMT+3</dd>
               </div>
               <div>
                 <dt>Founder experience</dt>

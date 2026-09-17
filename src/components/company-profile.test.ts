@@ -11,7 +11,7 @@ describe("company profile section contract", () => {
 
     expect(component).toContain('<dl className="company-profile-facts">');
     expect(component).toContain("<dt>Base</dt>");
-    expect(component).toContain("<dd>Independent product studio</dd>");
+    expect(component).toContain("<dd>Kampala / Remote GMT+3</dd>");
     expect(component).toContain("<dt>Founder experience</dt>");
     expect(component).toContain("<dd>7+ years professional delivery</dd>");
     expect(component).toContain("<dt>Operating model</dt>");
