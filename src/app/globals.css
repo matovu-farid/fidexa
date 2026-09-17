@@ -160,23 +160,22 @@
   .company-profile-grid { display: grid; align-items: start; gap: clamp(2rem, 6vw, 5rem); grid-template-columns: minmax(0, 1.05fr) minmax(0, .85fr); }
   .company-profile-intro { max-width: 42rem; }
   .company-profile-intro .section-title { font-size: clamp(2.25rem, 4.6vw, 4.2rem); }
-  .company-profile-experience { display: grid; gap: .4rem; max-width: 25rem; border-top: 1px solid var(--line); padding-top: 1.1rem; }
-  .company-profile-experience strong { font-size: 1.3rem; letter-spacing: -.04em; }
-  .company-profile-experience > span:last-child { color: var(--muted-ink); font-size: .8rem; }
-  .company-profile-details { display: grid; gap: 1rem; }
+  .company-profile-facts { display: grid; gap: .8rem; max-width: 32rem; margin-top: 2rem; border-top: 1px solid var(--line); padding-top: 1.1rem; }
+  .company-profile-facts > div { display: grid; gap: .25rem; grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); }
+  .company-profile-facts dt { color: var(--muted-ink); font-size: .66rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+  .company-profile-facts dd { font-size: .86rem; font-weight: 750; letter-spacing: -.02em; }
+  .company-profile-details { display: grid; gap: 1rem; grid-template-columns: 1fr; }
   .company-profile-card { border-radius: 1rem; padding: clamp(1.5rem, 4vw, 2.25rem); }
   .company-profile-card h3 { max-width: 24rem; margin-top: 1.7rem; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 750; letter-spacing: -.06em; line-height: 1; }
   .company-profile-card > p:nth-of-type(2) { max-width: 32rem; margin-top: 1rem; color: var(--dark-muted); font-size: .88rem; line-height: 1.6; }
-  .company-profile-card ul { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
-  .company-profile-card li { border: 1px solid rgba(255,253,248,.2); border-radius: 999px; padding: .45rem .65rem; color: var(--paper); font-size: .64rem; font-weight: 750; }
   .company-profile-proof { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: .9rem 0; }
   .company-profile-proof > span { color: var(--muted-ink); font-size: .63rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
   .company-profile-proof p { margin-top: .3rem; font-size: 1rem; font-weight: 750; letter-spacing: -.02em; }
-  .company-profile-proof i { padding-inline: .25rem; color: var(--violet); font-style: normal; }
+  .company-profile-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.25rem; }
   .company-profile-links { display: flex; flex-wrap: wrap; gap: .7rem 1.25rem; }
   .company-profile-links a { display: inline-flex; min-height: 40px; align-items: center; gap: .4rem; color: var(--ink); font-size: .75rem; font-weight: 800; text-decoration: underline; text-underline-offset: .2rem; }
   .company-profile-links a:hover { color: #5c43bf; }
-  .company-profile-cta { margin-top: 2.25rem; }
+  .company-profile-cta { margin: 0; }
   .company-profile-cta:focus-visible, .company-profile-links a:focus-visible { outline: 3px solid color-mix(in srgb, var(--violet) 65%, transparent); outline-offset: 3px; }
   .capability-card { min-height: 180px; border-radius: 1rem; padding: 1.25rem; }
   .contact-panel { display: grid; gap: 2rem; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); border-radius: 1.25rem; padding: clamp(1.5rem, 5vw, 3rem); }
@@ -228,12 +227,12 @@
     .engine-card, .project-card, .project-card-featured { min-height: auto; }
     .process-list { margin-top: 1.5rem; }
     .work-header { align-items: start; flex-direction: column; }
+    .company-profile-actions, .company-profile-links { width: 100%; flex-direction: column; align-items: stretch; }
+    .company-profile-actions > a, .company-profile-links a { width: 100%; }
     .footer-grid { grid-template-columns: 1fr; }
   }
-  @media (min-width: 768px) and (max-width: 1193px) {
-    .company-profile-grid { grid-template-columns: 1fr; }
-    .company-profile-details { grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); align-items: center; }
-    .company-profile-card { grid-row: span 2; }
+  @media (max-width: 1193px) {
+    .company-profile-grid, .company-profile-details { grid-template-columns: 1fr; }
   }
   @media (max-width: 400px) {
     .hero-panel { height: auto; min-height: 860px; }
