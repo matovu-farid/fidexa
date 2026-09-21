@@ -30,12 +30,14 @@ describe("MCP server roles", () => {
   it("publishes only the operator tools to the operator credential", () => {
     expect(allowedToolsForRole("operator")).toContain("create_company");
     expect(allowedToolsForRole("operator")).toContain("submit_outreach_for_review");
+    expect(allowedToolsForRole("operator")).toContain("start_supplemental_research_run");
     expect(allowedToolsForRole("operator")).toContain("send_approved_outreach");
     expect(allowedToolsForRole("operator")).not.toContain("approve_outreach_draft");
   });
 
   it("publishes only approval to the reviewer credential", () => {
     expect(allowedToolsForRole("reviewer")).toEqual(["approve_outreach_draft"]);
+    expect(allowedToolsForRole("reviewer")).not.toContain("start_supplemental_research_run");
   });
 
   it("accepts the published reviewer input shape and supplies the approved decision to the service", async () => {

@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { requireBinding, type OutreachEnv } from "./env";
 import { getDailySendCount } from "./d1";
-import { createCompany, createContact, createDraft, completeResearch, approveDraft, recordFinding, scheduleFollowUp, sendApproved, startResearch, storeEvidence, submitForReview, submitReview } from "./service";
+import { createCompany, createContact, createDraft, completeResearch, approveDraft, recordFinding, scheduleFollowUp, sendApproved, startResearch, startSupplementalResearch, storeEvidence, submitForReview, submitReview } from "./service";
 import { operatorTools, reviewerTools, type McpRole } from "./tool-policy";
 
 export function allowedToolsForRole(role: McpRole): string[] {
@@ -26,6 +26,10 @@ export function createOutreachMcpServer(role: McpRole, env: OutreachEnv): McpSer
       description: "Start a research run for an existing company.",
       inputSchema: { schema_version: z.literal(1), workflow_run_id: z.string(), idempotency_key: z.string(), company_id: z.string() },
     }, (input) => startResearch(context("start_research_run"), input));
+    server.registerTool("start_supplemental_research_run", {
+      description: "Open an audited supplemental research run for a researched company with a remediable evidence gap.",
+      inputSchema: { schema_version: z.literal(1), workflow_run_id: z.string(), idempotency_key: z.string(), company_id: z.string(), reason: z.string().min(1).max(2000) },
+    }, (input) => startSupplementalResearch(context("start_supplemental_research_run"), input));
     server.registerTool("record_finding", {
       description: "Record one sourced, confidence-rated research finding.",
       inputSchema: { schema_version: z.literal(1), workflow_run_id: z.string(), idempotency_key: z.string(), company_id: z.string(), research_run_id: z.string(), category: z.string(), finding: z.string(), confidence: z.enum(["low", "medium", "high"]), source_url: z.string().url(), evidence_ref_id: z.string().optional() },

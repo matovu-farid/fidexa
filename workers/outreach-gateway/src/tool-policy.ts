@@ -4,6 +4,7 @@ export const operatorTools = new Set([
   "create_company",
   "upsert_contact",
   "start_research_run",
+  "start_supplemental_research_run",
   "record_finding",
   "store_evidence",
   "complete_research_run",

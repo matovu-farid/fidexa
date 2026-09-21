@@ -8,6 +8,8 @@ describe("MCP tool policy", () => {
     expect(reviewerTools.has("approve_outreach_draft")).toBe(true);
     expect(reviewerTools.size).toBe(1);
     expect(canCallTool("operator", "send_approved_outreach")).toBe(true);
+    expect(canCallTool("operator", "start_supplemental_research_run")).toBe(true);
     expect(canCallTool("reviewer", "send_approved_outreach")).toBe(false);
+    expect(canCallTool("reviewer", "start_supplemental_research_run")).toBe(false);
   });
 });
