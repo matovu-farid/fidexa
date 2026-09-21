@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { DatabaseSync, type SQLInputValue } from "node:sqlite";
 import { readFileSync } from "node:fs";
-import { approveDraft, createCompany, createContact, recordFinding, scheduleFollowUp, sendApproved, storeEvidence, submitForReview } from "./service";
+import { approveDraft, createCompany, createContact, recordFinding, scheduleFollowUp, sendApproved, startSupplementalResearch, storeEvidence, submitForReview } from "./service";
 
 function text(result: unknown) {
   return JSON.parse((result as { content: Array<{ text: string }> }).content[0]!.text);
@@ -44,6 +44,38 @@ function context(first: (sql: string, args: unknown[]) => unknown, onBind?: (sql
 }
 
 describe("outreach service safety boundaries", () => {
+  it("opens an append-only supplemental run for a researched company", async () => {
+    const bound: Array<{ sql: string; args: unknown[] }> = [];
+    const dbContext = context(
+      (sql) => sql.includes("FROM companies") ? { id: "company-1", status: "researched" } : null,
+      (sql, args) => bound.push({ sql, args }),
+    );
+
+    const result = await startSupplementalResearch(dbContext, {
+      schema_version: 1,
+      workflow_run_id: "recovery-run",
+      idempotency_key: "supplemental-1",
+      company_id: "company-1",
+      reason: "Verify a public business mailbox.",
+    });
+
+    expect(text(result)).toMatchObject({ state: "researching", supplemental: true });
+    expect(bound.some(({ sql, args }) => sql.includes("INSERT INTO research_runs") && args.includes("company-1"))).toBe(true);
+    expect(bound.some(({ sql, args }) => sql.includes("UPDATE companies SET status = 'researching'") && args.includes("company-1"))).toBe(true);
+    expect(bound.some(({ sql, args }) => sql.includes("UPDATE outreach_drafts SET state = 'drafted'") && args.includes("company-1"))).toBe(true);
+  });
+
+  it.each(["discovered", "researching", "drafted", "sent"])("rejects supplemental research for a %s company", async (status) => {
+    const dbContext = context((sql) => sql.includes("FROM companies") ? { id: "company-1", status } : null);
+    await expect(startSupplementalResearch(dbContext, {
+      schema_version: 1,
+      workflow_run_id: "recovery-run",
+      idempotency_key: `supplemental-${status}`,
+      company_id: "company-1",
+      reason: "Need a public source.",
+    })).rejects.toThrow("Company is not eligible for supplemental research");
+  });
+
   it("submits a drafted outreach message for independent review without recording a negative review decision", async () => {
     const bound: Array<{ sql: string; args: unknown[] }> = [];
     const dbContext = context((sql) => sql.includes("FROM outreach_drafts")

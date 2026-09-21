@@ -22,6 +22,10 @@ const researchRunSchema = z.object({
   company_id: z.string().min(1).max(120),
 }).strict();
 
+const supplementalResearchRunSchema = researchRunSchema.extend({
+  reason: z.string().trim().min(1).max(2_000),
+}).strict();
+
 const researchActionSchema = researchRunSchema.extend({
   research_run_id: z.string().min(1).max(120),
 }).strict();
@@ -250,6 +254,23 @@ export async function startResearch(context: Context, input: unknown) {
       context.db.prepare("UPDATE companies SET status = 'researching', updated_at = ? WHERE id = ?").bind(now(context), value.company_id),
     ]);
     return { result: { id, state: "researching" }, nextState: "researching" };
+  });
+}
+
+export async function startSupplementalResearch(context: Context, input: unknown) {
+  const value = supplementalResearchRunSchema.parse(input);
+  const id = crypto.randomUUID();
+  return executeIdempotentMutation(context, "supplemental_research_run", id, value, "start_supplemental_research_run", async () => {
+    const company = await context.db.prepare("SELECT status FROM companies WHERE id = ? LIMIT 1").bind(value.company_id).first<{ status: string }>();
+    if (!company || company.status !== "researched") throw new Error("Company is not eligible for supplemental research");
+    await context.db.batch([
+      context.db.prepare(`INSERT INTO research_runs (id, schema_version, company_id, workflow_run_id, state, started_at, created_at, updated_at) VALUES (?, 1, ?, ?, 'researching', ?, ?, ?)`)
+        .bind(id, value.company_id, value.workflow_run_id, now(context), now(context), now(context)),
+      context.db.prepare("UPDATE companies SET status = 'researching', updated_at = ? WHERE id = ?").bind(now(context), value.company_id),
+      context.db.prepare("UPDATE outreach_drafts SET state = 'drafted', updated_at = ? WHERE company_id = ? AND state IN ('in_review', 'approved')")
+        .bind(now(context), value.company_id),
+    ]);
+    return { result: { id, state: "researching", supplemental: true }, nextState: "researching", companyId: value.company_id };
   });
 }
 
