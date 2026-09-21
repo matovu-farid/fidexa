@@ -1,0 +1,58 @@
+# Fidexa Campaign Learning Log
+
+This is the durable, append-only record for learning from Fidexa client-acquisition campaigns. Each campaign checkpoint records facts first, then separates hypotheses from decisions.
+
+## Operating loop
+
+1. Inspect delivery, bounce, reply, opt-out, suppression, follow-up, and queue state.
+2. Advance only evidence-backed targets through the existing research, contact validation, independent review, and daily-send gates.
+3. Record a dated checkpoint with the sample size and source of every metric.
+4. State possible explanations as hypotheses, never as conclusions.
+5. Promote a change only when repeated evidence supports a concrete, reversible action. Record the expected result and the metric that will confirm or reject it.
+6. Review the change in the next weekly retrospective. Keep, revise, or revert it based on observed outcomes.
+
+## Guardrails
+
+- Never increase send volume, bypass recipient verification, skip independent review, or weaken opt-out/suppression controls as an experiment.
+- Do not infer email silence from missing data: distinguish a verified no-reply from unavailable reply-sync.
+- Do not use opens as a primary success metric. Favor qualified replies, discovery conversations, negative signals, opt-outs, bounces, and repeated delivery evidence.
+- A single campaign result is directional only. Make automatic process changes only when the change is low-risk, reversible, and supported by at least three comparable signals or ten relevant outreach records; otherwise create a recommendation for review.
+- Any proposed change to legal copy, sender identity, recipient domains, sending limits, or suppression policy requires user approval before use.
+
+## Checkpoint template
+
+### YYYY-MM-DD — Campaign checkpoint
+
+**Facts**
+
+- Window and cohort:
+- Researched / verified / reviewed / sent:
+- Delivered / bounced / replies / positive replies / opt-outs:
+- Reply-data status: available, unavailable, or delayed; source:
+
+**Hypotheses**
+
+-
+
+**Decision**
+
+- Keep, revise, or test:
+- Reason and evidence threshold:
+- Measurement for the next checkpoint:
+
+## Baseline — 2026-09-22
+
+**Facts**
+
+- First controlled cohort: Rentco Leasing Africa, La’Oli Financial Advisory, and Sam West Distributors.
+- All three are recorded as delivered in the production campaign ledger.
+- BKM Property Managers, Emet Property Management, and Microfin Uganda are evidence-backed, independently approved, and queued for the next send window.
+- No reply-sync integration is currently enabled, so reply outcomes are unavailable rather than zero.
+
+**Hypotheses**
+
+- There is not yet enough response data to judge sector, geography, subject line, or offer effectiveness.
+
+**Decision**
+
+- Preserve the controlled three-message send limit and current workflow-review offer until a weekly cohort produces enough outcome data to support a tested change.
