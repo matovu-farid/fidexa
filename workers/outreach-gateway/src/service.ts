@@ -103,9 +103,28 @@ async function recordSendFailure(context: Context, messageId: string, companyId:
 }
 
 async function requireCompany(context: Context, companyId: string) {
-  const company = await context.db.prepare("SELECT id, status FROM companies WHERE id = ? LIMIT 1").bind(companyId).first<{ id: string; status: string }>();
+  const company = await context.db.prepare("SELECT id, status, fit_score FROM companies WHERE id = ? LIMIT 1").bind(companyId).first<{ id: string; status: string; fit_score: number | null }>();
   if (!company) throw new Error("Company not found");
   return company;
+}
+
+const requiredDraftResearchCategories = [
+  "company_profile",
+  "workflow_system",
+  "timely_trigger",
+  "fidexa_fit",
+  "decision_maker_remit",
+  "decision_maker_authority",
+  "recipient_rationale",
+] as const;
+
+async function requireDeepResearchEvidence(context: Context, companyId: string) {
+  for (const category of requiredDraftResearchCategories) {
+    const finding = await context.db.prepare(
+      "SELECT rf.id FROM research_findings rf JOIN research_runs rr ON rr.id = rf.research_run_id WHERE rr.company_id = ? AND rf.category = ? AND rf.evidence_ref_id IS NOT NULL LIMIT 1",
+    ).bind(companyId, category).first<{ id: string }>();
+    if (!finding) throw new Error("Company lacks required deep-research evidence");
+  }
 }
 
 async function requireResearchRun(context: Context, companyId: string, researchRunId: string, workflowRunId: string) {
@@ -354,6 +373,8 @@ export async function createDraft(context: Context, input: unknown) {
   return executeIdempotentMutation(context, "draft", id, value, "create_outreach_draft", async () => {
     const company = await requireCompany(context, value.company_id);
     if (company.status !== "researched") throw new Error("Company must complete research before drafting");
+    if (!Number.isInteger(company.fit_score) || Number(company.fit_score) < 70) throw new Error("Company does not meet the minimum decision-maker-first fit score");
+    await requireDeepResearchEvidence(context, value.company_id);
     const contact = await context.db.prepare("SELECT id FROM contacts WHERE id = ? AND company_id = ? AND is_decision_maker = 1 AND decision_maker_evidence_id IS NOT NULL AND decision_maker_reason IS NOT NULL LIMIT 1").bind(value.contact_id, value.company_id).first<{ id: string }>();
     if (!contact) throw new Error("Contact must be a qualified decision-maker for this company");
     for (const evidenceId of value.claim_evidence_ids) await requireEvidence(context, evidenceId, value.company_id);

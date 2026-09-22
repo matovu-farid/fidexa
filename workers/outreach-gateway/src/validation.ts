@@ -54,6 +54,9 @@ export const approvalChecklistSchema = z.object({
   decision_maker_verified: z.literal(true),
   company_specific_evidence_checked: z.literal(true),
   devils_advocate_objections_addressed: z.literal(true),
+  timely_trigger_checked: z.literal(true),
+  fit_score_checked: z.literal(true),
+  person_workflow_authority_checked: z.literal(true),
 }).strict();
 
 export const mcpAuthInputSchema = z.object({

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { DatabaseSync, type SQLInputValue } from "node:sqlite";
 import { readFileSync } from "node:fs";
-import { approveDraft, createCompany, createContact, recordFinding, scheduleFollowUp, sendApproved, startSupplementalResearch, storeEvidence, submitForReview } from "./service";
+import { approveDraft, createCompany, createContact, createDraft, recordFinding, scheduleFollowUp, sendApproved, startSupplementalResearch, storeEvidence, submitForReview } from "./service";
 
 function text(result: unknown) {
   return JSON.parse((result as { content: Array<{ text: string }> }).content[0]!.text);
@@ -18,6 +18,9 @@ const approvedChecklist = {
   decision_maker_verified: true,
   company_specific_evidence_checked: true,
   devils_advocate_objections_addressed: true,
+  timely_trigger_checked: true,
+  fit_score_checked: true,
+  person_workflow_authority_checked: true,
 };
 
 function context(first: (sql: string, args: unknown[]) => unknown, onBind?: (sql: string, args: unknown[]) => void) {
@@ -47,6 +50,27 @@ function context(first: (sql: string, args: unknown[]) => unknown, onBind?: (sql
 }
 
 describe("outreach service safety boundaries", () => {
+  it("refuses a draft when the company lacks the required deep-research evidence", async () => {
+    const dbContext = context((sql) => {
+      if (sql.includes("FROM companies")) return { id: "company-1", status: "researched", fit_score: 80 };
+      if (sql.includes("FROM contacts")) return { id: "contact-1" };
+      if (sql.includes("FROM evidence_refs")) return { id: "evidence-1" };
+      if (sql.includes("research_findings")) return null;
+      return null;
+    });
+
+    await expect(createDraft(dbContext, {
+      schema_version: 1,
+      workflow_run_id: "author-run",
+      idempotency_key: "deep-research-required",
+      company_id: "company-1",
+      contact_id: "contact-1",
+      subject: "A specific workflow question",
+      body: "A specific evidence-backed message.",
+      claim_evidence_ids: ["evidence-1"],
+      source_urls: ["https://example.com"],
+    })).rejects.toThrow("required deep-research evidence");
+  });
   it("opens an append-only supplemental run for a researched company", async () => {
     const bound: Array<{ sql: string; args: unknown[] }> = [];
     const dbContext = context(

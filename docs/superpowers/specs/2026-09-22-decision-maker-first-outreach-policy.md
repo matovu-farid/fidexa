@@ -10,16 +10,30 @@ This policy applies before a new message is drafted, approved, or sent. It does 
 
 Each prospect needs two linked evidence sets, stored with source URLs and capture dates.
 
+### Fit and timing threshold
+
+Before a draft is created, record a 0–20 score for each dimension below in the company fit summary. The total must be at least 70/100; a high total must not mask a zero or unsupported dimension.
+
+| Dimension | What earns evidence-backed points |
+| --- | --- |
+| Urgency | A dated public trigger: expansion, launch, hiring, partnership, compliance change, or visible process signal. No trigger means no draft. |
+| Ability to buy | Public evidence that the named company and recipient can sponsor or influence a focused engagement. |
+| Technical need | Public systems, workflows, handoffs, product operations, or process complexity that make one narrow improvement plausible. |
+| Accessibility | A named, company-linked decision-maker with public authority and a verified professional contact. |
+| Credible Fidexa proof | A truthful, relevant Fidexa capability or public product proof that supports the smallest proposed offer. |
+
+Reject direct competitors, large enterprises without a specific accessible workflow owner, and companies without an observable reason to change now. A score is an auditable prioritization aid, not a claim about the prospect.
+
 ### Company evidence
 
-- A concrete operational profile: services, customer type, scale or locations when public, workflows, systems, and visible change signals.
+- A compact fact/hypothesis brief: offering, customers, geography or scale, public operating workflows or systems, relevant recent changes, and visible change signals. Facts and inferences must be labeled separately.
 - At least one credible problem hypothesis grounded in that profile. It must distinguish a fact from an inference.
 - A clear Fidexa fit: one workflow where focused software or automation could plausibly reduce a known operational handoff, without promising an unverified result.
 - A reason the prospect is worth contacting now, rather than a generic industry claim.
 
 ### Decision-maker evidence
 
-- A publicly verifiable professional role with authority or strong influence over the relevant workflow. Preferred roles are founder/owner, managing director, CEO, COO, operations leader, head of technology/product, or the named functional owner of the relevant operation.
+- A publicly verifiable professional role, documented remit or public work, and authority or strong influence over the relevant workflow. Explain why this person is the right recipient rather than merely senior. Preferred roles are founder/owner, managing director, CEO, COO, operations leader, head of technology/product, or the named functional owner of the relevant operation.
 - A public professional contact path tied to the company: a company-domain business address, company contact page, or a role-specific channel. Do not use personal accounts, scraped data, guessed addresses, or data-broker records.
 - The role, source, and why that person is relevant to the proposed workflow.
 - A negative result when no suitable decision-maker is publicly identifiable. In that case, keep researching or leave the company queued; do not fall back to a generic inbox merely to fill sending capacity.
@@ -51,11 +65,21 @@ The independent reviewer must try to invalidate the outreach before approval. In
 
 If the reviewer finds an unresolved objection caused by a research gap, the draft enters a supplemental-research run. It must not be approved by weakening the standard.
 
+The reviewer must also answer, in the recorded findings:
+
+1. Why would this person reply this week?
+2. What exact public fact makes the message about this person and company?
+3. Why would this not read as vendor spam?
+4. What is the smallest useful Fidexa offer that does not overpromise?
+
+The reviewer can mark the draft compliant only after confirming the dated trigger, all five fit dimensions, and the recipient’s workflow authority.
+
 ## Workflow changes
 
 ```text
 discover company
 → research company operations
+→ record timely trigger and five-dimension fit score
 → identify and verify a public decision-maker
 → record decision-maker and company evidence
 → write a person-and-company-specific draft

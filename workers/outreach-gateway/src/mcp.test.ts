@@ -60,6 +60,9 @@ describe("MCP server roles", () => {
         decision_maker_verified: true,
         company_specific_evidence_checked: true,
         devils_advocate_objections_addressed: true,
+        timely_trigger_checked: true,
+        fit_score_checked: true,
+        person_workflow_authority_checked: true,
       },
     });
 
