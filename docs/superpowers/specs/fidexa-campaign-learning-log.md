@@ -151,3 +151,19 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 **Decision**
 
 - This is a delivery-channel change, not an evidence or review relaxation. The existing research, decision-maker, independent-review, suppression, and daily-cap requirements remain in force.
+
+### Pipeline replacement rule — 2026-09-22
+
+**Facts**
+
+- The user clarified that rejecting an unqualified prospect must not pause acquisition work. Early candidates were rejected because they exposed generic inboxes or lacked an individually verified decision-maker contact; none were sent.
+
+**Decision**
+
+- Keep researching replacements until the campaign has three distinct, evidence-backed, sendable decision-maker opportunities. Rejections are recorded as screening outcomes and do not occupy a campaign slot.
+
+### Autonomous sequential execution — 2026-09-22
+
+**Decision**
+
+- The user directed that campaign work continue automatically from each completed safe stage to the next: research through reviewed Zoho-ready draft, pipeline replacement, outcome handling, and learning. The only routine pause is immediately before Zoho's final Send action, which requires action-time confirmation.

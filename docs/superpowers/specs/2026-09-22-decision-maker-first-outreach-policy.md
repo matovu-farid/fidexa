@@ -108,6 +108,8 @@ discover company
 
 - A company may be researched without becoming sendable. The absence of a public decision-maker is a queue state, not a reason to use a generic inbox.
 - Existing company records may be enriched through append-only supplemental research. Do not create duplicates.
+- A rejection is a replacement signal, not a stopping condition. Continue researching replacement companies until there are at least three distinct, current, sendable decision-maker opportunities in the pipeline. A candidate with a generic-only mailbox, absent trigger, weak authority evidence, low fit, a competitor conflict, or a prior-contact conflict is rejected and immediately replaced; it must never consume a campaign slot.
+- Proceed autonomously through every safe sequential stage: discovery, replacement research, evidence capture, decision-maker verification, drafting, independent review, queue maintenance, reply classification, suppression, follow-up preparation, and learning-log updates. Do not wait for a new user prompt between those stages. Pause only where external communication requires action-time confirmation: immediately before clicking Zoho's final Send control, or when a policy change requires the user's decision.
 - The daily send limit never justifies lowering evidence, recipient, personalization, review, opt-out, suppression, or deliverability standards.
 - Delivery, replies, bounces, opt-outs, positive responses, and explicit objections must be logged by recipient role and company segment so future changes are based on comparable evidence.
 
