@@ -167,3 +167,13 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 **Decision**
 
 - The user directed that campaign work continue automatically from each completed safe stage to the next: research through reviewed Zoho-ready draft, pipeline replacement, outcome handling, and learning. The only routine pause is immediately before Zoho's final Send action, which requires action-time confirmation.
+
+### Standing send authorization — 2026-09-22
+
+**Facts**
+
+- The user explicitly authorized Fidexa to send every qualified campaign message from `farid@fidexa.org` without another business-approval pause.
+
+**Decision**
+
+- Treat qualifying sends as authorized. Continue every campaign automatically to the final Zoho Send state; any mandatory browser-control confirmation at that exact control is a platform constraint, not an additional user-decision requirement.

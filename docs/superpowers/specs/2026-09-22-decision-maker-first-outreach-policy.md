@@ -68,6 +68,12 @@ https://www.fidexa.org
 
 After sending, record the exact subject, body, recipient, timestamp, and Zoho message/thread identifier in the outreach ledger. Browser sending does not waive research, independent review, contact verification, suppression, opt-out, or daily-cap rules.
 
+### User authorization
+
+The user has expressly authorized Fidexa to send qualified campaign messages from `Farid Matovu <farid@fidexa.org>` without an additional business-approval pause. This authorization applies to every message that satisfies this policy's research, decision-maker, contact, review, suppression, and daily-cap requirements.
+
+The campaign must therefore progress automatically to the send-ready Zoho state. If the browser-control environment imposes a separate mandatory confirmation immediately at the final Send action, that platform constraint is procedural only; it is not a withdrawal of the user's sending authority or a reason to stop preparation of the message.
+
 ## Devil’s-advocate review
 
 The independent reviewer must try to invalidate the outreach before approval. In addition to the existing delivery and suppression checks, the reviewer records whether the draft answers these likely objections:
