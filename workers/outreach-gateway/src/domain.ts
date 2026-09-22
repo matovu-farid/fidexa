@@ -36,13 +36,14 @@ export type DraftState = {
   now: string;
   recipientSuppressed: boolean;
   contactVerified: boolean;
+  decisionMakerVerified: boolean;
   sendIdempotencyUsed: boolean;
 };
 
 export function isSendableDraft(input: DraftState): boolean {
   if (input.state !== "approved") return false;
   if (!input.reviewerRunId || input.reviewerRunId === input.authorRunId) return false;
-  if (!input.reviewedAt || input.recipientSuppressed || !input.contactVerified || input.sendIdempotencyUsed) return false;
+  if (!input.reviewedAt || input.recipientSuppressed || !input.contactVerified || !input.decisionMakerVerified || input.sendIdempotencyUsed) return false;
 
   const reviewedAt = Date.parse(input.reviewedAt);
   const now = Date.parse(input.now);

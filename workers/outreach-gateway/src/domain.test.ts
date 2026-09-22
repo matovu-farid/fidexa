@@ -20,6 +20,7 @@ describe("outreach state transitions", () => {
       now: "2026-09-11T12:00:00.000Z",
       recipientSuppressed: false,
       contactVerified: true,
+      decisionMakerVerified: true,
       sendIdempotencyUsed: false,
     };
 
@@ -27,6 +28,7 @@ describe("outreach state transitions", () => {
     expect(isSendableDraft({ ...approved, reviewerRunId: "run-author" })).toBe(false);
     expect(isSendableDraft({ ...approved, recipientSuppressed: true })).toBe(false);
     expect(isSendableDraft({ ...approved, contactVerified: false })).toBe(false);
+    expect(isSendableDraft({ ...approved, decisionMakerVerified: false })).toBe(false);
     expect(isSendableDraft({ ...approved, sendIdempotencyUsed: true })).toBe(false);
   });
 });

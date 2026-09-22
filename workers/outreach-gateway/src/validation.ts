@@ -17,7 +17,19 @@ export const contactInputSchema = z.object({
   ]),
   verified_at: isoDate,
   verification_evidence_id: z.string().min(1).max(200),
-}).strict();
+  is_decision_maker: z.boolean().optional().default(false),
+  decision_maker_evidence_id: z.string().min(1).max(200).optional(),
+  decision_maker_reason: z.string().trim().min(1).max(2_000).optional(),
+}).strict().superRefine((value, context) => {
+  if (value.is_decision_maker) {
+    if (!value.name) context.addIssue({ code: z.ZodIssueCode.custom, path: ["name"], message: "Decision-maker contacts require a name" });
+    if (!value.role) context.addIssue({ code: z.ZodIssueCode.custom, path: ["role"], message: "Decision-maker contacts require a role" });
+    if (!value.decision_maker_evidence_id) context.addIssue({ code: z.ZodIssueCode.custom, path: ["decision_maker_evidence_id"], message: "Decision-maker contacts require evidence" });
+    if (!value.decision_maker_reason) context.addIssue({ code: z.ZodIssueCode.custom, path: ["decision_maker_reason"], message: "Decision-maker contacts require a relevance reason" });
+  } else if (value.decision_maker_evidence_id || value.decision_maker_reason) {
+    context.addIssue({ code: z.ZodIssueCode.custom, path: ["is_decision_maker"], message: "Decision-maker evidence requires is_decision_maker" });
+  }
+});
 
 export const draftInputSchema = z.object({
   schema_version: z.literal(1),
@@ -39,6 +51,9 @@ export const approvalChecklistSchema = z.object({
   opt_out_suppression_checked: z.literal(true),
   deliverability_checked: z.literal(true),
   prompt_injection_checked: z.literal(true),
+  decision_maker_verified: z.literal(true),
+  company_specific_evidence_checked: z.literal(true),
+  devils_advocate_objections_addressed: z.literal(true),
 }).strict();
 
 export const mcpAuthInputSchema = z.object({

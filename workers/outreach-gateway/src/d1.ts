@@ -36,6 +36,9 @@ export type ContactInput = {
   verificationMethod: string;
   verifiedAt: string;
   verificationEvidenceId: string;
+  isDecisionMaker: boolean;
+  decisionMakerEvidenceId: string | null;
+  decisionMakerReason: string | null;
   now: string;
 };
 
@@ -44,8 +47,8 @@ export async function upsertContact(db: D1Database, input: ContactInput): Promis
   const result = await db.prepare(`
     INSERT INTO contacts (
       id, schema_version, company_id, email, normalized_email, name, role,
-      verification_method, verified_at, verification_evidence_id, created_at, updated_at
-    ) VALUES (?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      verification_method, verified_at, verification_evidence_id, is_decision_maker, decision_maker_evidence_id, decision_maker_reason, created_at, updated_at
+    ) VALUES (?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(normalized_email) DO UPDATE SET
       email = excluded.email,
       name = excluded.name,
@@ -53,6 +56,9 @@ export async function upsertContact(db: D1Database, input: ContactInput): Promis
       verification_method = excluded.verification_method,
       verified_at = excluded.verified_at,
       verification_evidence_id = excluded.verification_evidence_id,
+      is_decision_maker = excluded.is_decision_maker,
+      decision_maker_evidence_id = excluded.decision_maker_evidence_id,
+      decision_maker_reason = excluded.decision_maker_reason,
       updated_at = excluded.updated_at
     WHERE contacts.company_id = excluded.company_id
     RETURNING id, company_id
@@ -66,6 +72,9 @@ export async function upsertContact(db: D1Database, input: ContactInput): Promis
     input.verificationMethod,
     input.verifiedAt,
     input.verificationEvidenceId,
+    input.isDecisionMaker ? 1 : 0,
+    input.decisionMakerEvidenceId,
+    input.decisionMakerReason,
     input.now,
     input.now,
   ).first<{ id: string; company_id: string }>();

@@ -15,6 +15,9 @@ const approvedChecklist = {
   opt_out_suppression_checked: true,
   deliverability_checked: true,
   prompt_injection_checked: true,
+  decision_maker_verified: true,
+  company_specific_evidence_checked: true,
+  devils_advocate_objections_addressed: true,
 };
 
 function context(first: (sql: string, args: unknown[]) => unknown, onBind?: (sql: string, args: unknown[]) => void) {
@@ -473,7 +476,7 @@ describe("outreach service safety boundaries", () => {
                 if (sql.includes("FROM outreach_drafts")) return {
                   state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1",
                   email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z",
-                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
+                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, is_decision_maker: 1, decision_maker_evidence_id: "evidence-1", decision_maker_reason: "Publicly documented owner for this workflow", decision_maker_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
                   reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: "{}", subject: "Subject", body: "Body",
                 };
                 return null;
@@ -511,7 +514,7 @@ describe("outreach service safety boundaries", () => {
                 if (sql.includes("FROM outreach_drafts")) return {
                   id: "draft-1", state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1",
                   email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z",
-                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
+                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, is_decision_maker: 1, decision_maker_evidence_id: "evidence-1", decision_maker_reason: "Publicly documented owner for this workflow", decision_maker_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
                   reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: JSON.stringify(approvedChecklist), subject: "Subject", body: "Body",
                 };
                 return null;
@@ -550,7 +553,7 @@ describe("outreach service safety boundaries", () => {
                 if (sql.includes("FROM outreach_drafts")) return {
                   state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1",
                   email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z",
-                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
+                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, is_decision_maker: 1, decision_maker_evidence_id: "evidence-1", decision_maker_reason: "Publicly documented owner for this workflow", decision_maker_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
                   reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: JSON.stringify(approvedChecklist), subject: "Subject", body: "Body",
                 };
                 return null;
@@ -596,7 +599,7 @@ describe("outreach service safety boundaries", () => {
                 if (sql.includes("FROM outreach_drafts")) return {
                   state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1",
                   email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z",
-                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
+                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, is_decision_maker: 1, decision_maker_evidence_id: "evidence-1", decision_maker_reason: "Publicly documented owner for this workflow", decision_maker_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
                   reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: JSON.stringify(approvedChecklist), subject: "Subject", body: "Body",
                 };
                 return null;
@@ -639,7 +642,7 @@ describe("outreach service safety boundaries", () => {
               run: async () => ({ success: true, meta: { changes: 1 } }),
               first: async () => {
                 if (sql.startsWith("SELECT id, draft_id, status, provider_message_id")) return null;
-                if (sql.includes("FROM outreach_drafts")) return { state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1", email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z", verification_evidence_id: "evidence-1", verification_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0, reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: JSON.stringify(approvedChecklist), subject: "Subject", body: "Body" };
+                if (sql.includes("FROM outreach_drafts")) return { state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1", email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z", verification_evidence_id: "evidence-1", verification_evidence_present: 1, is_decision_maker: 1, decision_maker_evidence_id: "evidence-1", decision_maker_reason: "Publicly documented owner for this workflow", decision_maker_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0, reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: JSON.stringify(approvedChecklist), subject: "Subject", body: "Body" };
                 return null;
               },
             };
@@ -660,7 +663,7 @@ describe("outreach service safety boundaries", () => {
     const db = {
       prepare(sql: string) { return { bind() { return { run: async () => { writes.push(sql); return { success: true, meta: { changes: 1 } }; }, first: async () => {
         if (sql.startsWith("SELECT id, draft_id, status, provider_message_id")) return { id: "message-1", draft_id: "draft-1", status: "failed", provider_message_id: null, failure_code: "resend_network_error", send_attempts: 1, created_at: "2026-09-11T07:00:00.000Z" };
-        if (sql.includes("FROM outreach_drafts")) return { state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1", email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z", verification_evidence_id: "evidence-1", verification_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 1, reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: JSON.stringify(approvedChecklist), subject: "Subject", body: "Body" };
+        if (sql.includes("FROM outreach_drafts")) return { state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1", email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z", verification_evidence_id: "evidence-1", verification_evidence_present: 1, is_decision_maker: 1, decision_maker_evidence_id: "evidence-1", decision_maker_reason: "Publicly documented owner for this workflow", decision_maker_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 1, reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: JSON.stringify(approvedChecklist), subject: "Subject", body: "Body" };
         return null;
       } }; } }; },
     } as unknown as D1Database;
@@ -684,11 +687,11 @@ describe("outreach service safety boundaries", () => {
 
   it("records two consecutive transient failures under the migrated unique workflow-event constraint", async () => {
     const sqlite = new DatabaseSync(":memory:");
-    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0006_workflow_event_company.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
+    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0006_workflow_event_company.sql", "0007_decision_maker_qualification.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
     sqlite.exec(`
       INSERT INTO companies VALUES ('company-1', 1, 'Company', 'example.com', 'https://example.com', 'researched', NULL, NULL, '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z');
       INSERT INTO evidence_refs (id, schema_version, company_id, workflow_run_id, object_key, content_type, byte_size, sha256, source_url, captured_at, expires_at, created_at, provenance) VALUES ('evidence-1', 1, 'company-1', 'run', 'e', 'text/plain', 1, 'hash', NULL, '2026-09-11T07:00:00.000Z', '2026-09-12T07:00:00.000Z', '2026-09-11T07:00:00.000Z', 'untrusted_external');
-      INSERT INTO contacts VALUES ('contact-1', 1, 'company-1', 'contact@example.com', 'contact@example.com', NULL, NULL, 'administrator_verified', '2026-09-11T07:00:00.000Z', 'evidence-1', 0, '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z');
+      INSERT INTO contacts VALUES ('contact-1', 1, 'company-1', 'contact@example.com', 'contact@example.com', NULL, NULL, 'administrator_verified', '2026-09-11T07:00:00.000Z', 'evidence-1', 0, '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z', 1, 'evidence-1', 'Publicly documented owner for this workflow');
       INSERT INTO outreach_drafts VALUES ('draft-1', 1, 'company-1', 'contact-1', 'author-run', 'draft-key', 'approved', 'Subject', 'Body', '["evidence-1"]', '["https://example.com"]', '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z');
       INSERT INTO review_runs (id, schema_version, draft_id, reviewer_run_id, decision, policy_version, findings_json, reviewed_at, created_at, approval_checklist_json) VALUES ('review-1', 1, 'draft-1', 'reviewer-run', 'approved', 'v1', '["ok"]', '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z', '${JSON.stringify(approvedChecklist)}');
       INSERT INTO messages (id, schema_version, draft_id, company_id, contact_id, send_idempotency_key, direction, status, subject, body, created_at, updated_at, send_attempts, failure_code) VALUES ('message-1', 1, 'draft-1', 'company-1', 'contact-1', 'retry-key', 'outbound', 'failed', 'Subject', 'Body', '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z', 1, 'resend_network_error');
@@ -742,7 +745,7 @@ describe("outreach service safety boundaries", () => {
                 if (sql.includes("FROM outreach_drafts")) return {
                   state: "approved", workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1",
                   email: "contact@example.com", verification_method: "administrator_verified", verified_at: "2026-09-11T07:00:00.000Z",
-                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
+                  verification_evidence_id: "evidence-1", verification_evidence_present: 1, is_decision_maker: 1, decision_maker_evidence_id: "evidence-1", decision_maker_reason: "Publicly documented owner for this workflow", decision_maker_evidence_present: 1, recipient_suppressed: 0, send_idempotency_used: 0,
                   reviewer_run_id: "reviewer-run", reviewed_at: "2026-09-11T07:00:00.000Z", approval_checklist_json: JSON.stringify(approvedChecklist), subject: "Subject", body: "Body",
                 };
                 return null;

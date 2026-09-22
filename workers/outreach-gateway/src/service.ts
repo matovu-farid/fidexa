@@ -224,6 +224,7 @@ export async function createContact(context: Context, input: unknown) {
   return executeIdempotentMutation(context, "contact", id, value, "upsert_contact", async () => {
     await requireCompany(context, value.company_id);
     await requireEvidence(context, value.verification_evidence_id, value.company_id, value.workflow_run_id);
+    if (value.is_decision_maker) await requireEvidence(context, value.decision_maker_evidence_id!, value.company_id, value.workflow_run_id);
     const existingContact = await context.db.prepare("SELECT id, company_id FROM contacts WHERE normalized_email = ? LIMIT 1")
       .bind(value.email.trim().toLowerCase()).first<{ id: string; company_id: string }>();
     if (existingContact && existingContact.company_id !== value.company_id) throw new Error("Existing contact belongs to a different company");
@@ -236,6 +237,9 @@ export async function createContact(context: Context, input: unknown) {
       verificationMethod: value.verification_method,
       verifiedAt: value.verified_at,
       verificationEvidenceId: value.verification_evidence_id,
+      isDecisionMaker: value.is_decision_maker,
+      decisionMakerEvidenceId: value.decision_maker_evidence_id ?? null,
+      decisionMakerReason: value.decision_maker_reason ?? null,
       now: now(context),
     });
     return { result: { id: persistedId, normalized_email: value.email.trim().toLowerCase() } };
@@ -350,8 +354,8 @@ export async function createDraft(context: Context, input: unknown) {
   return executeIdempotentMutation(context, "draft", id, value, "create_outreach_draft", async () => {
     const company = await requireCompany(context, value.company_id);
     if (company.status !== "researched") throw new Error("Company must complete research before drafting");
-    const contact = await context.db.prepare("SELECT id FROM contacts WHERE id = ? AND company_id = ? LIMIT 1").bind(value.contact_id, value.company_id).first<{ id: string }>();
-    if (!contact) throw new Error("Contact does not belong to company");
+    const contact = await context.db.prepare("SELECT id FROM contacts WHERE id = ? AND company_id = ? AND is_decision_maker = 1 AND decision_maker_evidence_id IS NOT NULL AND decision_maker_reason IS NOT NULL LIMIT 1").bind(value.contact_id, value.company_id).first<{ id: string }>();
+    if (!contact) throw new Error("Contact must be a qualified decision-maker for this company");
     for (const evidenceId of value.claim_evidence_ids) await requireEvidence(context, evidenceId, value.company_id);
     await context.db.prepare(`INSERT INTO outreach_drafts (id, schema_version, company_id, contact_id, workflow_run_id, idempotency_key, state, subject, body, claim_evidence_ids_json, source_urls_json, created_at, updated_at) VALUES (?, 1, ?, ?, ?, ?, 'drafted', ?, ?, ?, ?, ?, ?)`)
       .bind(id, value.company_id, value.contact_id, value.workflow_run_id, value.idempotency_key, value.subject, value.body, JSON.stringify(value.claim_evidence_ids), JSON.stringify(value.source_urls), now(context), now(context)).run();
@@ -440,9 +444,9 @@ export async function sendApproved(context: Context, input: unknown, outboundEna
 
   const sendTime = now(context);
   const dayStart = new Date(new Date(sendTime).setUTCHours(0, 0, 0, 0)).toISOString();
-  const draft = await context.db.prepare(`SELECT d.*, c.email, c.normalized_email, c.verification_method, c.verified_at, c.verification_evidence_id, ve.id AS verification_evidence_present, EXISTS(SELECT 1 FROM suppressions s WHERE s.normalized_email = c.normalized_email) AS recipient_suppressed, EXISTS(SELECT 1 FROM messages m WHERE m.draft_id = d.id) AS send_idempotency_used, r.reviewer_run_id, r.reviewed_at, r.approval_checklist_json FROM outreach_drafts d JOIN contacts c ON c.id = d.contact_id AND c.company_id = d.company_id LEFT JOIN evidence_refs ve ON ve.id = c.verification_evidence_id AND ve.company_id = d.company_id AND ve.expires_at > ? LEFT JOIN review_runs r ON r.draft_id = d.id AND r.decision = 'approved' WHERE d.id = ? ORDER BY r.reviewed_at DESC LIMIT 1`).bind(sendTime, value.draft_id).first<Record<string, unknown>>();
+  const draft = await context.db.prepare(`SELECT d.*, c.email, c.normalized_email, c.verification_method, c.verified_at, c.verification_evidence_id, c.is_decision_maker, c.decision_maker_evidence_id, c.decision_maker_reason, ve.id AS verification_evidence_present, dmve.id AS decision_maker_evidence_present, EXISTS(SELECT 1 FROM suppressions s WHERE s.normalized_email = c.normalized_email) AS recipient_suppressed, EXISTS(SELECT 1 FROM messages m WHERE m.draft_id = d.id) AS send_idempotency_used, r.reviewer_run_id, r.reviewed_at, r.approval_checklist_json FROM outreach_drafts d JOIN contacts c ON c.id = d.contact_id AND c.company_id = d.company_id LEFT JOIN evidence_refs ve ON ve.id = c.verification_evidence_id AND ve.company_id = d.company_id AND ve.expires_at > ? LEFT JOIN evidence_refs dmve ON dmve.id = c.decision_maker_evidence_id AND dmve.company_id = d.company_id AND dmve.expires_at > ? LEFT JOIN review_runs r ON r.draft_id = d.id AND r.decision = 'approved' WHERE d.id = ? ORDER BY r.reviewed_at DESC LIMIT 1`).bind(sendTime, sendTime, value.draft_id).first<Record<string, unknown>>();
   if (!draft) throw new Error("Draft not found");
-  if (!isSendableDraft({ state: String(draft.state) as never, authorRunId: String(draft.workflow_run_id), reviewerRunId: draft.reviewer_run_id ? String(draft.reviewer_run_id) : null, reviewedAt: draft.reviewed_at ? String(draft.reviewed_at) : null, approvalMaxAgeMs: 86_400_000, now: sendTime, recipientSuppressed: Boolean(draft.recipient_suppressed), contactVerified: Boolean(draft.verification_method && draft.verified_at && draft.verification_evidence_id && draft.verification_evidence_present), sendIdempotencyUsed: Boolean(draft.send_idempotency_used) && !retrying })) return textResult({ state: "rejected", reason: "send_gate_failed" });
+  if (!isSendableDraft({ state: String(draft.state) as never, authorRunId: String(draft.workflow_run_id), reviewerRunId: draft.reviewer_run_id ? String(draft.reviewer_run_id) : null, reviewedAt: draft.reviewed_at ? String(draft.reviewed_at) : null, approvalMaxAgeMs: 86_400_000, now: sendTime, recipientSuppressed: Boolean(draft.recipient_suppressed), contactVerified: Boolean(draft.verification_method && draft.verified_at && draft.verification_evidence_id && draft.verification_evidence_present), decisionMakerVerified: Boolean(draft.is_decision_maker && draft.decision_maker_evidence_id && draft.decision_maker_reason && draft.decision_maker_evidence_present), sendIdempotencyUsed: Boolean(draft.send_idempotency_used) && !retrying })) return textResult({ state: "rejected", reason: "send_gate_failed" });
   try {
     approvalChecklistSchema.parse(JSON.parse(String(draft.approval_checklist_json)));
   } catch {

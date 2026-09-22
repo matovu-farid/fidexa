@@ -83,6 +83,9 @@ describe("D1 outreach persistence", () => {
       verificationMethod: "administrator_verified",
       verifiedAt: "2026-09-11T08:00:00.000Z",
       verificationEvidenceId: "evidence-1",
+      isDecisionMaker: false,
+      decisionMakerEvidenceId: null,
+      decisionMakerReason: null,
       now: "2026-09-11T08:00:00.000Z",
     })).resolves.toBe("contact-existing");
   });
@@ -111,6 +114,9 @@ describe("D1 outreach persistence", () => {
       verificationMethod: "administrator_verified",
       verifiedAt: "2026-09-11T08:00:00.000Z",
       verificationEvidenceId: "evidence-1",
+      isDecisionMaker: false,
+      decisionMakerEvidenceId: null,
+      decisionMakerReason: null,
       now: "2026-09-11T08:00:00.000Z",
     })).rejects.toThrow("Existing contact belongs to a different company");
 
@@ -131,6 +137,9 @@ describe("D1 outreach persistence", () => {
         verification_method TEXT,
         verified_at TEXT,
         verification_evidence_id TEXT,
+        is_decision_maker INTEGER NOT NULL DEFAULT 0,
+        decision_maker_evidence_id TEXT,
+        decision_maker_reason TEXT,
         created_at TEXT NOT NULL,
         updated_at TEXT NOT NULL
       );
@@ -158,6 +167,9 @@ describe("D1 outreach persistence", () => {
       verificationMethod: "administrator_verified",
       verifiedAt: "2026-09-11T08:00:00.000Z",
       verificationEvidenceId: "evidence-1",
+      isDecisionMaker: false,
+      decisionMakerEvidenceId: null,
+      decisionMakerReason: null,
       now: "2026-09-11T08:00:00.000Z",
     })).rejects.toThrow("Existing contact belongs to a different company");
 
