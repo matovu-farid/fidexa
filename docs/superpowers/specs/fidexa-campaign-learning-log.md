@@ -73,3 +73,19 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 **Decision**
 
 - Keep the current targeting, sender, offer, and three-per-day limit unchanged. Continue reply checks through the signed-in mailbox and evaluate the cohort in the scheduled weekly retrospective.
+
+### Queue recovery — 2026-09-22
+
+**Facts**
+
+- The next send window initially had no unsent approved draft after the daily cap was consumed.
+- Supplemental public-evidence research refreshed Fresno Management Company, NVPM Property Management, and UTZ Property Management. Their public business contacts were revalidated, each had no prior outbound message or suppression record, and each personalized draft passed independent review.
+- Three approved, unsent drafts are now queued for the next UTC send window. No current-day send limit was exceeded.
+
+**Hypotheses**
+
+- Maintaining a three-draft reviewed buffer should prevent an empty queue from delaying the next send window.
+
+**Decision**
+
+- Keep replenishing the approved queue to at least the daily cap with no more than three supplemental-research candidates per run; measure whether the buffer prevents missed send windows without lowering evidence quality.
