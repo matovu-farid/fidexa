@@ -56,3 +56,20 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 **Decision**
 
 - Preserve the controlled three-message send limit and current workflow-review offer until a weekly cohort produces enough outcome data to support a tested change.
+
+## Checkpoint — 2026-09-22
+
+**Facts**
+
+- Production-ledger cohort: the three prior messages (Rentco Leasing Africa, La’Oli Financial Advisory, and Sam West Distributors) remain delivered; no bounce or suppression event was recorded.
+- The signed-in `farid@fidexa.org` Zoho inbox, which receives the Fidexa sending-group mail, was inspected. It showed no campaign reply or opt-out from the sent cohort.
+- BKM Property Managers, Emet Property Management, and Microfin Uganda passed the existing public-contact, evidence, and independent-review gates and were sent in the new UTC window. All three are recorded as delivered at 2026-09-22 04:43 UTC.
+- The daily cap is now fully used: 3 delivered messages on 2026-09-22 UTC. Six follow-ups remain scheduled; the next are due 2026-09-23 15:00 UTC and require the existing review-before-send rule.
+
+**Hypotheses**
+
+- The six-message delivered cohort is still too small and too recent to assess reply rate, sector fit, or message effectiveness.
+
+**Decision**
+
+- Keep the current targeting, sender, offer, and three-per-day limit unchanged. Continue reply checks through the signed-in mailbox and evaluate the cohort in the scheduled weekly retrospective.
