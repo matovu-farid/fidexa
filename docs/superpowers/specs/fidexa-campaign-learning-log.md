@@ -140,3 +140,14 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 **Decision**
 
 - Keep the deep-qualification gate for all future candidates. Compare delivery and reply outcomes of trigger-backed sends separately from the earlier decision-maker-only cohort before making a process change.
+
+### Human-sender channel change — 2026-09-22
+
+**Facts**
+
+- The user directed that future decision-maker campaigns be sent manually through Zoho as `Farid Matovu <farid@fidexa.org>`, rather than via Resend. This gives every message a visible Sent-folder record and a natural reply thread.
+- The production Worker’s automated outbound path was disabled. Future campaign messages must include a direct reply path, `farid@fidexa.org`, and `https://www.fidexa.org` before the opt-out line.
+
+**Decision**
+
+- This is a delivery-channel change, not an evidence or review relaxation. The existing research, decision-maker, independent-review, suppression, and daily-cap requirements remain in force.

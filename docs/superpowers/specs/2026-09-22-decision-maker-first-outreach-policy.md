@@ -47,7 +47,26 @@ Every message must be individually written and must:
 3. Connect that observation to one narrow workflow hypothesis relevant to the recipient’s remit.
 4. Offer a small, low-commitment next step: a short workflow review focused on that one process.
 5. Avoid unsupported ROI, transformation, compliance, security, or technology-stack claims.
-6. Include a simple opt-out and honor it immediately.
+6. Include a direct reply path, `farid@fidexa.org`, and `https://www.fidexa.org`, followed by a simple opt-out. Honor opt-outs immediately.
+
+## Sender and delivery channel
+
+Decision-maker outreach is sent manually from the signed-in Zoho mailbox as `Farid Matovu <farid@fidexa.org>`. This creates a visible Sent-folder record, gives the recipient a named, accountable correspondent, and preserves the natural reply thread.
+
+The automated Resend send path is disabled in production. It remains part of the codebase for non-campaign operational mail only and must not be re-enabled for sales outreach without an explicit user decision.
+
+Every manual send uses this factual contact footer before the opt-out line:
+
+```text
+You can reply directly to this email, email farid@fidexa.org, or see our work at https://www.fidexa.org.
+
+Regards,
+Farid Matovu
+Fidexa
+https://www.fidexa.org
+```
+
+After sending, record the exact subject, body, recipient, timestamp, and Zoho message/thread identifier in the outreach ledger. Browser sending does not waive research, independent review, contact verification, suppression, opt-out, or daily-cap rules.
 
 ## Devil’s-advocate review
 
