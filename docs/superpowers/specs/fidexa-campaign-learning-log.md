@@ -105,3 +105,21 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 **Decision**
 
 - Operate up to the authorized 100/day cap. Monitor delivery, replies, bounces, and opt-outs by comparable cohort; do not change sender identity, recipient policy, legal copy, or the cap without a new explicit decision.
+
+### Decision-maker-first launch — 2026-09-22
+
+**Facts**
+
+- Kongo Capital Funds Fintech LLC was researched from its official team page. The page identifies L. Justin Mayala as Chief Executive Officer and publishes the company-linked professional address used for outreach.
+- The record includes company-operating evidence, decision-maker authority/contact evidence, and an explicitly labeled workflow-fit hypothesis. The message named the public cross-functional and cross-border operating context, did not assert an undisclosed internal problem, offered a low-commitment discovery conversation, and included opt-out language.
+- A separate reviewer recorded decision-maker verification, company-specific evidence review, and a documented devil's-advocate pass over relevance, business understanding, existing-team, urgency, generic-tone, trust, and do-not-contact objections.
+- One approved message was sent through the production gateway and is recorded as delivered. Bounce, reply, and opt-out outcomes have not yet been observed.
+- The new production enforcement blocks 15 older approved drafts that do not have qualified decision-maker records. They require supplemental research and a fresh compliant review before any future send.
+
+**Hypotheses**
+
+- Decision-maker-specific evidence and a modest workflow-discovery offer may yield more meaningful replies than prior generic-inbox outreach, but one sent message is not enough to evaluate the hypothesis.
+
+**Decision**
+
+- Continue only decision-maker-first outreach. Compare this cohort against prior generic-contact cohorts after delivery and reply outcomes are available; do not alter targeting or message framing until at least three comparable signals or ten relevant records support a low-risk, reversible change.
