@@ -96,7 +96,7 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 
 - The user explicitly authorized an immediate production cap of 100 outbound messages per UTC day. The Worker configuration was deployed with that cap; evidence, public-contact verification, independent review, suppression, and deliverability gates were not changed.
 - Fresno Management Company, NVPM Property Management, and UTZ Property Management were already independently approved and unsent. They were sent after the cap change and are recorded as delivered.
-- The cohort has 9 delivered messages on 2026-09-22 UTC so far. No reply, bounce, or opt-out signal has been recorded at this checkpoint.
+- The cohort has 12 delivered messages on 2026-09-22 UTC so far. Marble Capital, Wholesales Uganda, and Beven & Brock Property Management were the latest independently reviewed, evidence-backed deliveries. No reply, bounce, or opt-out signal has been recorded at this checkpoint.
 
 **Hypotheses**
 
