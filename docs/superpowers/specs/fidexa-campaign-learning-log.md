@@ -123,3 +123,20 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 **Decision**
 
 - Continue only decision-maker-first outreach. Compare this cohort against prior generic-contact cohorts after delivery and reply outcomes are available; do not alter targeting or message framing until at least three comparable signals or ten relevant records support a low-risk, reversible change.
+
+### Deep-qualification launch — 2026-09-22
+
+**Facts**
+
+- iChro was selected after its public announcement, authored by Robby Manda, that it had expanded into Uganda under a 2026–2030 plan. This was the documented timely trigger.
+- The compact brief recorded iChro public research, recruitment, Talent360, Evidence360 and specialist-talent-database operations; a 80/100 fit score; the public company-domain contact; Robby public relationship to the expansion; and the recipient rationale. It kept the proposed workflow as an inference rather than a claimed internal problem.
+- The stricter production gate required seven evidence-backed research categories and the 70-point minimum score before drafting. The reviewer separately confirmed the trigger, score, recipient authority, no prior outreach or suppression, and answers to why the recipient might reply now, why the message was not generic, and the smallest useful offer.
+- One message to `robby.manda@ichro.org` was accepted by the provider and is recorded as `sent` at this checkpoint. Delivery, bounce, reply, and opt-out outcomes are not yet observed.
+
+**Hypotheses**
+
+- A current expansion trigger paired with a single workflow-mapping offer is a more credible reason to contact a decision-maker than a static company profile alone.
+
+**Decision**
+
+- Keep the deep-qualification gate for all future candidates. Compare delivery and reply outcomes of trigger-backed sends separately from the earlier decision-maker-only cohort before making a process change.
