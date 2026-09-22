@@ -89,3 +89,19 @@ This is the durable, append-only record for learning from Fidexa client-acquisit
 **Decision**
 
 - Keep replenishing the approved queue to at least the daily cap with no more than three supplemental-research candidates per run; measure whether the buffer prevents missed send windows without lowering evidence quality.
+
+### Volume authorization — 2026-09-22
+
+**Facts**
+
+- The user explicitly authorized an immediate production cap of 100 outbound messages per UTC day. The Worker configuration was deployed with that cap; evidence, public-contact verification, independent review, suppression, and deliverability gates were not changed.
+- Fresno Management Company, NVPM Property Management, and UTZ Property Management were already independently approved and unsent. They were sent after the cap change and are recorded as delivered.
+- The cohort has 9 delivered messages on 2026-09-22 UTC so far. No reply, bounce, or opt-out signal has been recorded at this checkpoint.
+
+**Hypotheses**
+
+- A larger daily capacity will allow the evidence-first pipeline to produce a useful response sample sooner, provided public-source research and review quality remain intact.
+
+**Decision**
+
+- Operate up to the authorized 100/day cap. Monitor delivery, replies, bounces, and opt-outs by comparable cohort; do not change sender identity, recipient policy, legal copy, or the cap without a new explicit decision.

@@ -42,7 +42,7 @@
         "OUTREACH_APP_ORIGIN": "https://www.fidexa.org",
         "OUTBOUND_ENABLED": "true",
       "SYNC_ENABLED": "false",
-      "DAILY_SEND_LIMIT": "3",
+      "DAILY_SEND_LIMIT": "100",
       "ZOHO_MAILBOX": "hello@fidexa.org"
       },
       "d1_databases": [

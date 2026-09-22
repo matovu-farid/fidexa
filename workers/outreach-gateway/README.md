@@ -12,7 +12,7 @@ SYNC_ENABLED=false
 DAILY_SEND_LIMIT=0
 ```
 
-Production is active for Fidexa's first controlled campaign with `OUTBOUND_ENABLED=true`, `DAILY_SEND_LIMIT=3`, and `SYNC_ENABLED=false`. Do not raise the cap or enable sync without an explicit operational decision.
+Production is active for Fidexa's client-acquisition campaign with `OUTBOUND_ENABLED=true`, `DAILY_SEND_LIMIT=100`, and `SYNC_ENABLED=false`. The 100-message daily cap was explicitly authorized on 2026-09-22; do not raise it further or enable sync without an explicit operational decision.
 
 The current implementation is deployed to staging from code version `e854fe64-5c17-49a1-a665-8b43e5cfa42b`; the active version after staging credential rotation is `d6fb8009-0ba0-4d8e-ab3b-728d9784beb8`. Production runs Worker version `8f69e4ce-4757-4f0a-bed9-4c416c4d4638`. Migrations `0001`-`0006` are applied in both environments. Zoho OAuth/account/folder secrets remain pending.
 
