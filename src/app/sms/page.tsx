@@ -5,6 +5,7 @@ import { Footer } from "@/components/footer";
 export const metadata = {
   title: "SMS Customer Care Opt-In | Fidexa",
   description: "Fidexa customer-care SMS opt-in and support messaging information.",
+  alternates: { canonical: "/sms" },
 };
 
 export default function SmsOptInPage() {

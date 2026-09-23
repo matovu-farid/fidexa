@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { X, Send, Bot, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import posthog from "posthog-js";
+import { trackAnalytics, trackChatMessageSubmitted } from "@/lib/analytics";
 
 const CHAT_TRANSPORT = new DefaultChatTransport({ api: "/api/chat" });
 const INITIAL_MESSAGES: UIMessage[] = [
@@ -27,9 +27,11 @@ const INITIAL_MESSAGES: UIMessage[] = [
 export function ChatModal({
   open,
   onClose,
+  onUseSummary,
 }: {
   open: boolean;
   onClose: () => void;
+  onUseSummary: (summary: string) => void;
 }) {
   const { messages, sendMessage, status, error } = useChat({
     transport: CHAT_TRANSPORT,
@@ -40,6 +42,15 @@ export function ChatModal({
   const scrollRef = useRef<HTMLDivElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const conversationText = messages
+    .filter((message) => message.id !== "fidexa-opening")
+    .map((message) => {
+      const text = message.parts.filter((part) => part.type === "text").map((part) => part.type === "text" ? part.text : "").join("").trim();
+      return text ? `${message.role === "user" ? "You" : "Fidexa AI"}: ${text}` : "";
+    })
+    .filter(Boolean)
+    .join("\n\n")
+    .slice(0, 6_000);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -82,11 +93,7 @@ export function ChatModal({
     event.preventDefault();
     const text = input.trim();
     if (!text || isLoading) return;
-    if (process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
-      posthog.capture("ai_chat_message_submitted", {
-        message_number: messages.filter((message) => message.role === "user").length + 1,
-      });
-    }
+    trackChatMessageSubmitted(messages.filter((message) => message.role === "user").length + 1);
     setInput("");
     void sendMessage({ text });
   }
@@ -94,19 +101,23 @@ export function ChatModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Fidexa AI project scoping" className="relative flex h-[80vh] w-full max-w-lg flex-col rounded-2xl border border-white/[0.1] bg-background shadow-2xl">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="chat-title" aria-describedby="chat-description" className="relative flex h-[min(80vh,760px)] max-h-[calc(100dvh-24px)] w-full max-w-lg flex-col rounded-2xl border border-white/[0.1] bg-background shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-4">
           <div className="flex items-center gap-2">
             <Bot size={18} className="text-muted-foreground" />
-            <span className="text-sm font-medium">Fidexa AI</span>
+            <div>
+              <span id="chat-title" className="text-sm font-medium">Fidexa AI</span>
+              <p id="chat-description" className="text-xs text-muted-foreground">Explore your project idea and possible next steps.</p>
+            </div>
           </div>
           <button
             ref={closeButtonRef}
             onClick={onClose}
             aria-label="Close Fidexa AI"
-            className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground"
+            type="button"
+            className="min-h-11 min-w-11 rounded-lg p-2.5 text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground"
           >
             <X size={18} />
           </button>
@@ -187,6 +198,16 @@ export function ChatModal({
               The chat could not complete that response. Please try again.
             </p>
           )}
+          {conversationText && !isLoading && (
+            <div className="mb-4 flex justify-end">
+              <Button type="button" variant="outline" className="min-h-11" onClick={() => {
+                trackAnalytics("ai_handoff_requested");
+                onUseSummary(`Notes from my Fidexa AI conversation:\n${conversationText}`);
+              }}>
+                Use conversation in contact form
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Input */}
@@ -208,11 +229,12 @@ export function ChatModal({
                 }
               }}
             />
-            <Button type="submit" size="icon" aria-label="Send message" disabled={isLoading || !input.trim()}>
+            <Button type="submit" size="icon-lg" aria-label="Send message" disabled={isLoading || !input.trim()}>
               <Send size={16} />
             </Button>
           </div>
         </form>
+        <p className="px-4 pb-3 text-center text-xs text-muted-foreground">Chat is sent to our AI service to generate replies. Nothing is sent as an inquiry unless you submit the contact form.</p>
       </div>
     </div>
   );

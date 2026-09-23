@@ -7,19 +7,22 @@ import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
 import { projects, categories } from "@/data/projects";
 import type { ProjectCategory } from "@/data/projects";
-import posthog from "posthog-js";
+import { trackAnalytics } from "@/lib/analytics";
 
 export default function ProjectsPage() {
   const pathname = usePathname();
   const [active, setActive] = useState<ProjectCategory | "all">("all");
   useEffect(() => {
-    const queryCategory = new URLSearchParams(window.location.search).get("category");
-    setActive(categories.some((category) => category.value === queryCategory) ? queryCategory as ProjectCategory : "all");
+    function syncCategoryFromUrl() {
+      const queryCategory = new URLSearchParams(window.location.search).get("category");
+      setActive(categories.some((category) => category.value === queryCategory) ? queryCategory as ProjectCategory : "all");
+    }
+    syncCategoryFromUrl();
+    window.addEventListener("popstate", syncCategoryFromUrl);
+    return () => window.removeEventListener("popstate", syncCategoryFromUrl);
   }, []);
   function selectCategory(category: ProjectCategory | "all") {
-    if (category !== active && process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
-      posthog.capture("project_category_selected", { category });
-    }
+    if (category !== active) trackAnalytics("project_category_filtered", { category });
     setActive(category);
     window.history.replaceState(null, "", category === "all" ? pathname : `${pathname}?category=${category}`);
   }
@@ -53,7 +56,9 @@ export default function ProjectsPage() {
           <div className="index-grid mt-10">
             {filtered.map((project) => <ProjectCard key={project.id} project={project} featured={project.featured} context="index" />)}
           </div>
-          <p className="mt-8 text-xs font-bold uppercase tracking-[0.1em] text-[#667087]">{projects.length} projects in the index · a sample of the studio&apos;s work.</p>
+          <p className="mt-8 text-xs font-bold uppercase tracking-[0.1em] text-[#667087]" aria-live="polite">
+            {filtered.length} {filtered.length === 1 ? "project" : "projects"}{" "}shown · a sample of the studio&apos;s work.
+          </p>
         </div>
       </main>
       <Footer />
