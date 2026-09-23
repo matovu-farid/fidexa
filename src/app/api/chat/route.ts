@@ -2,11 +2,13 @@ import { openai } from "@ai-sdk/openai";
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
+  safeValidateUIMessages,
   streamText,
   toUIMessageStream,
   type UIMessage,
 } from "ai";
 import { z } from "zod";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 const FIDEXA_DISCOVERY_SYSTEM_PROMPT = `You are Fidexa's project discovery consultant. Your job is to understand a prospective client's product idea, make the opportunity clearer, and guide a qualified prospect toward a sensible next step with Fidexa.
 
@@ -43,16 +45,80 @@ Tone and boundaries:
 // Allow streaming responses up to 30 seconds.
 export const maxDuration = 30;
 
+const MAX_REQUEST_BYTES = 128 * 1024;
+const MAX_MESSAGES = 40;
+
 const chatBodySchema = z.object({
-  messages: z.array(z.unknown()).default([]),
-}).strict();
+  messages: z.array(z.unknown()).min(1).max(MAX_MESSAGES),
+}).passthrough();
+
+function errorResponse(status: number, error: string) {
+  return new Response(JSON.stringify({ error }), {
+    status,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+}
 
 export async function POST(req: Request) {
-  const parsed = chatBodySchema.safeParse(await req.json());
-  if (!parsed.success) return new Response("Invalid messages", { status: 400 });
+  const contentLength = Number(req.headers.get("content-length") || 0);
+  if (contentLength > MAX_REQUEST_BYTES) {
+    return errorResponse(413, "Chat request is too large");
+  }
+
+  let body: unknown;
+  try {
+    const reader = req.body?.getReader();
+    if (!reader) return errorResponse(400, "Invalid chat request");
+
+    const chunks: Uint8Array[] = [];
+    let totalBytes = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      totalBytes += value.byteLength;
+      if (totalBytes > MAX_REQUEST_BYTES) {
+        await reader.cancel();
+        return errorResponse(413, "Chat request is too large");
+      }
+      chunks.push(value);
+    }
+
+    const bytes = new Uint8Array(totalBytes);
+    let offset = 0;
+    for (const chunk of chunks) {
+      bytes.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    body = JSON.parse(new TextDecoder().decode(bytes));
+  } catch {
+    return errorResponse(400, "Invalid chat request");
+  }
+
+  const parsed = chatBodySchema.safeParse(body);
+  if (!parsed.success) return errorResponse(400, "Invalid chat request");
   const { messages } = parsed.data;
 
-  const modelMessages = await convertToModelMessages(messages as UIMessage[]);
+  const validation = await safeValidateUIMessages<UIMessage>({ messages });
+  if (!validation.success) return errorResponse(400, "Invalid chat messages");
+
+  let modelMessages;
+  try {
+    modelMessages = await convertToModelMessages(validation.data);
+  } catch {
+    return errorResponse(400, "Invalid chat messages");
+  }
+
+  const rateLimit = await checkRateLimit(req, "chat");
+  if (!rateLimit.allowed) {
+    if (rateLimit.unavailable) return errorResponse(503, "Chat is temporarily unavailable");
+    return new Response(JSON.stringify({ error: "Too many requests" }), {
+      status: 429,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+        "Retry-After": String(Math.max(1, Math.ceil((rateLimit.resetAt - Date.now()) / 1000))),
+      },
+    });
+  }
 
   const result = streamText({
     model: openai(process.env.OPENAI_CHAT_MODEL ?? "gpt-5-mini"),

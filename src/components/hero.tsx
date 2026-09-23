@@ -1,13 +1,13 @@
 import { ArrowUpRight } from "lucide-react";
 import { Nav } from "./nav";
 import { Logo } from "./logo";
+import { AnalyticsLink } from "./analytics-link";
 
 export function Hero() {
   return (
     <section className="hero-section">
       <div className="hero-panel dark-card">
         <Nav embedded />
-        <a className="hero-top-cta" href="#contact">Request a fit call <ArrowUpRight size={14} /></a>
         <div className="hero-orb hero-orb-halo" aria-hidden="true" />
         <div className="hero-orb hero-orb-violet" aria-hidden="true" />
         <div className="hero-orb hero-orb-mint" aria-hidden="true" />
@@ -17,7 +17,7 @@ export function Hero() {
             <h1 className="display-title hero-title mt-6">We build software products from first idea to everyday use.</h1>
             <p className="body-copy mt-7">Fidexa partners with companies to turn complex operations, new ideas, and ambitious plans into thoughtful digital products.</p>
             <div className="hero-actions mt-9">
-              <a className="button-primary bg-[#fcf9f0] text-[#1e1811] hover:bg-[#37d6c0]" href="#contact">Request a fit call <ArrowUpRight size={15} /></a>
+              <AnalyticsLink events={["hero_cta_clicked"]} className="button-primary bg-[#fcf9f0] text-[#1e1811] hover:bg-[#37d6c0]" href="#contact">Tell us about your project <ArrowUpRight size={15} /></AnalyticsLink>
               <a className="button-secondary mobile-start-project" href="#projects">See selected work <ArrowUpRight size={15} /></a>
               </div>
             </div>
