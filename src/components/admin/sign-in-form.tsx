@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import posthog from "posthog-js";
 
 export function SignInForm() {
   const [email, setEmail] = useState("");
@@ -16,6 +17,9 @@ export function SignInForm() {
     if (result.error) {
       setError("We could not send a sign-in link. Check the address and try again.");
     } else {
+      if (process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+        posthog.capture("admin_magic_link_requested");
+      }
       setSent(true);
     }
   }

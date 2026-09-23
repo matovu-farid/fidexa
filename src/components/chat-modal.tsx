@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { X, Send, Bot, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import posthog from "posthog-js";
 
 const CHAT_TRANSPORT = new DefaultChatTransport({ api: "/api/chat" });
 const INITIAL_MESSAGES: UIMessage[] = [
@@ -81,6 +82,11 @@ export function ChatModal({
     event.preventDefault();
     const text = input.trim();
     if (!text || isLoading) return;
+    if (process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+      posthog.capture("ai_chat_message_submitted", {
+        message_number: messages.filter((message) => message.role === "user").length + 1,
+      });
+    }
     setInput("");
     void sendMessage({ text });
   }

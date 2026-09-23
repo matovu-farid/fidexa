@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
 import { projects, categories } from "@/data/projects";
 import type { ProjectCategory } from "@/data/projects";
+import posthog from "posthog-js";
 
 export default function ProjectsPage() {
   const pathname = usePathname();
@@ -16,6 +17,9 @@ export default function ProjectsPage() {
     setActive(categories.some((category) => category.value === queryCategory) ? queryCategory as ProjectCategory : "all");
   }, []);
   function selectCategory(category: ProjectCategory | "all") {
+    if (category !== active && process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+      posthog.capture("project_category_selected", { category });
+    }
     setActive(category);
     window.history.replaceState(null, "", category === "all" ? pathname : `${pathname}?category=${category}`);
   }

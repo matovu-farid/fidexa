@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ChatModal } from "./chat-modal";
+import posthog from "posthog-js";
 
 export function Contact() {
   const [chatOpen, setChatOpen] = useState(false);
@@ -20,8 +21,21 @@ export function Contact() {
     const body = Object.fromEntries(new FormData(form));
     try {
       const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-      if (res.ok) { setStatus("success"); form.reset(); } else setStatus("error");
+      if (res.ok) {
+        if (process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+          posthog.capture("contact_form_submitted");
+        }
+        setStatus("success");
+        form.reset();
+      } else setStatus("error");
     } catch { setStatus("error"); } finally { setSending(false); }
+  }
+
+  function openChat() {
+    if (process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN && process.env.NEXT_PUBLIC_POSTHOG_HOST) {
+      posthog.capture("ai_chat_opened", { entry_point: "contact_form" });
+    }
+    setChatOpen(true);
   }
 
   return (
@@ -46,7 +60,7 @@ export function Contact() {
               <Textarea className="editorial-input mt-3 min-h-[140px]" name="message" placeholder="What are you trying to make?" aria-label="What are you trying to make?" required disabled={sending} />
               <div className="mt-4 flex flex-wrap items-center gap-3">
                 <Button type="submit" className="button-primary border-0 px-6" disabled={sending}>{sending ? "Sending…" : "Start a conversation ↗"}</Button>
-                <button type="button" onClick={() => setChatOpen(true)} className="button-secondary min-h-[46px] border-[#101828]/15 px-4 text-[#101828]"><Sparkles size={14} /> Ask AI instead</button>
+                <button type="button" onClick={openChat} className="button-secondary min-h-[46px] border-[#101828]/15 px-4 text-[#101828]"><Sparkles size={14} /> Ask AI instead</button>
               </div>
               {status === "success" && <p aria-live="polite" className="mt-4 flex items-center gap-2 text-sm text-[#287c5d]"><CheckCircle size={16} /> Message sent. We&apos;ll be in touch.</p>}
               {status === "error" && <p aria-live="polite" className="mt-4 flex items-center gap-2 text-sm text-[#b13c36]"><AlertCircle size={16} /> Something went wrong. Please try again.</p>}

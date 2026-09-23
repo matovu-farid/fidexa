@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { PostHogIdentity } from "@/lib/auth-client";
 import "./globals.css";
 
 const fidexaSans = localFont({
@@ -27,7 +28,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${fidexaSans.variable} antialiased`}>{children}</body>
+      <body className={`${fidexaSans.variable} antialiased`}>
+        <PostHogIdentity />
+        {children}
+      </body>
     </html>
   );
 }
