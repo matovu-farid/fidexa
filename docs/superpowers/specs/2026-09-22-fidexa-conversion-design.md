@@ -1,7 +1,7 @@
 # Fidexa conversion design
 
 Date: 2026-09-22
-Status: Focused revision direction approved by owner; written spec awaiting review
+Status: Focused revision and design work approved by owner; Penpot milestone recorded 2026-09-23
 
 ## Objective
 
@@ -40,7 +40,7 @@ The first proof section should explain each featured project in a short factual 
 - Maintain a clear hierarchy of proposition, product proof, founder accountability, and one next action.
 - Preserve real media and inspect every desktop/mobile crop. Do not introduce synthetic product widgets.
 - Apply the existing Fidexa semantic and typography tokens to edited elements. New tokens require a separate approval; none are proposed for this pass.
-- Use the Penpot AI Kit's incremental Suggest → Apply-with-review process. The owner approved the focused direction, not every frame and section; show the detailed Phase 0 brief for review before canvas changes.
+- Use the Penpot AI Kit's incremental Suggest → Apply-with-review process. The owner subsequently approved the frame and all design work on 2026-09-23; keep the section-by-section export and review gates without pausing for each approval.
 
 ## Penpot composition
 

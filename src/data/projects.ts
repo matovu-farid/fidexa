@@ -4,6 +4,7 @@ export interface Project {
   id: string;
   name: string;
   description: string;
+  featuredSummary?: string;
   category: ProjectCategory;
   tags: string[];
   techStack: string[];
@@ -36,6 +37,7 @@ export const projects: Project[] = [
     id: "rishi",
     name: "Rishi",
     description: "Production Apple ecosystem reading platform for iPhone, iPad, Mac, CarPlay, and connected Apple Watch experiences, with EPUB and PDF reading, read-aloud, highlights, sync, sharing, and AI chat grounded in the current book. Android is planned, but is not available today.",
+    featuredSummary: "A production reading app bringing EPUB and PDF books, read-aloud, highlights, sync, and book-grounded AI chat together across Apple devices.",
     category: "native-apps",
     tags: ["Innovation", "Apple Native"],
     techStack: ["SwiftUI", "Swift", "Shared Swift Packages", "TypeScript", "Cloudflare"],
@@ -53,6 +55,7 @@ export const projects: Project[] = [
     id: "money-lending",
     name: "Money Lending Management System",
     description: "Kaks Credit’s production fintech and accounting-ledger platform used by real customers and businesses in a money-lending operation, with reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports.",
+    featuredSummary: "Kaks Credit runs lending on an accounting-ledger platform with reducing-balance interest, investor capital, approvals, risk watchlists, and financial reports.",
     category: "web-apps",
     tags: ["SaaS", "Fintech"],
     techStack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "TanStack DB", "ElectricSQL", "Better Auth", "BigNumber.js"],
@@ -68,6 +71,7 @@ export const projects: Project[] = [
     id: "inventory-trade",
     name: "Inventory and Trade Management System",
     description: "Production trade platform used by real customers and businesses across Supply, Store, and Shop, with a shared double-entry ledger from procurement to retail, RMB, USD, and UGX money support, POS, stock control, loss detection, and audit trails.",
+    featuredSummary: "A trade platform connecting Supply, Store, and Shop with a shared ledger, point of sale, stock control, loss detection, and audit trails.",
     category: "web-apps",
     tags: ["SaaS", "Trade"],
     techStack: ["TanStack Start", "TanStack Router", "TanStack DB", "React", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "Cloudflare Workers", "Better Auth"],

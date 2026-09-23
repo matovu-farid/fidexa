@@ -24,6 +24,10 @@ export function FeaturedProjects() {
         <div className="featured-grid mt-12">
           {featuredProjects.map((project) => <ProjectCard key={project.id} project={project} featured />)}
         </div>
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-4">
+          <p className="body-copy">Have a similar product or operational challenge?</p>
+          <Link className="button-primary" href="/#contact">Tell us about your project <ArrowUpRight size={15} /></Link>
+        </div>
       </div>
     </section>
   );

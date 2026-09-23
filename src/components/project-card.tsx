@@ -1,17 +1,18 @@
 import type { Project } from "@/data/projects";
+import { AnalyticsLink } from "@/components/analytics-link";
 
-const featuredValue: Record<string, string> = {
-  rishi: "A calmer way to read with AI.",
-  "money-lending": "Kaks Credit / Make the numbers work harder.",
-  "inventory-trade": "A shared system from supply to shop.",
+const liveLinkLabels: Record<string, string> = {
+  rishi: "Explore Rishi",
+  "money-lending": "View Kaks Credit showcase",
+  "inventory-trade": "View inventory showcase",
 };
 
 export function ProjectCard({ project, featured = false, context = "home" }: { project: Project; featured?: boolean; context?: "home" | "index" }) {
   const links = project.links ? [
-    project.links.live ? { label: "Visit live", href: project.links.live } : null,
-    project.links.appStore ? { label: "App Store", href: project.links.appStore } : null,
-    project.links.github ? { label: "GitHub", href: project.links.github } : null,
-    project.links.video ? { label: "Watch demo", href: project.links.video } : null,
+    project.links.live ? { label: liveLinkLabels[project.id] ?? "Explore live site", href: project.links.live } : null,
+    project.links.appStore ? { label: "Get Rishi on the App Store", href: project.links.appStore } : null,
+    project.links.github ? { label: "View source on GitHub", href: project.links.github } : null,
+    project.links.video ? { label: "Watch product walkthrough", href: project.links.video } : null,
   ].filter((link): link is { label: string; href: string } => Boolean(link)) : [];
 
   return (
@@ -23,11 +24,7 @@ export function ProjectCard({ project, featured = false, context = "home" }: { p
       <div className="project-card-copy">
         <p className="eyebrow opacity-70">{project.year} · {project.featured ? "Featured" : "Selected work"}</p>
         <h3 className="mt-3 text-2xl font-bold tracking-[-0.05em]">{project.name}</h3>
-        {context === "index" || !featuredValue[project.id] ? (
-          <p className="mt-4">{project.description}</p>
-        ) : (
-          <p className="mt-4">{featuredValue[project.id]}</p>
-        )}
+        <p className="mt-4">{context === "home" && featured ? project.featuredSummary ?? project.description : project.description}</p>
       </div>
       {featured && project.media && (
         <figure className="project-media">
@@ -39,7 +36,17 @@ export function ProjectCard({ project, featured = false, context = "home" }: { p
       {links.length > 0 && (
         <div className="project-links">
           {links.map(({ label, href }) => (
-            <a key={label} href={href} target="_blank" rel="noopener noreferrer">{label} ↗</a>
+            <AnalyticsLink
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              events={featured && context === "home"
+                ? ["featured_project_opened", "outbound_project_link_opened"]
+                : ["outbound_project_link_opened"]}
+            >
+              {label} ↗
+            </AnalyticsLink>
           ))}
         </div>
       )}

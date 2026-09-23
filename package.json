@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node --import tsx scripts/ensure-api-rate-limit.ts",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -14,12 +15,13 @@
   "dependencies": {
     "@ai-sdk/openai": "^4.0.51",
     "@ai-sdk/react": "^4.0.87",
-    "better-auth": "^1.3.24",
     "@modelcontextprotocol/sdk": "^1.30.0",
     "@radix-ui/react-dialog": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
+    "@vercel/analytics": "^2.0.1",
     "ai": "^7.0.84",
     "autoprefixer": "^10.5.0",
+    "better-auth": "^1.3.24",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.44.2",
