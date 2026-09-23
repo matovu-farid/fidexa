@@ -317,7 +317,9 @@ The language targets WCAG 2.2 AA for applicable digital work and treats it as a 
 
 ## Asset and token architecture
 
-The design language will be distributed through separate, connected Penpot libraries:
+The design language will live in a dedicated Penpot project named **Fidexa Design Language**. That project is the governed source of truth; product, marketing, document, and presentation files outside it are consumers and migration pilots, not authorities.
+
+The project will contain separate, connected Penpot library files:
 
 1. **Fidexa Foundations** — tokens, typography, color styles, grids, icons, marks, motion and guidance.
 2. **Fidexa Product Primitives** — reusable product components and compositions.
@@ -326,6 +328,8 @@ The design language will be distributed through separate, connected Penpot libra
 5. **Fidexa Presentations** — slide components, layouts, charts and deck templates.
 
 Separating libraries prevents product files from loading every brand or document asset while keeping all profiles connected to the same foundations.
+
+The existing `fidexa` Penpot file remains a reference and the first brand/marketing pilot. Its current Design System page is not promoted to the canonical library. Canonical assets are rebuilt in the dedicated project, reviewed there, and only then connected back to consumer files.
 
 ## Governance
 
