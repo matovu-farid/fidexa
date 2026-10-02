@@ -55,6 +55,7 @@ export type OutreachCompany = {
   status: string;
   fit_score: number | null;
   fit_summary: string | null;
+  source_lane?: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -73,6 +74,7 @@ export type OutreachCompanyDetail = {
   messages: OutreachMessage[];
   followUps: OutreachFollowUp[];
   auditTimeline: OutreachWorkflowEvent[];
+  qualificationHistory?: OutreachQualificationEvent[];
 };
 
 export function readOutreachCompany(id: string): Promise<OutreachCompanyDetail> {
@@ -102,6 +104,7 @@ export type OutreachMessageEvent = { id: string; event_type: string; created_at:
 export type OutreachMessage = { id: string; draft_id?: string | null; company_id: string | null; contact_id: string | null; direction: string; status: string; subject: string; sent_at: string | null; send_attempts?: number; failure_code?: string | null; created_at: string; updated_at: string; events?: OutreachMessageEvent[] };
 export type OutreachFollowUp = { id: string; company_id: string; contact_id: string | null; message_id: string | null; due_at: string; state: string; note: string; created_at: string; updated_at: string };
 export type OutreachWorkflowEvent = { id: string; entity_type: string; entity_id: string; actor_type: string; credential_role: string | null; tool_name: string; workflow_run_id: string | null; previous_state: string | null; next_state: string | null; created_at: string };
+export type OutreachQualificationEvent = { id: string; decision: "held" | "reopened"; reason_code: string; reason: string; source_lane: string; basis_evidence_ref_id: string; new_evidence_ref_id: string | null; prior_event_id: string | null; workflow_run_id: string; created_at: string };
 
 export function readOutreachMessages(): Promise<{ items: OutreachMessage[]; limit: number; offset: number }> {
   return read("/reporting/messages?limit=25&offset=0");

@@ -121,3 +121,7 @@ If it returns FAIL, fix every concrete material finding, rebuild, recapture, and
 ## Git hygiene
 
 The workspace may contain unrelated design exports, billing files, screenshots, or interrupted automation state. Inspect `git status` first, stage only files belonging to the current request, and never reset or delete unrelated user changes. Design and implementation commits should identify the scope clearly.
+
+## Fidexa outreach agent handoff
+
+When working on client-acquisition campaigns, read [`docs/superpowers/specs/2026-10-02-fidexa-campaign-agent-operating-contract.md`](docs/superpowers/specs/2026-10-02-fidexa-campaign-agent-operating-contract.md) before acting. It defines evidence-first decision-maker qualification, autonomous replacement research and campaign continuation, browser-only Zoho sending, mandatory adversarial review, suppression and deliverability safeguards, and campaign learning. A failed message review starts a repair-and-fresh-review loop, not automatic prospect rejection. Do not create CRM or Zoho drafts before the exact message passes independent pre-review, and never weaken a gate to force progress. Campaign completion is a transition: reconcile outcomes and learning, then continue with the next safe campaign step without waiting for another prompt. Keep prospect-specific evidence and mailbox outcomes in the private operational ledger, not in the general operating contract.

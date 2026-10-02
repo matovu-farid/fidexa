@@ -1,5 +1,7 @@
 # Fidexa Codex Outreach Data Plane Implementation Plan
 
+> **Historical infrastructure plan — not the current campaign operating procedure.** Current campaigns are browser-only in signed-in Zoho Mail under the [current agent operating contract](../specs/2026-10-02-fidexa-campaign-agent-operating-contract.md). Do not follow this plan's Resend-sending or Zoho OAuth/mailbox-sync tasks for campaign operations; no production switch or send authorization is implied.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build an isolated Cloudflare D1/R2 outreach data plane that Codex controls through MCP while Fidexa displays the resulting operational data.

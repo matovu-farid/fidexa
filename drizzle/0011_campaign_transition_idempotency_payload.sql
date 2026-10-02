@@ -1,0 +1,1 @@
+ALTER TABLE "campaign_learning_action_events" ADD COLUMN "request_payload" jsonb;

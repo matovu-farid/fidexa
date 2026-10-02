@@ -1,0 +1,2 @@
+ALTER TABLE "campaign_observations" ADD COLUMN "checked_sent_observation_ids" jsonb DEFAULT '[]'::jsonb NOT NULL;--> statement-breakpoint
+ALTER TABLE "campaign_observations" ADD CONSTRAINT "campaign_observations_no_reply_sent_set_check" CHECK ("campaign_observations"."outcome" <> 'no_reply_observed' OR ("campaign_observations"."checked_folders" ? 'sent' AND jsonb_array_length("campaign_observations"."checked_sent_observation_ids") > 0)) NOT VALID;

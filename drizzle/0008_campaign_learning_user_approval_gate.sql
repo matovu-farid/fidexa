@@ -1,0 +1,2 @@
+ALTER TABLE "campaign_learning_actions" DROP CONSTRAINT "campaign_learning_actions_apply_gate";--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD CONSTRAINT "campaign_learning_actions_apply_gate" CHECK ("campaign_learning_actions"."status" NOT IN ('applied', 'evaluated') OR ("campaign_learning_actions"."risk" = 'low' AND ("campaign_learning_actions"."comparable_signals" >= 3 OR "campaign_learning_actions"."relevant_records" >= 10)) OR ("campaign_learning_actions"."risk" = 'high' AND "campaign_learning_actions"."user_decision_approved"));

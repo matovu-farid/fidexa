@@ -1,0 +1,7 @@
+ALTER TABLE "campaign_learning_actions" DROP CONSTRAINT "campaign_learning_actions_apply_gate";--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD COLUMN "implementation_reference" text;--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD CONSTRAINT "campaign_learning_actions_signal_counts_check" CHECK ("campaign_learning_actions"."comparable_signals" >= 0 AND "campaign_learning_actions"."relevant_records" >= 0);--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD CONSTRAINT "campaign_learning_actions_high_risk_decision_check" CHECK ("campaign_learning_actions"."risk" <> 'high' OR "campaign_learning_actions"."status" NOT IN ('applied', 'evaluated'));--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD CONSTRAINT "campaign_learning_actions_reference_check" CHECK ("campaign_learning_actions"."status" NOT IN ('applied', 'evaluated') OR "campaign_learning_actions"."implementation_reference" IS NOT NULL);--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD CONSTRAINT "campaign_learning_actions_result_check" CHECK ("campaign_learning_actions"."status" <> 'evaluated' OR "campaign_learning_actions"."result" IS NOT NULL);--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD CONSTRAINT "campaign_learning_actions_apply_gate" CHECK ("campaign_learning_actions"."status" NOT IN ('applied', 'evaluated') OR ("campaign_learning_actions"."risk" = 'low' AND ("campaign_learning_actions"."comparable_signals" >= 3 OR "campaign_learning_actions"."relevant_records" >= 10)));

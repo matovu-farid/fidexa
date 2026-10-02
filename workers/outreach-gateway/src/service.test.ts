@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { DatabaseSync, type SQLInputValue } from "node:sqlite";
 import { readFileSync } from "node:fs";
-import { approveDraft, createCompany, createContact, createDraft, recordFinding, scheduleFollowUp, sendApproved, startSupplementalResearch, storeEvidence, submitForReview } from "./service";
+import { createCompany, createContact, createDraft, holdQualification, lookupCompanyIdentity, preparePreReviewPacket, readPreReviewPacket, recordCompanyAlias, recordFinding, reopenQualification, reviewPreReviewPacket, scheduleFollowUp, sendApproved, startSupplementalResearch, completeResearch, storeEvidence } from "./service";
 
 function text(result: unknown) {
   return JSON.parse((result as { content: Array<{ text: string }> }).content[0]!.text);
@@ -21,6 +21,11 @@ const approvedChecklist = {
   timely_trigger_checked: true,
   fit_score_checked: true,
   person_workflow_authority_checked: true,
+  booking_link_checked: true,
+  email_link_checked: true,
+  website_link_checked: true,
+  signature_checked: true,
+  opt_out_language_checked: true,
 };
 
 function context(first: (sql: string, args: unknown[]) => unknown, onBind?: (sql: string, args: unknown[]) => void) {
@@ -37,6 +42,7 @@ function context(first: (sql: string, args: unknown[]) => unknown, onBind?: (sql
               first: async () => sql.includes("FROM workflow_events")
                 ? idempotencyMetadata ? { metadata_json: idempotencyMetadata } : null
                 : first(sql, args),
+              all: async () => ({ results: [] }),
             };
           },
         };
@@ -46,30 +52,142 @@ function context(first: (sql: string, args: unknown[]) => unknown, onBind?: (sql
     bucket: { put: async () => undefined },
     credentialRole: "reviewer",
     now: "2026-09-11T08:00:00.000Z",
-  } as unknown as Parameters<typeof approveDraft>[0];
+  } as unknown as Parameters<typeof createDraft>[0];
 }
 
 describe("outreach service safety boundaries", () => {
-  it("refuses a draft when the company lacks the required deep-research evidence", async () => {
-    const dbContext = context((sql) => {
-      if (sql.includes("FROM companies")) return { id: "company-1", status: "researched", fit_score: 80 };
-      if (sql.includes("FROM contacts")) return { id: "contact-1" };
-      if (sql.includes("FROM evidence_refs")) return { id: "evidence-1" };
-      if (sql.includes("research_findings")) return null;
-      return null;
-    });
+  it("keeps a hold visible through supplemental research and reopens only on post-hold evidence", async () => {
+    const sqlite = new DatabaseSync(":memory:");
+    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0006_workflow_event_company.sql", "0009_company_name_dedup.sql", "0010_qualification_history.sql"]) {
+      sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
+    }
+    const d1 = {
+      prepare(sql: string) {
+        const statement = sqlite.prepare(sql);
+        return { bind(...args: unknown[]) { return {
+          run: async () => { const result = statement.run(...args as SQLInputValue[]); return { success: true, meta: { changes: result.changes } }; },
+          first: async <T>() => (statement.get(...args as SQLInputValue[]) as T | undefined) ?? null,
+        }; } };
+      },
+      batch: async (statements: Array<{ run: () => Promise<unknown> }>) => Promise.all(statements.map((statement) => statement.run())),
+    } as unknown as D1Database;
+    const now = "2026-10-01T08:00:00.000Z";
+    sqlite.prepare("INSERT INTO companies (id, schema_version, name, normalized_domain, website_url, status, fit_score, fit_summary, source_lane, created_at, updated_at) VALUES ('company-1', 1, 'Example Co', 'example.org', 'https://example.org', 'discovered', 80, 'Fit', 'paid_direct_request', ?, ?)").run(now, now);
+    sqlite.prepare("INSERT INTO evidence_refs (id, schema_version, company_id, workflow_run_id, object_key, content_type, byte_size, sha256, source_url, provenance, captured_at, expires_at, created_at) VALUES ('hold-evidence', 1, 'company-1', 'wave-1', 'company-1/hold.md', 'text/markdown', 10, 'hold-hash', 'https://example.org/expansion', 'untrusted_external', '2026-10-01T07:30:00.000Z', '2026-12-30T07:30:00.000Z', '2026-10-01T07:30:00.000Z')").run();
+    const ctx = { db: d1, bucket: {} as R2Bucket, now } as Parameters<typeof holdQualification>[0];
+    const held = text(await holdQualification(ctx, { schema_version: 1, workflow_run_id: "wave-1", idempotency_key: "hold-1", company_id: "company-1", reason_code: "no_current_buyer_need", reason: "The public signal is expansion only; no current buyer request was found.", basis_evidence_ref_id: "hold-evidence" }));
+    expect(held.state).toBe("held");
+    expect(sqlite.prepare("SELECT status FROM companies WHERE id = 'company-1'").get()).toEqual({ status: "paused" });
+    expect(() => sqlite.prepare("UPDATE qualification_history SET reason = 'edited' WHERE id = ?").run(held.id)).toThrow("append-only");
 
+    const supplemental = text(await startSupplementalResearch({ ...ctx, now: "2026-10-01T09:00:00.000Z" }, {
+      schema_version: 1, workflow_run_id: "new-evidence-run", idempotency_key: "research-again", company_id: "company-1", reason: "Check for a current operator-issued request." }));
+    expect(supplemental.supplemental).toBe(true);
+    const researchId = supplemental.id as string;
+    sqlite.prepare("INSERT INTO evidence_refs (id, schema_version, company_id, workflow_run_id, object_key, content_type, byte_size, sha256, source_url, provenance, captured_at, expires_at, created_at) VALUES ('new-evidence', 1, 'company-1', 'new-evidence-run', 'company-1/new.md', 'text/markdown', 10, 'abc', 'https://example.org/request', 'untrusted_external', '2026-10-01T09:10:00.000Z', '2026-12-30T09:10:00.000Z', '2026-10-01T09:10:00.000Z')").run();
+    sqlite.prepare("INSERT INTO research_findings (id, schema_version, research_run_id, category, finding, confidence, source_url, evidence_ref_id, created_at) VALUES ('new-buyer-need', 1, ?, 'paid_buyer_request', 'The buyer published a current paid implementation request.', 'high', 'https://example.org/request', 'new-evidence', '2026-10-01T09:10:00.000Z')").run(researchId);
+    await completeResearch({ ...ctx, now: "2026-10-01T09:20:00.000Z" }, { schema_version: 1, workflow_run_id: "new-evidence-run", idempotency_key: "complete-research", company_id: "company-1", research_run_id: researchId });
+    expect(sqlite.prepare("SELECT e.id FROM evidence_refs e JOIN research_runs rr ON rr.company_id = e.company_id AND rr.workflow_run_id = e.workflow_run_id WHERE e.id = ? AND e.company_id = ? AND e.expires_at > ? AND e.captured_at > ? AND rr.state = 'researched' AND rr.completed_at > ? LIMIT 1").get("new-evidence", "company-1", "2026-10-01T09:30:00.000Z", "2026-10-01T08:00:00.000Z", "2026-10-01T08:00:00.000Z")).toBeTruthy();
+    await expect(preparePreReviewPacket({ ...ctx, now: "2026-10-01T09:25:00.000Z" }, {
+      schema_version: 1, workflow_run_id: "author", idempotency_key: "still-held", company_id: "company-1", contact_id: "contact-1",
+      subject: "Question", body: "Message with book a time, email us, and see our work anchors.",
+      links: [
+        { kind: "booking", anchor_text: "book a time", target: "https://fidexa.zohobookings.com/fidexa" },
+        { kind: "email", anchor_text: "email us", target: "mailto:farid@fidexa.org" },
+        { kind: "website", anchor_text: "see our work", target: "https://www.fidexa.org" },
+      ], claim_evidence_ids: ["new-evidence"], source_urls: ["https://example.org/request"],
+    })).rejects.toThrow("qualification hold");
+    const reopened = text(await reopenQualification({ ...ctx, now: "2026-10-01T09:30:00.000Z" }, { schema_version: 1, workflow_run_id: "requalification", idempotency_key: "reopen-1", company_id: "company-1", reason: "A new current buyer-issued request was verified.", new_evidence_ref_id: "new-evidence", source_lane: "paid_direct_request" }));
+    expect(reopened.state).toBe("reopened_for_requalification");
+    expect(sqlite.prepare("SELECT decision, reason_code, basis_evidence_ref_id, new_evidence_ref_id FROM qualification_history ORDER BY created_at DESC LIMIT 1").get()).toEqual({ decision: "reopened", reason_code: "new_material_evidence", basis_evidence_ref_id: "new-evidence", new_evidence_ref_id: "new-evidence" });
+    expect(sqlite.prepare("SELECT source_lane FROM companies WHERE id = 'company-1'").get()).toEqual({ source_lane: "paid_direct_request" });
+    sqlite.close();
+  });
+
+  it("surfaces a same-name company collision instead of silently opening a domainless duplicate", async () => {
+    const statements: string[] = [];
+    const dbContext = context(
+      (sql) => sql.includes("identity_name_key IS NULL")
+        ? null
+        : sql.includes("WHERE identity_name_key = ?") ? { id: "company-existing", name: "Example Company" } : null,
+      (sql) => statements.push(sql),
+    );
+
+    const result = text(await createCompany(dbContext, {
+      schema_version: 1,
+      workflow_run_id: "research-run",
+      idempotency_key: "same-name-company",
+      name: " example company ",
+      source_lane: "unclassified",
+    }));
+
+    expect(result).toMatchObject({ state: "possible_duplicate", duplicate: true, needs_resolution: true, existing_company_id: "company-existing" });
+    expect(statements.some((sql) => sql.includes("INSERT INTO companies"))).toBe(false);
+  });
+
+  it("surfaces an evidenced same-entity alias collision without merging or creating a company", async () => {
+    const inserted: string[] = [];
+    const dbContext = context(
+      (sql) => sql.includes("FROM company_aliases") ? null : null,
+      (sql) => inserted.push(sql),
+    );
+    const aliasRows = [{ company_id: "canonical-1", company_name: "Northstar Holdings", alias: "Northstar Foods", alias_type: "trading_name", relation: "same_entity", evidence_ref_id: "evidence-1" }];
+    const originalPrepare = dbContext.db.prepare.bind(dbContext.db);
+    dbContext.db.prepare = ((sql: string) => {
+      const prepared = originalPrepare(sql);
+      if (!sql.includes("FROM company_aliases")) return prepared;
+      return { ...prepared, bind: (...args: unknown[]) => ({ ...prepared.bind(...args), all: async () => ({ results: aliasRows }) }) };
+    }) as typeof dbContext.db.prepare;
+
+    const result = text(await createCompany(dbContext, {
+      schema_version: 1,
+      workflow_run_id: "research-run",
+      idempotency_key: "alias-duplicate",
+      name: "Northstar Foods",
+      website_url: "https://northstar-foods.example",
+      source_lane: "unclassified",
+    }));
+
+    expect(result).toMatchObject({ state: "possible_duplicate", needs_resolution: true, identity_candidates: [{ company_id: "canonical-1", relation: "same_entity" }] });
+    expect(inserted.some((sql) => sql.includes("INSERT INTO companies"))).toBe(false);
+  });
+
+  it("normalizes and searches exact same-entity and related-entity identity facts without merging", async () => {
+    const dbContext = context(
+      (sql) => sql.includes("FROM company_aliases") ? null : null,
+    );
+    const originalPrepare = dbContext.db.prepare.bind(dbContext.db);
+    dbContext.db.prepare = ((sql: string) => {
+      const prepared = originalPrepare(sql);
+      if (!sql.includes("FROM company_aliases")) return prepared;
+      return {
+        ...prepared,
+        bind(...args: unknown[]) {
+          expect(args).toContain("northstar foods");
+          return { ...prepared.bind(...args), all: async () => ({ results: [
+            { company_id: "company-1", company_name: "Northstar Ltd", alias_type: "trading_name", relation: "same_entity", evidence_ref_id: "evidence-1" },
+            { company_id: "company-2", company_name: "Northstar Group", alias_type: "subsidiary", relation: "related_entity", evidence_ref_id: "evidence-2" },
+          ] }) };
+        },
+      };
+    }) as typeof dbContext.db.prepare;
+
+    const result = text(await lookupCompanyIdentity(dbContext, { schema_version: 1, alias: " NORTHSTAR   FOODS " }));
+    expect(result.ambiguous).toBe(true);
+    expect(result.candidates.map((candidate: { relation: string }) => candidate.relation)).toContain("related_entity");
+  });
+
+  it("refuses CRM draft creation unless an approved exact-message packet already exists", async () => {
+    const inserted: string[] = [];
+    const dbContext = context((sql) => sql.includes("FROM pre_review_packets") ? null : null,
+      (sql) => inserted.push(sql));
     await expect(createDraft(dbContext, {
       schema_version: 1,
       workflow_run_id: "author-run",
-      idempotency_key: "deep-research-required",
-      company_id: "company-1",
-      contact_id: "contact-1",
-      subject: "A specific workflow question",
-      body: "A specific evidence-backed message.",
-      claim_evidence_ids: ["evidence-1"],
-      source_urls: ["https://example.com"],
-    })).rejects.toThrow("required deep-research evidence");
+      idempotency_key: "draft-before-review",
+      pre_review_packet_id: "packet-missing",
+    })).rejects.toThrow("independently approved exact-message pre-review packet");
+    expect(inserted.some((sql) => sql.includes("INSERT INTO outreach_drafts"))).toBe(false);
   });
   it("opens an append-only supplemental run for a researched company", async () => {
     const bound: Array<{ sql: string; args: unknown[] }> = [];
@@ -103,23 +221,6 @@ describe("outreach service safety boundaries", () => {
     })).rejects.toThrow("Company is not eligible for supplemental research");
   });
 
-  it("submits a drafted outreach message for independent review without recording a negative review decision", async () => {
-    const bound: Array<{ sql: string; args: unknown[] }> = [];
-    const dbContext = context((sql) => sql.includes("FROM outreach_drafts")
-      ? { state: "drafted", company_id: "company-1" }
-      : null, (sql, args) => bound.push({ sql, args }));
-
-    await submitForReview(dbContext, {
-      schema_version: 1,
-      workflow_run_id: "author-run",
-      idempotency_key: "submit-for-review-1",
-      draft_id: "draft-1",
-    });
-
-    expect(bound.some(({ sql }) => sql.includes("INSERT INTO review_runs"))).toBe(false);
-    expect(bound.some(({ sql, args }) => sql.includes("UPDATE outreach_drafts SET state = 'in_review'") && args.includes("draft-1"))).toBe(true);
-  });
-
   it.each(["contacts", "messages"])("rejects a cross-company follow-up %s reference", async (table) => {
     const dbContext = context((sql) => {
       if (sql.includes("FROM companies")) return { id: "company-1" };
@@ -128,65 +229,90 @@ describe("outreach service safety boundaries", () => {
     });
     await expect(scheduleFollowUp(dbContext, { schema_version: 1, workflow_run_id: "run", idempotency_key: `follow-${table}`, company_id: "company-1", due_at: "2026-09-12T08:00:00.000Z", note: "Follow up", ...(table === "contacts" ? { contact_id: "other-contact" } : { message_id: "other-message" }) })).rejects.toThrow("does not belong to company");
   });
-  it("rejects approval without every explicit safety checklist item", async () => {
-    const dbContext = context((sql) => {
-      if (sql.includes("FROM outreach_drafts")) return { state: "in_review", workflow_run_id: "author-run" };
-      return null;
-    });
-
-    await expect(approveDraft(dbContext, {
-      schema_version: 1,
-      workflow_run_id: "reviewer-run",
-      idempotency_key: "approval-checklist-missing",
-      draft_id: "draft-1",
-      decision: "approved",
-      reviewer_run_id: "independent-reviewer-run",
-      policy_version: "v1",
-      findings: ["reviewed"],
-    })).rejects.toThrow();
+  it("requires an all-true checklist on approved pre-review decisions and preserves actionable findings on failures", async () => {
+    const failed = await import("./validation").then(({ preReviewDecisionSchema }) => preReviewDecisionSchema.safeParse({
+      schema_version: 1, workflow_run_id: "reviewer", idempotency_key: "review-1", packet_id: "packet-1",
+      decision: "approved", policy_version: "v1", findings: ["Reviewed; no issues identified."],
+    }));
+    const needsChanges = await import("./validation").then(({ preReviewDecisionSchema }) => preReviewDecisionSchema.safeParse({
+      schema_version: 1, workflow_run_id: "reviewer", idempotency_key: "review-2", packet_id: "packet-1",
+      decision: "needs_changes", policy_version: "v1", findings: ["Verify the person's authority from a primary source."],
+    }));
+    expect(failed.success).toBe(false);
+    expect(needsChanges.success).toBe(true);
   });
 
-  it("rejects approval when the reviewer is the draft's persisted workflow author despite a spoofed author_run_id", async () => {
-    const dbContext = context((sql) => {
-      if (sql.includes("FROM outreach_drafts")) return { state: "in_review", workflow_run_id: "author-run" };
-      return null;
-    });
+  it("keeps failed reviews out of CRM drafts and only creates the fresh-PASS version", async () => {
+    const sqlite = new DatabaseSync(":memory:");
+    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql", "0007_decision_maker_qualification.sql", "0008_pre_review_packets.sql", "0009_company_name_dedup.sql", "0010_qualification_history.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
+    const timestamp = "2026-09-30T08:00:00.000Z";
+    const evidence = [
+      { id: "company-evidence", key: "company.md", source: "https://example.org/operations", content: "The company publicly describes its operating network." },
+      { id: "contact-evidence", key: "contact.md", source: "https://example.org/team", content: "The company identifies Alex as its operations director." },
+      { id: "authority-evidence", key: "authority.md", source: "https://example.org/team", content: "Alex owns the logistics operating workflow." },
+    ];
+    sqlite.prepare("INSERT INTO companies (id, schema_version, name, normalized_domain, website_url, status, fit_score, fit_summary, source_lane, created_at, updated_at) VALUES (?, 1, ?, ?, ?, 'researched', 85, ?, 'paid_direct_request', ?, ?)").run("company-1", "Example Co", "example.org", "https://example.org", "Documented workflow fit", timestamp, timestamp);
+    sqlite.prepare("INSERT INTO research_runs (id, schema_version, company_id, workflow_run_id, state, started_at, completed_at, created_at, updated_at) VALUES ('research-1', 1, 'company-1', 'research-run', 'researched', ?, ?, ?, ?)").run(timestamp, timestamp, timestamp, timestamp);
+    for (const item of evidence) {
+      const hash = Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(item.content))), (byte) => byte.toString(16).padStart(2, "0")).join("");
+      sqlite.prepare("INSERT INTO evidence_refs (id, schema_version, company_id, workflow_run_id, object_key, content_type, byte_size, sha256, source_url, provenance, captured_at, expires_at, created_at) VALUES (?, 1, 'company-1', 'research-run', ?, 'text/markdown', ?, ?, ?, 'untrusted_external', ?, ?, ?)").run(item.id, item.key, item.content.length, hash, item.source, timestamp, "2026-12-29T08:00:00.000Z", timestamp);
+    }
+    const categories = ["company_profile", "workflow_system", "timely_trigger", "fidexa_fit", "decision_maker_remit", "decision_maker_authority", "recipient_rationale", "paid_buyer_request"];
+    for (const category of categories) sqlite.prepare("INSERT INTO research_findings (id, schema_version, research_run_id, category, finding, confidence, source_url, evidence_ref_id, created_at) VALUES (?, 1, 'research-1', ?, ?, 'high', 'https://example.org/operations', 'company-evidence', ?)").run(`finding-${category}`, category, `${category} verified from public source`, timestamp);
+    sqlite.prepare("INSERT INTO contacts (id, schema_version, company_id, email, normalized_email, name, role, verification_method, verified_at, verification_evidence_id, suppressed, created_at, updated_at, is_decision_maker, decision_maker_evidence_id, decision_maker_reason) VALUES ('contact-1', 1, 'company-1', 'alex@example.org', 'alex@example.org', 'Alex Owner', 'Operations Director', 'verified_company_contact_page', ?, 'contact-evidence', 0, ?, ?, 1, 'authority-evidence', 'Publicly documented owner of the relevant operating workflow')").run(timestamp, timestamp, timestamp);
+    const adapter = {
+      prepare(sql: string) {
+        const statement = sqlite.prepare(sql);
+        return { bind(...args: unknown[]) { return {
+          run: async () => { const result = statement.run(...args as SQLInputValue[]); return { success: true, meta: { changes: result.changes } }; },
+          first: async <T>() => (statement.get(...args as SQLInputValue[]) as T | undefined) ?? null,
+        }; } };
+      },
+      batch: async (statements: Array<{ run: () => Promise<unknown> }>) => {
+        sqlite.exec("BEGIN");
+        try { for (const statement of statements) await statement.run(); sqlite.exec("COMMIT"); return []; }
+        catch (error) { sqlite.exec("ROLLBACK"); throw error; }
+      },
+    } as unknown as D1Database;
+    const objects = new Map(evidence.map((item) => [item.key, item.content]));
+    const bucket = { get: async (key: string) => {
+      const content = objects.get(key);
+      return content === undefined ? null : { text: async () => content };
+    } } as unknown as R2Bucket;
+    const operator = { db: adapter, bucket, credentialRole: "operator", now: timestamp } as unknown as Parameters<typeof preparePreReviewPacket>[0];
+    const reviewer = { db: adapter, bucket, credentialRole: "reviewer", now: timestamp } as unknown as Parameters<typeof reviewPreReviewPacket>[0];
+    const packetInput = {
+      schema_version: 1, workflow_run_id: "author-run", company_id: "company-1", contact_id: "contact-1",
+      subject: "A focused operations question", body: "Hello Alex, book a time, email me directly, or see our work.",
+      claim_evidence_ids: evidence.map((item) => item.id), source_urls: ["https://example.org/operations", "https://example.org/team"], variant_id: "workflow-a-v1",
+      links: [
+        { kind: "booking", anchor_text: "book a time", target: "https://fidexa.zohobookings.com/fidexa" },
+        { kind: "email", anchor_text: "email me directly", target: "mailto:farid@fidexa.org" },
+        { kind: "website", anchor_text: "see our work", target: "https://www.fidexa.org" },
+      ],
+    };
+    try {
+      const firstPacket = text(await preparePreReviewPacket(operator, { ...packetInput, idempotency_key: "packet-v1" }));
+      expect(firstPacket).toMatchObject({ state: "pending_review", version: 1 });
+      expect(sqlite.prepare("SELECT COUNT(*) AS count FROM outreach_drafts").get()).toEqual({ count: 0 });
+      await readPreReviewPacket(reviewer, { schema_version: 1, workflow_run_id: "reviewer-v1", packet_id: firstPacket.id });
+      await reviewPreReviewPacket(reviewer, { schema_version: 1, workflow_run_id: "reviewer-v1", idempotency_key: "review-v1", packet_id: firstPacket.id, decision: "needs_changes", policy_version: "v1", findings: ["The person-specific workflow authority needs stronger support."] });
+      await expect(createDraft(operator, { schema_version: 1, workflow_run_id: "author-run", idempotency_key: "draft-failed-packet", pre_review_packet_id: firstPacket.id })).rejects.toThrow("approved exact-message pre-review packet");
+      expect(sqlite.prepare("SELECT COUNT(*) AS count FROM outreach_drafts").get()).toEqual({ count: 0 });
 
-    await expect(approveDraft(dbContext, {
-      schema_version: 1,
-      workflow_run_id: "reviewer-run",
-      idempotency_key: "approval-1",
-      draft_id: "draft-1",
-      decision: "approved",
-      reviewer_run_id: "author-run",
-      author_run_id: "spoofed-other-run",
-      policy_version: "v1",
-      findings: ["reviewed"],
-      checklist: approvedChecklist,
-    })).rejects.toThrow("Reviewer run must differ from draft author run");
-  });
-
-  it("persists the all-true approval checklist with the review run", async () => {
-    const bound: Array<{ sql: string; args: unknown[] }> = [];
-    const dbContext = context((sql) => sql.includes("FROM outreach_drafts")
-      ? { state: "in_review", workflow_run_id: "author-run" }
-      : null, (sql, args) => bound.push({ sql, args }));
-
-    await approveDraft(dbContext, {
-      schema_version: 1,
-      workflow_run_id: "reviewer-run",
-      idempotency_key: "approval-checklist-persisted",
-      draft_id: "draft-1",
-      decision: "approved",
-      reviewer_run_id: "independent-reviewer-run",
-      policy_version: "v1",
-      findings: ["reviewed"],
-      checklist: approvedChecklist,
-    });
-
-    const reviewInsert = bound.find(({ sql }) => sql.includes("INSERT INTO review_runs"));
-    expect(reviewInsert?.sql).toContain("approval_checklist_json");
-    expect(reviewInsert?.args).toContain(JSON.stringify(approvedChecklist));
+      const repairedPacket = text(await preparePreReviewPacket(operator, { ...packetInput, body: "Hello Alex, book a time, email me directly, or see our work. This is the repaired exact message.", idempotency_key: "packet-v2", supersedes_packet_id: firstPacket.id }));
+      expect(repairedPacket).toMatchObject({ state: "pending_review", version: 2, supersedes_packet_id: firstPacket.id });
+      await expect(reviewPreReviewPacket(reviewer, { schema_version: 1, workflow_run_id: "reviewer-v2", idempotency_key: "review-v2-before-read", packet_id: repairedPacket.id, decision: "approved", policy_version: "v1", findings: ["Reviewed."], checklist: approvedChecklist })).rejects.toThrow("must read the exact packet");
+      expect(() => sqlite.prepare("UPDATE pre_review_packets SET body = 'tampered' WHERE id = ?").run(repairedPacket.id)).toThrow("content is immutable");
+      await readPreReviewPacket(reviewer, { schema_version: 1, workflow_run_id: "reviewer-v2", packet_id: repairedPacket.id });
+      const { signature_checked: _optionalSignature, ...checklistWithoutSignature } = approvedChecklist;
+      const approved = await reviewPreReviewPacket(reviewer, { schema_version: 1, workflow_run_id: "reviewer-v2", idempotency_key: "review-v2", packet_id: repairedPacket.id, decision: "approved", policy_version: "v1", findings: ["The revised authority claim is now supported."], checklist: checklistWithoutSignature });
+      expect(text(approved).state).toBe("approved");
+      const draft = text(await createDraft(operator, { schema_version: 1, workflow_run_id: "author-run", idempotency_key: "draft-v2", pre_review_packet_id: repairedPacket.id }));
+      expect(draft).toMatchObject({ state: "approved", pre_review_packet_id: repairedPacket.id, content_sha256: repairedPacket.content_sha256 });
+      expect(sqlite.prepare("SELECT state, subject, body, pre_review_packet_id, reviewed_links_json FROM outreach_drafts").get()).toEqual({ state: "approved", subject: packetInput.subject, body: "Hello Alex, book a time, email me directly, or see our work. This is the repaired exact message.", pre_review_packet_id: repairedPacket.id, reviewed_links_json: JSON.stringify(packetInput.links) });
+      expect(sqlite.prepare("SELECT decision, reviewed_content_sha256 FROM pre_review_reviews WHERE packet_id = ?").get(repairedPacket.id)).toEqual({ decision: "approved", reviewed_content_sha256: repairedPacket.content_sha256 });
+    } finally { sqlite.close(); }
   });
 
   it("marks externally supplied evidence as untrusted in object and database metadata", async () => {
@@ -378,7 +504,7 @@ describe("outreach service safety boundaries", () => {
 
   it("releases a failed non-send claim so the same payload can succeed on retry", async () => {
     const sqlite = new DatabaseSync(":memory:");
-    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql"]) {
+    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql", "0007_decision_maker_qualification.sql", "0008_pre_review_packets.sql", "0009_company_name_dedup.sql", "0010_qualification_history.sql", "0011_company_alias_registry.sql", "0012_company_identity_resolution.sql"]) {
       sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
     }
     let failCompanyInsert = true;
@@ -394,14 +520,26 @@ describe("outreach service safety boundaries", () => {
             }
             return (statement.get(...args as SQLInputValue[]) as T | undefined) ?? null;
           },
+          all: async <T>() => ({ results: statement.all(...args as SQLInputValue[]) as T[] }),
         }; } };
       },
     } as unknown as D1Database;
-    const input = { schema_version: 1 as const, workflow_run_id: "run-retry", idempotency_key: "company-retry", name: "Retry Ltd", website_url: "https://retry.example" };
+    const input = { schema_version: 1 as const, workflow_run_id: "run-retry", idempotency_key: "company-retry", name: "Retry Ltd", website_url: "https://retry.example", source_lane: "paid_direct_request" as const };
 
     await expect(createCompany({ db, bucket: {} as R2Bucket, now: "2026-09-11T08:00:00.000Z" }, input)).rejects.toThrow("transient D1 failure");
-    await expect(createCompany({ db, bucket: {} as R2Bucket, now: "2026-09-11T08:00:01.000Z" }, input)).resolves.toSatisfy((result) => text(result).state === "discovered");
-    expect(sqlite.prepare("SELECT COUNT(*) AS count FROM workflow_events WHERE entity_type = 'company'").get()).toEqual({ count: 1 });
+    const created = text(await createCompany({ db, bucket: {} as R2Bucket, now: "2026-09-11T08:00:01.000Z" }, input));
+    expect(created).toMatchObject({ state: "discovered", duplicate: false });
+    const duplicate = text(await createCompany({ db, bucket: {} as R2Bucket, now: "2026-09-11T08:00:02.000Z" }, {
+      ...input,
+      idempotency_key: "company-same-domain",
+      name: "Retry Limited",
+      fit_score: 99,
+      fit_summary: "Conflicting later facts must not replace the canonical row.",
+    }));
+    expect(duplicate).toMatchObject({ id: created.id, state: "discovered", duplicate: true, match: "normalized_domain" });
+    expect(sqlite.prepare("SELECT name, fit_score, fit_summary FROM companies WHERE id = ?").get(created.id)).toEqual({ name: "Retry Ltd", fit_score: null, fit_summary: null });
+    expect(sqlite.prepare("SELECT COUNT(*) AS count FROM companies").get()).toEqual({ count: 1 });
+    expect(sqlite.prepare("SELECT COUNT(*) AS count FROM workflow_events WHERE entity_type = 'company'").get()).toEqual({ count: 2 });
     sqlite.close();
   });
 
@@ -711,12 +849,12 @@ describe("outreach service safety boundaries", () => {
 
   it("records two consecutive transient failures under the migrated unique workflow-event constraint", async () => {
     const sqlite = new DatabaseSync(":memory:");
-    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0006_workflow_event_company.sql", "0007_decision_maker_qualification.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
+    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0006_workflow_event_company.sql", "0007_decision_maker_qualification.sql", "0008_pre_review_packets.sql", "0009_company_name_dedup.sql", "0010_qualification_history.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
     sqlite.exec(`
-      INSERT INTO companies VALUES ('company-1', 1, 'Company', 'example.com', 'https://example.com', 'researched', NULL, NULL, '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z');
+      INSERT INTO companies (id, schema_version, name, normalized_domain, website_url, status, fit_score, fit_summary, source_lane, created_at, updated_at) VALUES ('company-1', 1, 'Company', 'example.com', 'https://example.com', 'researched', NULL, NULL, 'paid_direct_request', '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z');
       INSERT INTO evidence_refs (id, schema_version, company_id, workflow_run_id, object_key, content_type, byte_size, sha256, source_url, captured_at, expires_at, created_at, provenance) VALUES ('evidence-1', 1, 'company-1', 'run', 'e', 'text/plain', 1, 'hash', NULL, '2026-09-11T07:00:00.000Z', '2026-09-12T07:00:00.000Z', '2026-09-11T07:00:00.000Z', 'untrusted_external');
       INSERT INTO contacts VALUES ('contact-1', 1, 'company-1', 'contact@example.com', 'contact@example.com', NULL, NULL, 'administrator_verified', '2026-09-11T07:00:00.000Z', 'evidence-1', 0, '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z', 1, 'evidence-1', 'Publicly documented owner for this workflow');
-      INSERT INTO outreach_drafts VALUES ('draft-1', 1, 'company-1', 'contact-1', 'author-run', 'draft-key', 'approved', 'Subject', 'Body', '["evidence-1"]', '["https://example.com"]', '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z');
+      INSERT INTO outreach_drafts (id, schema_version, company_id, contact_id, workflow_run_id, idempotency_key, state, subject, body, claim_evidence_ids_json, source_urls_json, created_at, updated_at) VALUES ('draft-1', 1, 'company-1', 'contact-1', 'author-run', 'draft-key', 'approved', 'Subject', 'Body', '["evidence-1"]', '["https://example.com"]', '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z');
       INSERT INTO review_runs (id, schema_version, draft_id, reviewer_run_id, decision, policy_version, findings_json, reviewed_at, created_at, approval_checklist_json) VALUES ('review-1', 1, 'draft-1', 'reviewer-run', 'approved', 'v1', '["ok"]', '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z', '${JSON.stringify(approvedChecklist)}');
       INSERT INTO messages (id, schema_version, draft_id, company_id, contact_id, send_idempotency_key, direction, status, subject, body, created_at, updated_at, send_attempts, failure_code) VALUES ('message-1', 1, 'draft-1', 'company-1', 'contact-1', 'retry-key', 'outbound', 'failed', 'Subject', 'Body', '2026-09-11T07:00:00.000Z', '2026-09-11T07:00:00.000Z', 1, 'resend_network_error');
     `);

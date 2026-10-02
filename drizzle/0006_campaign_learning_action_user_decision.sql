@@ -1,0 +1,5 @@
+ALTER TABLE "campaign_learning_action_events" DROP CONSTRAINT "campaign_learning_action_events_status_check";--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" DROP CONSTRAINT "campaign_learning_actions_status_check";--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD COLUMN "user_decision_approved" boolean DEFAULT false NOT NULL;--> statement-breakpoint
+ALTER TABLE "campaign_learning_action_events" ADD CONSTRAINT "campaign_learning_action_events_status_check" CHECK ("campaign_learning_action_events"."status" IN ('proposed', 'applied', 'needs_user_decision', 'user_approved', 'rejected', 'evaluated'));--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD CONSTRAINT "campaign_learning_actions_status_check" CHECK ("campaign_learning_actions"."status" IN ('proposed', 'applied', 'needs_user_decision', 'user_approved', 'rejected', 'evaluated'));

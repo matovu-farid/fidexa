@@ -1,6 +1,8 @@
 # Fidexa Codex Outreach Runbook
 
-Status: staging deployed and smoke-tested; production rollout remains pending (2026-09-16)
+> **Historical runbook snapshot (2026-09-16), superseded for current campaigns.** Its Resend-send and Zoho OAuth/mailbox-sync sections describe a prior infrastructure design, not current permission. Follow the [current campaign-agent operating contract](2026-10-02-fidexa-campaign-agent-operating-contract.md): use signed-in Zoho Mail in the browser for mail, keep Resend disabled for campaign sends, and do not add mailbox API/OAuth/webhook synchronization. The deployment state below is historical and must not be treated as live; independently verify current state before any separately authorized release.
+
+Status at time of snapshot: staging deployed and smoke-tested; production rollout remained pending (2026-09-16)
 
 ## Safety baseline
 

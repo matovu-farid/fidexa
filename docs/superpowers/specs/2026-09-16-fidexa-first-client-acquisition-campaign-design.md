@@ -54,6 +54,8 @@ As a company grows, important operational truth can become split between spreads
 
 Fidexa helps a team clarify one operational workflow, define the useful system around it, and build a dependable release that fits the way the business actually works. The campaign promises a thoughtful next step, not an instant transformation or unsupported performance claim.
 
+> Historical first-wave brief: its 45-minute offer, initial approval process, and three-per-day limit record the September 16 launch design. For current campaign operation, use the later [decision-maker policy](2026-09-22-decision-maker-first-outreach-policy.md), [campaign operating contract](2026-10-02-fidexa-campaign-agent-operating-contract.md), and learning log. The supplemental-evidence recovery rule below remains applicable without restoring the original send limit.
+
 ## Offer and Call to Action
 
 Offer a **45-minute Operations Clarity Call**.
@@ -125,6 +127,29 @@ research company → record evidence → verify one contact → draft → indepe
 ```
 
 The reviewer must confirm supported claims, validated recipient, no prior outreach, relevant personalization, opt-out/suppression checks, deliverability, and resistance to prompt-injection content. Approval does not by itself send a message.
+
+### Evidence-completion and self-healing rule
+
+Research completion must not make a legitimate, evidence-backed company permanently ineligible for outreach merely because a required fact was discovered after the initial research run was closed. The outreach system must support an audited **supplemental evidence** path:
+
+```text
+researched company + missing required fact
+→ open supplemental evidence run
+→ attach source, timestamp, and factual finding
+→ re-run contact/duplicate/suppression eligibility checks
+→ return to the appropriate gate (contact verification, draft, or review)
+```
+
+- The company retains its existing identity, research history, fit score, and prior evidence; the system must not create a duplicate company simply to add a public contact fact.
+- Supplemental evidence is append-only and identifies who supplied it, when, its source URL, and which requirement it satisfies. Earlier evidence remains auditable.
+- A public business mailbox found after research completion may be added only through this path, with its verification method and source evidence recorded before a contact becomes eligible.
+- Re-opening evidence collection never bypasses suppression, prior-outreach, contact validation, independent review, daily-send, or sender-approval controls.
+- If a draft already exists, any changed evidence or recipient detail invalidates its approval and requires the relevant review checks to run again before sending.
+- The system should surface a clear actionable status, such as `needs supplemental evidence`, instead of a terminal rejection such as “not eligible for research.”
+
+Review failure follows the same recovery pattern. A reviewer must record the specific unmet requirement—not merely mark a draft failed. When the gap can be resolved with public, professionally relevant research (for example, a missing source for a claim, an unverified mailbox, unclear recipient role, or incomplete prior-outreach check), the system creates a bounded supplemental-research task that names the needed fact and evidence standard. Once the evidence is attached, it re-runs the affected eligibility checks, updates or replaces the draft as needed, and returns it to independent review. It must not send from a failed review, silently approve the same draft, or require a duplicate company record to continue. A lead becomes terminally ineligible only for an explicit non-remediable reason such as a suppression, opt-out, credible negative signal, or absence of a public business identity.
+
+This recovery path is required for the current La’Oli Financial Advisory and Sam West Distributors records: their public mailboxes were verified after their first research runs were completed. The correct recovery is to attach the public-contact evidence through a supplemental run, validate the contact, draft from the recorded evidence, obtain independent review, and then apply the normal controlled-send limit.
 
 ## Measurement
 

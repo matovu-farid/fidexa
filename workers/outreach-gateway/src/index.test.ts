@@ -1,9 +1,10 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import worker from "./index";
 import { buildMcpSignatureHeaders } from "./mcp-transport";
 import { limits } from "./limits";
 
 describe("outreach Worker boundary", () => {
+  afterEach(() => vi.unstubAllGlobals());
   it("rejects MCP requests without signed credentials", async () => {
     const response = await worker.fetch(new Request("https://outreach.example/mcp", { method: "POST", body: "{}" }), {} as Env);
     expect(response.status).toBe(401);
@@ -68,8 +69,10 @@ describe("outreach Worker boundary", () => {
     await expect(worker.fetch(request("/webhooks/resend"), {} as Env)).resolves.toMatchObject({ status: 413 });
   });
 
-  it("audits scheduled Zoho failures while retention work continues independently", async () => {
+  it("never reads Zoho mail from the scheduled task, even if a legacy sync flag is set", async () => {
     const queries: string[] = [];
+    const fetchSpy = vi.fn(async () => new Response("{}", { status: 200 }));
+    vi.stubGlobal("fetch", fetchSpy);
     const db = {
       prepare(sql: string) {
         queries.push(sql);
@@ -96,6 +99,8 @@ describe("outreach Worker boundary", () => {
     await Promise.all(pending);
 
     expect(queries.some((sql) => sql.includes("request_nonces"))).toBe(true);
-    expect(queries.some((sql) => sql.includes("workflow_events") && sql.includes("scheduled_task_failed"))).toBe(true);
+    expect(queries.some((sql) => sql.includes("zoho_sync_state"))).toBe(false);
+    expect(queries.some((sql) => sql.includes("workflow_events") && sql.includes("scheduled_task_failed"))).toBe(false);
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 });

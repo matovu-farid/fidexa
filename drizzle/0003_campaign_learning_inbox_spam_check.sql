@@ -1,0 +1,2 @@
+ALTER TABLE "campaign_observations" DROP CONSTRAINT "campaign_observations_no_reply_folders_check";--> statement-breakpoint
+ALTER TABLE "campaign_observations" ADD CONSTRAINT "campaign_observations_no_reply_folders_check" CHECK ("campaign_observations"."outcome" <> 'no_reply_observed' OR ("campaign_observations"."event_type" = 'response_check' AND "campaign_observations"."checked_folders" ?& ARRAY['inbox', 'spam']));

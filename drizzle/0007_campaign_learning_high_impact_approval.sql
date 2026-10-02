@@ -1,0 +1,2 @@
+ALTER TABLE "campaign_learning_actions" DROP CONSTRAINT "campaign_learning_actions_high_risk_decision_check";--> statement-breakpoint
+ALTER TABLE "campaign_learning_actions" ADD CONSTRAINT "campaign_learning_actions_high_risk_decision_check" CHECK ("campaign_learning_actions"."risk" <> 'high' OR "campaign_learning_actions"."status" NOT IN ('applied', 'evaluated') OR "campaign_learning_actions"."user_decision_approved");

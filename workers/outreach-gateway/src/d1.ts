@@ -1,5 +1,33 @@
 import { normalizeDomain, normalizeEmail } from "./persistence";
 
+export function normalizeIdentityNameKey(value: string): string {
+  return value.normalize("NFKC").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+export async function backfillCompanyIdentityNameKeys(db: D1Database, maxRows = 50_000): Promise<void> {
+  for (let processed = 0; processed < maxRows; processed += 1) {
+    const company = await db.prepare(`
+      SELECT id, name FROM companies
+      WHERE identity_name_key IS NULL OR length(trim(identity_name_key)) = 0
+      ORDER BY created_at, id LIMIT 1
+    `).bind().first<{ id: string; name: string }>();
+    if (!company) return;
+    const identityNameKey = normalizeIdentityNameKey(company.name);
+    if (!identityNameKey) throw new Error(`Cannot backfill an empty company identity key for ${company.id}`);
+    await db.prepare(`
+      UPDATE companies SET identity_name_key = ?
+      WHERE id = ? AND (identity_name_key IS NULL OR length(trim(identity_name_key)) = 0)
+    `).bind(identityNameKey, company.id).run();
+  }
+
+  const remaining = await db.prepare(`
+    SELECT id FROM companies
+    WHERE identity_name_key IS NULL OR length(trim(identity_name_key)) = 0
+    LIMIT 1
+  `).bind().first<{ id: string }>();
+  if (remaining) throw new Error(`Company identity-key backfill exceeded ${maxRows} rows; retry before creating companies`);
+}
+
 export type CompanyInput = {
   id: string;
   name: string;
@@ -7,24 +35,33 @@ export type CompanyInput = {
   websiteUrl: string | null;
   fitScore: number | null;
   fitSummary: string | null;
+  sourceLane: string;
+  identityResolutionId?: string | null;
   now: string;
 };
 
-export async function insertCompany(db: D1Database, input: CompanyInput): Promise<string> {
-  const result = await db.prepare(`
-    INSERT INTO companies (id, schema_version, name, normalized_domain, website_url, status, fit_score, fit_summary, created_at, updated_at)
-    VALUES (?, 1, ?, ?, ?, 'discovered', ?, ?, ?, ?)
-    ON CONFLICT(normalized_domain) WHERE normalized_domain IS NOT NULL DO UPDATE SET
-      name = excluded.name,
-      normalized_domain = excluded.normalized_domain,
-      website_url = excluded.website_url,
-      fit_score = COALESCE(excluded.fit_score, companies.fit_score),
-      fit_summary = COALESCE(excluded.fit_summary, companies.fit_summary),
-      updated_at = excluded.updated_at
-    RETURNING id
-  `).bind(input.id, input.name, input.normalizedDomain, input.websiteUrl, input.fitScore, input.fitSummary, input.now, input.now).first<{ id: string }>();
-  if (!result) throw new Error("Company upsert did not return an ID");
-  return result.id;
+export async function insertCompany(db: D1Database, input: CompanyInput): Promise<{ id: string; created: boolean; match?: "domain" | "name" }> {
+  let result: { id: string } | null;
+  try {
+    result = await db.prepare(`
+      INSERT INTO companies (id, schema_version, name, normalized_name, identity_name_key, normalized_domain, website_url, status, fit_score, fit_summary, source_lane, identity_resolution_id, created_at, updated_at)
+      VALUES (?, 1, ?, lower(trim(?)), ?, ?, ?, 'discovered', ?, ?, ?, ?, ?, ?)
+      ON CONFLICT(normalized_domain) WHERE normalized_domain IS NOT NULL DO NOTHING
+      RETURNING id
+    `).bind(input.id, input.name, input.name, normalizeIdentityNameKey(input.name), input.normalizedDomain, input.websiteUrl, input.fitScore, input.fitSummary, input.sourceLane, input.identityResolutionId ?? null, input.now, input.now).first<{ id: string }>();
+  } catch (error) {
+    const nameCollision = await db.prepare("SELECT id FROM companies WHERE identity_name_key = ? AND (normalized_domain IS NULL OR ? IS NULL) ORDER BY created_at LIMIT 1")
+      .bind(normalizeIdentityNameKey(input.name), input.normalizedDomain).first<{ id: string }>();
+    if (nameCollision) return { id: nameCollision.id, created: false, match: "name" };
+    throw error;
+  }
+  if (result) return { id: result.id, created: true };
+  if (input.normalizedDomain) {
+    const existing = await db.prepare("SELECT id FROM companies WHERE normalized_domain = ? LIMIT 1")
+      .bind(input.normalizedDomain).first<{ id: string }>();
+    if (existing) return { id: existing.id, created: false, match: "domain" };
+  }
+  throw new Error("Company insert did not return an ID and no canonical domain match was found");
 }
 
 export type ContactInput = {
@@ -49,18 +86,7 @@ export async function upsertContact(db: D1Database, input: ContactInput): Promis
       id, schema_version, company_id, email, normalized_email, name, role,
       verification_method, verified_at, verification_evidence_id, is_decision_maker, decision_maker_evidence_id, decision_maker_reason, created_at, updated_at
     ) VALUES (?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(normalized_email) DO UPDATE SET
-      email = excluded.email,
-      name = excluded.name,
-      role = excluded.role,
-      verification_method = excluded.verification_method,
-      verified_at = excluded.verified_at,
-      verification_evidence_id = excluded.verification_evidence_id,
-      is_decision_maker = excluded.is_decision_maker,
-      decision_maker_evidence_id = excluded.decision_maker_evidence_id,
-      decision_maker_reason = excluded.decision_maker_reason,
-      updated_at = excluded.updated_at
-    WHERE contacts.company_id = excluded.company_id
+    ON CONFLICT(normalized_email) DO NOTHING
     RETURNING id, company_id
   `).bind(
     input.id,
@@ -82,7 +108,8 @@ export async function upsertContact(db: D1Database, input: ContactInput): Promis
     const existing = await db.prepare("SELECT id, company_id FROM contacts WHERE normalized_email = ? LIMIT 1")
       .bind(email).first<{ id: string; company_id: string }>();
     if (existing?.company_id !== undefined && existing.company_id !== input.companyId) throw new Error("Existing contact belongs to a different company");
-    throw new Error("Contact upsert did not return an ID");
+    if (existing?.company_id === input.companyId) return existing.id;
+    throw new Error("Contact insert did not return an ID");
   }
   if (result.company_id !== input.companyId) throw new Error("Existing contact belongs to a different company");
   return result.id;

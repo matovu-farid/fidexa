@@ -120,6 +120,8 @@ describe("reporting route authorization", () => {
       { results: [{ id: "event-1", message_id: "message-1", event_type: "delivered", payload_json: '{"provider_secret":"must-not-leak"}' }] },
       { results: [{ id: "follow-up-1", state: "scheduled", note: "Check in next week" }] },
       { results: [{ id: "audit-1", tool_name: "record_finding", metadata_json: '{"token":"must-not-leak"}' }] },
+      { results: [] },
+      { results: [{ id: "alias-1", alias: "Northstar Foods", normalized_alias: "northstar foods", alias_type: "trading_name", relation: "same_entity", evidence_ref_id: "evidence-1", object_key: "must-not-leak" }] },
     ]];
     const statements: string[] = [];
     const db = {
@@ -142,6 +144,7 @@ describe("reporting route authorization", () => {
       messages: [{ id: "message-1", events: [{ id: "event-1", event_type: "delivered" }] }],
       followUps: [{ id: "follow-up-1" }],
       auditTimeline: [{ id: "audit-1", tool_name: "record_finding" }],
+      companyAliases: [{ id: "alias-1", alias: "Northstar Foods", relation: "same_entity", evidence_ref_id: "evidence-1" }],
     });
     const serialized = JSON.stringify(payload);
     expect(serialized).not.toContain("object_key");
@@ -191,10 +194,10 @@ describe("reporting route authorization", () => {
 
   it("does not include another company's events when both companies share a workflow run", async () => {
     const sqlite = new DatabaseSync(":memory:");
-    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
+    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql", "0007_decision_maker_qualification.sql", "0008_pre_review_packets.sql", "0009_company_name_dedup.sql", "0010_qualification_history.sql", "0011_company_alias_registry.sql", "0012_company_identity_resolution.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
     const now = "2026-09-16T08:00:00.000Z";
-    sqlite.prepare("INSERT INTO companies (id, schema_version, name, status, created_at, updated_at) VALUES (?, 1, ?, 'researched', ?, ?)").run("company-a", "Company A", now, now);
-    sqlite.prepare("INSERT INTO companies (id, schema_version, name, status, created_at, updated_at) VALUES (?, 1, ?, 'researched', ?, ?)").run("company-b", "Company B", now, now);
+    sqlite.prepare("INSERT INTO companies (id, schema_version, name, identity_name_key, status, created_at, updated_at) VALUES (?, 1, ?, ?, 'researched', ?, ?)").run("company-a", "Company A", "company a", now, now);
+    sqlite.prepare("INSERT INTO companies (id, schema_version, name, identity_name_key, status, created_at, updated_at) VALUES (?, 1, ?, ?, 'researched', ?, ?)").run("company-b", "Company B", "company b", now, now);
     sqlite.prepare("INSERT INTO workflow_events (id, schema_version, company_id, entity_type, entity_id, actor_type, tool_name, workflow_run_id, metadata_json, created_at) VALUES (?, 1, ?, 'research_run', ?, 'codex', 'start_research_run', 'same-run', '{}', ?)").run("event-a", "company-a", "run-a", now);
     sqlite.prepare("INSERT INTO workflow_events (id, schema_version, company_id, entity_type, entity_id, actor_type, tool_name, workflow_run_id, metadata_json, created_at) VALUES (?, 1, ?, 'research_run', ?, 'codex', 'start_research_run', 'same-run', '{}', ?)").run("event-b", "company-b", "run-b", now);
     const db = {
@@ -246,10 +249,10 @@ describe("reporting route authorization", () => {
 
   it("shows Resend webhook and duplicate-safe Zoho import events in the company drill-down", async () => {
     const sqlite = new DatabaseSync(":memory:");
-    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
+    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql", "0007_decision_maker_qualification.sql", "0008_pre_review_packets.sql", "0009_company_name_dedup.sql", "0010_qualification_history.sql", "0011_company_alias_registry.sql", "0012_company_identity_resolution.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
     const now = "2026-09-16T08:00:00.000Z";
     sqlite.exec(`
-      INSERT INTO companies (id, schema_version, name, status, created_at, updated_at) VALUES ('company-1', 1, 'Company', 'researched', '${now}', '${now}');
+      INSERT INTO companies (id, schema_version, name, identity_name_key, status, created_at, updated_at) VALUES ('company-1', 1, 'Company', 'company', 'researched', '${now}', '${now}');
       INSERT INTO evidence_refs (id, schema_version, company_id, workflow_run_id, object_key, content_type, byte_size, sha256, source_url, captured_at, expires_at, created_at, provenance) VALUES ('evidence-1', 1, 'company-1', 'run-1', 'evidence', 'text/plain', 1, 'hash', NULL, '${now}', '2999-01-01T00:00:00.000Z', '${now}', 'untrusted_external');
       INSERT INTO contacts (id, schema_version, company_id, email, normalized_email, verification_method, verified_at, verification_evidence_id, created_at, updated_at) VALUES ('contact-1', 1, 'company-1', 'reply@example.com', 'reply@example.com', 'public_company_page', '${now}', 'evidence-1', '${now}', '${now}');
       INSERT INTO messages (id, schema_version, company_id, contact_id, provider_message_id, direction, status, subject, body, created_at, updated_at) VALUES ('outbound-1', 1, 'company-1', 'contact-1', 'resend-1', 'outbound', 'sent', 'Outbound', 'Body', '${now}', '${now}');
@@ -283,9 +286,9 @@ describe("reporting route authorization", () => {
 
   it("heals an early Resend event on duplicate replay once its message exists", async () => {
     const sqlite = new DatabaseSync(":memory:");
-    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
+    for (const migration of ["0001_outreach_base.sql", "0002_outbound_draft_claim.sql", "0003_request_nonces.sql", "0004_workflow_recovery.sql", "0005_retry_reservations.sql", "0006_workflow_event_company.sql", "0007_decision_maker_qualification.sql", "0008_pre_review_packets.sql", "0009_company_name_dedup.sql", "0010_qualification_history.sql", "0011_company_alias_registry.sql", "0012_company_identity_resolution.sql"]) sqlite.exec(readFileSync(new URL(`../migrations/${migration}`, import.meta.url), "utf8"));
     const now = "2026-09-16T08:00:00.000Z";
-    sqlite.prepare("INSERT INTO companies (id, schema_version, name, status, created_at, updated_at) VALUES ('company-1', 1, 'Company', 'researched', ?, ?)").run(now, now);
+    sqlite.prepare("INSERT INTO companies (id, schema_version, name, identity_name_key, status, created_at, updated_at) VALUES ('company-1', 1, 'Company', 'company', 'researched', ?, ?)").run(now, now);
     const db = {
       prepare(sql: string) { const statement = sqlite.prepare(sql); return { bind(...args: unknown[]) { return {
         run: async () => { const result = statement.run(...args as SQLInputValue[]); return { meta: { changes: result.changes } }; },

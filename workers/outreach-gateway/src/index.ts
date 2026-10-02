@@ -7,7 +7,6 @@ import { recordResendEvent, verifyAndParseResendWebhook } from "./resend-webhook
 import { requireBinding } from "./env";
 import { BodyTooLargeError, contentLengthWithinLimit, readTextWithinLimit } from "./limits";
 import { cleanupExpiredEvidence, cleanupExpiredNonces, recordScheduledFailure } from "./retention";
-import { syncZohoReplies } from "./zoho";
 
 function json(value: unknown, status = 200): Response {
   return new Response(JSON.stringify(value), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
@@ -78,7 +77,6 @@ export default {
     const db = requireBinding(env.OUTREACH_DB, "OUTREACH_DB");
     const scheduled = (task: string, work: Promise<unknown>) => work.catch(async (error) => recordScheduledFailure(db, task, now, error));
     const tasks: Promise<unknown>[] = [scheduled("retention_evidence", cleanupExpiredEvidence(env, now)), scheduled("retention_nonces", cleanupExpiredNonces(db, now))];
-    if (String(env.SYNC_ENABLED) === "true") tasks.push(scheduled("zoho_sync", syncZohoReplies(env, now)));
     ctx.waitUntil(Promise.allSettled(tasks));
   },
 };

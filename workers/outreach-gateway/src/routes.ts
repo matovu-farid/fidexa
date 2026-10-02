@@ -69,7 +69,7 @@ export async function handleReportingRequest(request: Request, env: OutreachEnv)
   }
 
   if (url.pathname === "/reporting/companies") {
-    const result = await db.prepare("SELECT id, name, normalized_domain, website_url, status, fit_score, fit_summary, created_at, updated_at FROM companies ORDER BY updated_at DESC LIMIT ? OFFSET ?").bind(limit, offset).all();
+    const result = await db.prepare("SELECT id, name, normalized_domain, website_url, status, fit_score, fit_summary, source_lane, created_at, updated_at FROM companies ORDER BY updated_at DESC LIMIT ? OFFSET ?").bind(limit, offset).all();
     return json({ items: result.results, limit, offset });
   }
 
@@ -77,7 +77,7 @@ export async function handleReportingRequest(request: Request, env: OutreachEnv)
   if (companyMatch) {
     const companyId = decodeURIComponent(companyMatch[1] ?? "");
     const result = await db.batch([
-      db.prepare("SELECT id, name, normalized_domain, website_url, status, fit_score, fit_summary, created_at, updated_at FROM companies WHERE id = ? LIMIT 1").bind(companyId),
+      db.prepare("SELECT id, name, normalized_domain, website_url, status, fit_score, fit_summary, source_lane, created_at, updated_at FROM companies WHERE id = ? LIMIT 1").bind(companyId),
       db.prepare("SELECT id, email, name, role, verification_method, verified_at, verification_evidence_id, created_at, updated_at FROM contacts WHERE company_id = ? ORDER BY updated_at DESC LIMIT 100").bind(companyId),
       db.prepare("SELECT id, workflow_run_id, state, started_at, completed_at, failure_code, created_at, updated_at FROM research_runs WHERE company_id = ? ORDER BY created_at DESC LIMIT 100").bind(companyId),
       db.prepare("SELECT id, category, finding, confidence, source_url, evidence_ref_id, created_at FROM research_findings WHERE research_run_id IN (SELECT id FROM research_runs WHERE company_id = ?) ORDER BY created_at DESC LIMIT 100").bind(companyId),
@@ -88,6 +88,8 @@ export async function handleReportingRequest(request: Request, env: OutreachEnv)
       db.prepare("SELECT id, message_id, event_type, created_at FROM message_events WHERE message_id IN (SELECT id FROM messages WHERE company_id = ?) ORDER BY created_at DESC LIMIT 100").bind(companyId),
       db.prepare("SELECT id, company_id, contact_id, message_id, due_at, state, note, created_at, updated_at FROM follow_ups WHERE company_id = ? ORDER BY due_at ASC LIMIT 100").bind(companyId),
       db.prepare("SELECT id, entity_type, entity_id, actor_type, credential_role, tool_name, workflow_run_id, previous_state, next_state, created_at FROM workflow_events WHERE company_id = ? ORDER BY created_at DESC LIMIT 100").bind(companyId),
+      db.prepare("SELECT id, decision, reason_code, reason, source_lane, basis_evidence_ref_id, new_evidence_ref_id, prior_event_id, workflow_run_id, created_at FROM qualification_history WHERE company_id = ? ORDER BY created_at DESC, rowid DESC LIMIT 100").bind(companyId),
+      db.prepare("SELECT id, alias, normalized_alias, alias_type, relation, evidence_ref_id, workflow_run_id, created_by, created_at FROM company_aliases WHERE company_id = ? ORDER BY created_at DESC LIMIT 100").bind(companyId),
     ]);
     const reviews = (result[6]?.results ?? []) as Array<Record<string, unknown>>;
     const reviewsByDraft = new Map<string, Array<Record<string, unknown>>>();
@@ -132,6 +134,8 @@ export async function handleReportingRequest(request: Request, env: OutreachEnv)
       messages,
       followUps: ((result[9]?.results ?? []) as Array<Record<string, unknown>>).map((row) => pick(row, ["id", "company_id", "contact_id", "message_id", "due_at", "state", "note", "created_at", "updated_at"])),
       auditTimeline: ((result[10]?.results ?? []) as Array<Record<string, unknown>>).map((row) => pick(row, ["id", "entity_type", "entity_id", "actor_type", "credential_role", "tool_name", "workflow_run_id", "previous_state", "next_state", "created_at"])),
+      qualificationHistory: (result[11]?.results ?? []),
+      companyAliases: ((result[12]?.results ?? []) as Array<Record<string, unknown>>).map((row) => pick(row, ["id", "alias", "normalized_alias", "alias_type", "relation", "evidence_ref_id", "workflow_run_id", "created_by", "created_at"])),
     });
   }
 

@@ -1,5 +1,7 @@
 # Fidexa First Client-Acquisition Campaign Implementation Plan
 
+> **Historical plan — superseded 2026-10-01. Do not execute its Resend or Worker-send steps for current campaigns.** The active contract is [the Fidexa campaign-agent operating contract](../specs/2026-10-02-fidexa-campaign-agent-operating-contract.md): research and review locally, then use the signed-in Zoho Mail browser only. Keep Resend disabled for campaign sending; verify live delivery state and caps at action time. This banner preserves the historical plan without making it current authorization.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Launch Fidexa's first controlled, evidence-led international client-acquisition campaign and send its first approved messages.
