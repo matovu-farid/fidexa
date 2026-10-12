@@ -7,6 +7,8 @@ import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
 import { projects, categories } from "@/data/projects";
 import type { ProjectCategory } from "@/data/projects";
+import { StructuredData } from "@/components/structured-data";
+import { projectsStructuredData } from "@/lib/seo";
 import { trackAnalytics } from "@/lib/analytics";
 
 export default function ProjectsPage() {
@@ -30,6 +32,7 @@ export default function ProjectsPage() {
 
   return (
     <>
+      <StructuredData data={projectsStructuredData(filtered)} />
       <Nav />
       <main className="page-main">
         <div className="site-shell">

@@ -1,10 +1,9 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl = "https://www.fidexa.org";
+import { site } from "@/data/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return ["", "/projects", "/sms"].map((path) => ({
-    url: `${siteUrl}${path}`,
+  return site.pages.map((page) => ({
+    url: new URL(page.path, site.url).href,
     changeFrequency: "monthly",
   }));
 }

@@ -1,15 +1,7 @@
-import type { Metadata } from "next";
+import { site } from "@/data/site";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Selected Projects | Fidexa",
-  description: "Explore selected software products, client solutions, infrastructure, and developer tools built by Fidexa.",
-  alternates: { canonical: "/projects" },
-  openGraph: {
-    title: "Selected Projects | Fidexa",
-    description: "Explore selected software products, client solutions, infrastructure, and developer tools built by Fidexa.",
-    url: "/projects",
-  },
-};
+export const metadata = createPageMetadata(site.pages[1]);
 
 export default function ProjectsLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return children;

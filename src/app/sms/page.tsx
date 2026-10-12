@@ -1,10 +1,11 @@
 import Link from "next/link";
+import { site } from "@/data/site";
+import { createPageMetadata } from "@/lib/seo";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 
 export const metadata = {
-  title: "SMS Customer Care Opt-In | Fidexa",
-  description: "Fidexa customer-care SMS opt-in and support messaging information.",
+  ...createPageMetadata(site.pages[2]),
   alternates: { canonical: "/sms" },
 };
 

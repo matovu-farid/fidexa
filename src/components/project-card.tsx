@@ -16,7 +16,7 @@ export function ProjectCard({ project, featured = false, context = "home" }: { p
   ].filter((link): link is { label: string; href: string } => Boolean(link)) : [];
 
   return (
-    <article className={`project-card ${featured ? "project-card-featured" : ""}`}>
+    <article id={`project-${project.id}`} className={`project-card ${featured ? "project-card-featured" : ""}`}>
       <div className="project-tag-row">
         <span className="project-tag">{project.category.replace("-", " ")}</span>
         {project.tags.slice(0, 2).map((tag) => <span className="project-tag" key={tag}>{tag}</span>)}

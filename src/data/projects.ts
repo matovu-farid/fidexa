@@ -36,7 +36,7 @@ export const projects: Project[] = [
   {
     id: "rishi",
     name: "Rishi",
-    description: "Production Apple ecosystem reading platform for iPhone, iPad, Mac, CarPlay, and connected Apple Watch experiences, with EPUB and PDF reading, read-aloud, highlights, sync, sharing, and AI chat grounded in the current book. Android is planned, but is not available today.",
+    description: "Fidexa’s production Apple ecosystem reading platform brings books, listening, and book-grounded questions into one product. Built for iPhone, iPad, Mac, CarPlay, and connected Apple Watch experiences, it supports EPUB and PDF reading, read-aloud, highlights, sync, sharing, and AI chat grounded in the current book. The App Store listing and product walkthrough provide public evidence. Android is planned, but is not available today.",
     featuredSummary: "A production reading app bringing EPUB and PDF books, read-aloud, highlights, sync, and book-grounded AI chat together across Apple devices.",
     category: "native-apps",
     tags: ["Innovation", "Apple Native"],
@@ -54,7 +54,7 @@ export const projects: Project[] = [
   {
     id: "money-lending",
     name: "Money Lending Management System",
-    description: "Kaks Credit’s production fintech and accounting-ledger platform used by real customers and businesses in a money-lending operation, with reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports.",
+    description: "Built by Fidexa for Kaks Credit, this production lending and accounting-ledger platform supports a money-lending operation used by real customers and businesses. It connects reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports. The public product showcase demonstrates the platform; operational workspace access requires sign-in.",
     featuredSummary: "Kaks Credit runs lending on an accounting-ledger platform with reducing-balance interest, investor capital, approvals, risk watchlists, and financial reports.",
     category: "web-apps",
     tags: ["SaaS", "Fintech"],
@@ -70,7 +70,7 @@ export const projects: Project[] = [
   {
     id: "inventory-trade",
     name: "Inventory and Trade Management System",
-    description: "Production trade platform used by real customers and businesses across Supply, Store, and Shop, with a shared double-entry ledger from procurement to retail, RMB, USD, and UGX money support, POS, stock control, loss detection, and audit trails.",
+    description: "Fidexa built this production trade platform to connect Supply, Store, and Shop from procurement to retail. Used by real customers and businesses, it combines a shared double-entry ledger, RMB, USD, and UGX money support, POS, stock control, loss detection, and audit trails. The public showcase provides product evidence; operational workspace access requires sign-in.",
     featuredSummary: "A trade platform connecting Supply, Store, and Shop with a shared ledger, point of sale, stock control, loss detection, and audit trails.",
     category: "web-apps",
     tags: ["SaaS", "Trade"],
@@ -86,7 +86,7 @@ export const projects: Project[] = [
   {
     id: "ai-scraping",
     name: "AI Scraping Ecosystem",
-    description: "AI-powered scraping product: interactive dashboard, published npm library (scrap-ai), and serverless AWS Lambda backend.",
+    description: "An AI-powered scraping ecosystem combining an interactive dashboard, a published npm library (scrap-ai), and a serverless AWS Lambda backend. It shows product delivery across a web interface, reusable developer package, and deployed processing infrastructure.",
     category: "ai-automation",
     tags: ["AI", "Developer Tool"],
     techStack: ["Next.js", "AWS Lambda", "npm", "AI"],
@@ -99,7 +99,7 @@ export const projects: Project[] = [
   {
     id: "apartment-manager",
     name: "Apartment Manager",
-    description: "Property management with block management, rent billing cycles, expenditure tracking, role-based access, and data export.",
+    description: "Property-management software bringing block management, rent billing cycles, expenditure tracking, role-based access, and data export into one business system.",
     category: "web-apps",
     tags: ["SaaS", "Property"],
     techStack: ["Next.js", "PostgreSQL", "Prisma", "Better Auth"],
@@ -109,7 +109,7 @@ export const projects: Project[] = [
   {
     id: "maria",
     name: "Maria",
-    description: "Production cryptocurrency trading bot with multiple strategies, backtesting, grid-search optimization, and Docker Swarm deployment.",
+    description: "Fidexa’s production cryptocurrency trading bot combines multiple strategies, backtesting, grid-search optimization, and Docker Swarm deployment. It demonstrates strategy evaluation and deployed automation.",
     category: "ai-automation",
     tags: ["AI", "Finance"],
     techStack: ["TypeScript", "Effect.js", "Docker", "Prisma", "PostgreSQL"],
@@ -119,7 +119,7 @@ export const projects: Project[] = [
   {
     id: "murmur",
     name: "Murmur",
-    description: "macOS voice-to-text dictation CLI daemon built in Rust for fast, native speech recognition.",
+    description: "A macOS voice-to-text dictation CLI daemon built in Rust for native speech recognition. The linked source repository provides implementation evidence for the command-line tool and background service.",
     category: "developer-tools",
     tags: ["CLI", "Systems"],
     techStack: ["Rust", "macOS"],
@@ -132,7 +132,7 @@ export const projects: Project[] = [
   {
     id: "sophie-website",
     name: "Sophie Website",
-    description: "Business website for Abia Cleaning Services LLC built with the T3 stack.",
+    description: "Client business website for Abia Cleaning Services LLC built with the T3 stack. The public site and source repository provide evidence of the delivered web experience.",
     category: "web-apps",
     tags: ["Client Work", "Business"],
     techStack: ["Next.js", "tRPC", "Prisma", "Tailwind CSS"],
@@ -146,7 +146,7 @@ export const projects: Project[] = [
   {
     id: "proxy-service",
     name: "Proxy Service",
-    description: "Containerized reverse proxy for OpenAI TTS API with rate limiting, CORS, Docker secrets, and nginx.",
+    description: "Containerized reverse proxy for the OpenAI TTS API, with rate limiting, CORS, Docker secrets, and nginx. The source repository documents an infrastructure layer for controlling access to speech-generation requests.",
     category: "developer-tools",
     tags: ["Infrastructure", "Docker"],
     techStack: ["TypeScript", "Docker", "nginx", "Bun"],
@@ -159,7 +159,7 @@ export const projects: Project[] = [
   {
     id: "realtime-analytics",
     name: "Realtime Analytics",
-    description: "Real-time search analytics dashboard with trend tracking and IP-based user analytics.",
+    description: "Real-time search analytics dashboard built with Ruby on Rails and PostgreSQL, bringing trend tracking and IP-based user analytics into one view. The source repository provides implementation evidence.",
     category: "web-apps",
     tags: ["Analytics", "Real-time"],
     techStack: ["Ruby on Rails", "PostgreSQL", "RSpec"],
@@ -172,7 +172,7 @@ export const projects: Project[] = [
   {
     id: "rc-textfield",
     name: "RC-Textfield",
-    description: "Published React component library on npm providing flexible text fields with built-in validation and Tailwind CSS styling.",
+    description: "Published React component library on npm providing flexible text fields with built-in validation and Tailwind CSS styling. The linked source repository shows a reusable interface library built with React and TypeScript.",
     category: "developer-tools",
     tags: ["npm", "Component Library"],
     techStack: ["React", "TypeScript", "Tailwind CSS"],
