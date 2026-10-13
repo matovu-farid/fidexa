@@ -29,7 +29,7 @@ describe("company profile section contract", () => {
     expect(component).toContain('href="#contact"');
     expect(component).not.toMatch(/<img\b/i);
     expect(component).not.toMatch(/portrait/i);
-    expect(contact).toContain("05 / Contact");
+    expect(contact).toContain('id="contact"');
     expect(homepage.indexOf("<WhatWeDo />")).toBeLessThan(homepage.indexOf("<CompanyProfile />"));
     expect(homepage.indexOf("<CompanyProfile />")).toBeLessThan(homepage.indexOf("<Contact />"));
   });
@@ -37,8 +37,8 @@ describe("company profile section contract", () => {
   it("uses one profile column at tablet portrait and smaller, and stacks company actions below 768px", () => {
     const styles = readSource("../app/globals.css");
 
-    expect(styles).toMatch(/\.company-profile-grid\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1\.05fr\) minmax\(0, \.85fr\)/);
-    expect(styles).toMatch(/@media\s*\(max-width:\s*1193px\)[\s\S]*?\.company-profile-grid,\s*\.company-profile-details\s*\{[\s\S]*?grid-template-columns:\s*1fr/);
+    expect(styles).toMatch(/\.company-profile-grid\s*\{[\s\S]*?grid-template-columns:\s*minmax\(0, 1\.1fr\) minmax\(0, \.9fr\)/);
+    expect(styles).toMatch(/@media\s*\(max-width:\s*1193px\)[\s\S]*?\.company-profile-grid\s*\{[\s\S]*?grid-template-columns:\s*1fr/);
     expect(styles).toMatch(/@media\s*\(max-width:\s*767px\)[\s\S]*?\.company-profile-actions,\s*\.company-profile-links\s*\{[\s\S]*?flex-direction:\s*column/);
   });
 });

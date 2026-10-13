@@ -1,39 +1,32 @@
 import { ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Nav } from "./nav";
-import { Logo } from "./logo";
 import { AnalyticsLink } from "./analytics-link";
+import { HeroShowcase } from "./hero-showcase";
 
 export function Hero() {
   return (
     <section className="hero-section">
-      <div className="hero-panel dark-card">
+      <div className="hero-panel dark-card theme-inverse">
         <Nav embedded />
-        <div className="hero-orb hero-orb-halo" aria-hidden="true" />
-        <div className="hero-orb hero-orb-violet" aria-hidden="true" />
-        <div className="hero-orb hero-orb-mint" aria-hidden="true" />
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow text-[#37d6c0]">Software studio / Kampala ↗</p>
-            <h1 className="display-title hero-title mt-6">We build software products from first idea to everyday use.</h1>
-            <p className="body-copy mt-7">Fidexa partners with companies to turn complex operations, new ideas, and ambitious plans into thoughtful digital products.</p>
-            <div className="hero-actions mt-9">
-              <AnalyticsLink events={["hero_cta_clicked"]} className="button-primary bg-[#fcf9f0] text-[#1e1811] hover:bg-[#37d6c0]" href="#contact">Tell us about your project <ArrowUpRight size={15} /></AnalyticsLink>
-              <a className="button-secondary mobile-start-project" href="#projects">See selected work <ArrowUpRight size={15} /></a>
-              </div>
+            <h1 className="hero-title">
+              <span className="hero-statement">We build<br />software products</span>{" "}
+              <span className="hero-continuation">from first idea to <span>everyday use.</span></span>
+            </h1>
+            <p className="body-copy hero-intro">Fidexa partners with companies to turn complex operations, new ideas, and ambitious plans into thoughtful digital products.</p>
+            <div className="hero-actions">
+              <Button asChild size="lg" className="hero-contact"><AnalyticsLink events={["hero_cta_clicked"]} href="#contact">Discuss a project <ArrowUpRight data-icon="inline-end" /></AnalyticsLink></Button>
+              <Button asChild size="lg" variant="outline"><a href="#projects">See our work <ArrowUpRight data-icon="inline-end" /></a></Button>
             </div>
-          <div className="hero-visual" aria-hidden="true">
-            <Logo className="hero-visual-logo" size={176} variant="reversed" />
           </div>
-          <div className="hero-proof">
-            <p className="eyebrow text-[#37d6c0]">Built in two directions</p>
-            <p className="mt-4 text-xs font-bold uppercase tracking-[0.08em] text-[#f7f9fc]">Client products / Web · Mobile · Systems</p>
-            <p className="mt-2 text-xs text-[#aab4c5]">Own products / Rishi · AI · Native Apple</p>
-          </div>
+          <div className="hero-product-proof"><HeroShowcase /></div>
         </div>
-        <div className="hero-rail" aria-hidden="true">
-          <span>01 / Client products</span>
-          <span>02 / Own products</span>
-          <span>Fidexa studio ↗</span>
+        <div className="hero-rail">
+          <span>Independent software studio · Kampala / Remote</span>
+          <span>Client solutions + our own products</span>
+          <a href="#studio">Meet the studio <ArrowUpRight size={14} /></a>
         </div>
       </div>
     </section>

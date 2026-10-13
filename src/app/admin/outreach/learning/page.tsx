@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import Link from "next/link";
 import { CampaignLearningManager, type CampaignLearningInitialData } from "@/components/admin/campaign-learning-manager";
 import { listCampaignLearning } from "@/lib/campaign-learning-store";
 
@@ -26,6 +29,6 @@ export default async function CampaignLearningPage() {
     };
     return <CampaignLearningManager initialData={initialData} />;
   } catch {
-    return <main className="admin-outreach"><header className="admin-outreach-header"><div><p className="eyebrow">Fidexa / Campaign learning</p><h1>Close the loop.</h1><p className="admin-muted">The learning ledger is unavailable.</p></div><a className="admin-secondary" href="/admin/outreach">Back to outreach</a></header><section className="admin-outreach-card"><h2>Cannot load campaign history</h2><p className="admin-muted">The reporting database or campaign-learning migration is unavailable. No Zoho state has been read or changed.</p></section></main>;
+    return <main className="admin-outreach-page admin-outreach"><header className="admin-outreach-header"><div><p className="eyebrow">Fidexa / Campaign learning</p><h1>Close the loop.</h1><p className="admin-muted">The learning ledger is unavailable.</p></div><Button variant="outline" asChild><Link href="/admin/outreach">Back to outreach</Link></Button></header><Alert><AlertTitle>Cannot load campaign history</AlertTitle><AlertDescription>The reporting database or campaign-learning migration is unavailable. No Zoho state has been read or changed.</AlertDescription></Alert></main>;
   }
 }

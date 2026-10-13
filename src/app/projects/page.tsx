@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { ProjectCard } from "@/components/project-card";
@@ -38,30 +39,22 @@ export default function ProjectsPage() {
         <div className="site-shell">
           <div className="split-heading">
             <div>
-              <p className="eyebrow">Work index · {projects.length} systems</p>
-              <h1 className="section-title mt-5">Work with a point of view.</h1>
+              <h1 className="section-title">Products, systems, and tools.</h1>
             </div>
-            <p className="body-copy">Selected product work, client systems, and experiments from the Fidexa studio. This catalog is a window into the practice, not the whole story.</p>
+            <p className="body-copy">Product work, client systems, and developer tools from the Fidexa studio. Explore the scope and evidence behind each project.</p>
           </div>
-          <div className="filter-row mt-10" role="group" aria-label="Filter projects">
-            {categories.map((category) => (
-              <button
-                key={category.value}
-                type="button"
-                className={`filter-pill ${active === category.value ? "filter-pill-active" : ""}`}
-                aria-pressed={active === category.value}
-                onClick={() => selectCategory(category.value)}
-              >
-                {category.label}
-              </button>
-            ))}
+          <div className="catalog-controls mt-10">
+          <ToggleGroup type="single" variant="outline" value={active} onValueChange={(value) => { if (value) selectCategory(value as ProjectCategory | "all"); }} className="catalog-filter flex flex-wrap justify-start" aria-label="Filter projects">
+            {categories.map((category) => <ToggleGroupItem key={category.value} value={category.value}>{category.label}</ToggleGroupItem>)}
+          </ToggleGroup>
+          <p className="catalog-count text-sm text-muted-foreground" aria-live="polite">
+            {filtered.length} {filtered.length === 1 ? "project" : "projects"}{" "}shown
+          </p>
           </div>
           <div className="index-grid mt-10">
             {filtered.map((project) => <ProjectCard key={project.id} project={project} featured={project.featured} context="index" />)}
           </div>
-          <p className="mt-8 text-xs font-bold uppercase tracking-[0.1em] text-[#667087]" aria-live="polite">
-            {filtered.length} {filtered.length === 1 ? "project" : "projects"}{" "}shown · a sample of the studio&apos;s work.
-          </p>
+
         </div>
       </main>
       <Footer />

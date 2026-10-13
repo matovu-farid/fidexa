@@ -4,6 +4,9 @@ import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport, type UIMessage } from "ai";
 import { useRef, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from "@/components/ui/dialog";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Textarea } from "@/components/ui/textarea";
 import { X, Send, Bot, User } from "lucide-react";
 import ReactMarkdown from "react-markdown";
@@ -40,8 +43,7 @@ export function ChatModal({
   const [input, setInput] = useState("");
   const isLoading = status === "streaming" || status === "submitted";
   const scrollRef = useRef<HTMLDivElement>(null);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const handoffRequested = useRef(false);
   const conversationText = messages
     .filter((message) => message.id !== "fidexa-opening")
     .map((message) => {
@@ -58,37 +60,6 @@ export function ChatModal({
     }
   }, [messages]);
 
-  useEffect(() => {
-    if (!open) return;
-    const previousFocus = document.activeElement as HTMLElement | null;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-        return;
-      }
-      if (event.key !== "Tab" || !dialogRef.current) return;
-      const focusable = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(
-        "button:not([disabled]), textarea:not([disabled]), input:not([disabled]), [href]"
-      ));
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    closeButtonRef.current?.focus();
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      previousFocus?.focus();
-    };
-  }, [open, onClose]);
-
   function submitMessage(event: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLTextAreaElement>) {
     event.preventDefault();
     const text = input.trim();
@@ -98,144 +69,46 @@ export function ChatModal({
     void sendMessage({ text });
   }
 
-  if (!open) return null;
-
   return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 backdrop-blur-sm sm:p-5">
-      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="chat-title" aria-describedby="chat-description" className="relative flex h-[min(80vh,760px)] max-h-[calc(100dvh-24px)] w-full max-w-lg flex-col rounded-2xl border border-white/[0.1] bg-background shadow-2xl">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-4">
-          <div className="flex items-center gap-2">
-            <Bot size={18} className="text-muted-foreground" />
-            <div>
-              <span id="chat-title" className="text-sm font-medium">Fidexa AI</span>
-              <p id="chat-description" className="text-xs text-muted-foreground">Explore your project idea and possible next steps.</p>
-            </div>
-          </div>
-          <button
-            ref={closeButtonRef}
-            onClick={onClose}
-            aria-label="Close Fidexa AI"
-            type="button"
-            className="min-h-11 min-w-11 rounded-lg p-2.5 text-muted-foreground transition-colors hover:bg-white/[0.06] hover:text-foreground"
-          >
-            <X size={18} />
-          </button>
+    <Dialog open={open} onOpenChange={(nextOpen) => { if (!nextOpen) onClose(); }}>
+      <DialogContent className="chat-panel flex gap-0 p-0" aria-describedby="chat-purpose chat-privacy" showCloseButton={false} onCloseAutoFocus={(event) => {
+        event.preventDefault();
+        document.getElementById(handoffRequested.current ? "contact-message" : "contact-ai-trigger")?.focus();
+        handoffRequested.current = false;
+      }}>
+        <div className="chat-panel-header">
+          <div className="flex items-center gap-3"><Bot className="size-5 shrink-0" /><div>
+            <DialogTitle>Fidexa AI</DialogTitle>
+            <DialogDescription id="chat-purpose" className="mt-2">Shape your inquiry by exploring the problem, users and possible next steps.</DialogDescription>
+          </div></div>
+          <DialogClose asChild><Button type="button" size="icon-lg" variant="ghost" className="min-h-11 min-w-11" aria-label="Close Fidexa AI"><X /></Button></DialogClose>
         </div>
-
-        {/* Messages */}
-        <div ref={scrollRef} className="flex-1 overflow-y-auto px-6 py-4">
-          {messages.length === 0 && (
-            <div className="flex h-full items-center justify-center">
-              <div className="text-center">
-                <Bot size={32} className="mx-auto mb-3 text-muted-foreground" />
-                <p className="text-sm font-medium">
-                  Tell us about your project
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Our AI will help scope your idea and suggest next steps.
-                </p>
-              </div>
+        <DialogDescription id="chat-privacy" className="chat-panel-note mt-3">Your conversation is sent to our AI service to generate replies. A copy of your conversation is placed in the contact form only if you choose “Use conversation in contact form”. Nothing is sent as an inquiry until you review the form and submit it.</DialogDescription>
+        <div ref={scrollRef} className="chat-panel-body" aria-live="polite">
+          {messages.map((msg) => <div key={msg.id} className={`chat-message ${msg.role === "user" ? "chat-message-user" : ""}`}>
+            {msg.role === "assistant" && <div className="chat-message-avatar" aria-hidden="true"><Bot size={14} /></div>}
+            <div className="chat-message-body">
+              {msg.role === "assistant" ? <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p> }}>
+                {msg.parts.filter((part) => part.type === "text").map((part) => part.type === "text" ? part.text : "").join("")}
+              </ReactMarkdown> : msg.parts.filter((part) => part.type === "text").map((part) => part.type === "text" ? part.text : "").join("")}
             </div>
-          )}
-          {messages.map((msg) => (
-            <div
-              key={msg.id}
-              className={`mb-4 flex gap-3 ${msg.role === "user" ? "justify-end" : ""}`}
-            >
-              {msg.role === "assistant" && (
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04]">
-                  <Bot size={14} className="text-muted-foreground" />
-                </div>
-              )}
-              <div
-                className={`max-w-[80%] rounded-xl px-4 py-2.5 text-sm leading-relaxed ${
-                  msg.role === "user"
-                    ? "bg-foreground text-background"
-                    : "bg-white/[0.04] text-foreground"
-                }`}
-              >
-                {msg.role === "assistant" ? (
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      p: ({ children }) => (
-                        <p className="mb-2 last:mb-0">{children}</p>
-                      ),
-                    }}
-                  >
-                    {msg.parts
-                      .filter((part) => part.type === "text")
-                      .map((part) => (part.type === "text" ? part.text : ""))
-                      .join("")}
-                  </ReactMarkdown>
-                ) : (
-                  msg.parts
-                    .filter((part) => part.type === "text")
-                    .map((part) => (part.type === "text" ? part.text : ""))
-                    .join("")
-                )}
-              </div>
-              {msg.role === "user" && (
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-foreground">
-                  <User size={14} className="text-background" />
-                </div>
-              )}
-            </div>
-          ))}
-          {isLoading && (
-            <div className="mb-4 flex gap-3">
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/[0.1] bg-white/[0.04]">
-                <Bot size={14} className="text-muted-foreground" />
-              </div>
-              <div className="rounded-xl bg-white/[0.04] px-4 py-2.5 text-sm text-muted-foreground">
-                Thinking…
-              </div>
-            </div>
-          )}
-          {error && (
-            <p role="alert" className="mb-4 text-sm text-red-300">
-              The chat could not complete that response. Please try again.
-            </p>
-          )}
-          {conversationText && !isLoading && (
-            <div className="mb-4 flex justify-end">
-              <Button type="button" variant="outline" className="min-h-11" onClick={() => {
-                trackAnalytics("ai_handoff_requested");
-                onUseSummary(`Notes from my Fidexa AI conversation:\n${conversationText}`);
-              }}>
-                Use conversation in contact form
-              </Button>
-            </div>
-          )}
+            {msg.role === "user" && <div className="chat-message-avatar" aria-hidden="true"><User size={14} /></div>}
+          </div>)}
+          {isLoading && <p role="status" className="mb-4 text-sm text-muted-foreground">Thinking…</p>}
+          {error && <Alert variant="destructive" className="mb-4"><AlertDescription>The chat could not complete that response. Please try again.</AlertDescription></Alert>}
+          {conversationText && !isLoading && <Button type="button" variant="outline" className="min-h-11 max-w-full whitespace-normal" onClick={() => {
+            trackAnalytics("ai_handoff_requested");
+            handoffRequested.current = true;
+            onUseSummary(`Notes from my Fidexa AI conversation:\n${conversationText}`);
+          }}>Use conversation in contact form</Button>}
         </div>
-
-        {/* Input */}
-        <form
-          onSubmit={submitMessage}
-          className="border-t border-white/[0.06] px-4 py-3"
-        >
-          <div className="flex items-end gap-2">
-            <Textarea
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              name="message"
-              aria-label="Describe your project idea"
-              placeholder="Describe your project idea..."
-              className="min-h-[44px] max-h-[120px] resize-none"
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  submitMessage(e);
-                }
-              }}
-            />
-            <Button type="submit" size="icon-lg" aria-label="Send message" disabled={isLoading || !input.trim()}>
-              <Send size={16} />
-            </Button>
-          </div>
+        <form onSubmit={submitMessage} className="chat-panel-form">
+          <Field className="gap-0"><FieldLabel htmlFor="chat-message" className="sr-only">Describe your project idea</FieldLabel>
+            <Textarea id="chat-message" value={input} onChange={(event) => setInput(event.target.value)} name="message" placeholder="Describe your project idea..." onKeyDown={(event) => { if (event.key === "Enter" && !event.shiftKey) submitMessage(event); }} />
+          </Field>
+          <Button type="submit" size="icon-lg" className="min-h-12 min-w-12" aria-label="Send message" disabled={isLoading || !input.trim()}><Send /></Button>
         </form>
-        <p className="px-4 pb-3 text-center text-xs text-muted-foreground">Chat is sent to our AI service to generate replies. Nothing is sent as an inquiry unless you submit the contact form.</p>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

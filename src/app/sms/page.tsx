@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { site } from "@/data/site";
 import { createPageMetadata } from "@/lib/seo";
+import { ArrowUpRight } from "lucide-react";
+import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 
@@ -23,26 +27,34 @@ export default function SmsOptInPage() {
             <p className="body-copy">A utility page for consent, help, stop, and account support — never marketing.</p>
           </div>
           <div className="sms-grid mt-12">
-            <section className="sms-card editorial-card">
+            <Card className="sms-card">
+              <CardHeader>
               <p className="eyebrow">How to opt in</p>
-              <h2 className="mt-8 text-2xl font-bold tracking-[-0.04em]">Text START to</h2>
+              <CardTitle><h2 className="text-2xl">Text START to</h2></CardTitle>
+              </CardHeader>
+              <CardContent>
               <strong className="sms-number">+1 (302) 496-6237</strong>
               <p className="body-copy mt-8 max-w-2xl">Fidexa uses SMS only for customer-care conversations and account-related support. We do not use this program for marketing or lead generation.</p>
-              <div className="mt-8 border-t border-[#101828]/15 pt-5 text-sm font-bold text-[#667087]">HELP for help · STOP to opt out · Message and data rates may apply</div>
-              <div className="mt-6 space-y-4 text-sm leading-6 text-[#667087]">
+              <Separator className="my-6" /><div className="text-sm font-medium text-muted-foreground">HELP for help · STOP to opt out · Message and data rates may apply</div>
+              <div className="mt-6 space-y-4 text-sm leading-6 text-muted-foreground">
                 <p>Message frequency varies with your account activity and support requests. After opting out, you will receive one confirmation message and no further messages unless you re-subscribe.</p>
                 <p>SMS consent is optional and is not a condition of purchasing any product or service.</p>
               </div>
-            </section>
-            <aside className="sms-card dark-card">
-              <p className="eyebrow text-[#36d6bf]">Policy links</p>
-              <h2 className="mt-7 text-2xl font-bold tracking-[-0.04em]">Keep the details close.</h2>
+              </CardContent>
+            </Card>
+            <Card className="sms-card theme-inverse">
+              <CardHeader>
+              <p className="eyebrow">Policy links</p>
+              <CardTitle><h2 className="text-2xl">Keep the details close.</h2></CardTitle>
+              </CardHeader>
+              <CardFooter>
               <div className="legal-links">
-                <Link href="https://rishi.fidexa.org/privacy">Privacy policy ↗</Link>
-                <Link href="https://rishi.fidexa.org/terms">Terms and conditions ↗</Link>
-                <a href="mailto:support@fidexa.org" className="text-[#36d6bf]">support@fidexa.org ↗</a>
+                <Button asChild variant="ghost" className="min-h-11 justify-start"><Link href="https://rishi.fidexa.org/privacy">Privacy policy <ArrowUpRight /></Link></Button>
+                <Button asChild variant="ghost" className="min-h-11 justify-start"><Link href="https://rishi.fidexa.org/terms">Terms and conditions <ArrowUpRight /></Link></Button>
+                <Button asChild variant="ghost" className="min-h-11 justify-start"><a href="mailto:support@fidexa.org">support@fidexa.org <ArrowUpRight /></a></Button>
               </div>
-            </aside>
+              </CardFooter>
+            </Card>
           </div>
         </div>
       </main>

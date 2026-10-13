@@ -1,24 +1,32 @@
 import Link from "next/link";
 import { GithubIcon, TwitterIcon } from "lucide-react";
-import { LogoWithText } from "./logo";
+import { Logo } from "./logo";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="site-shell footer-grid">
-        <div>
-          <LogoWithText variant="reversed" />
-          <p className="mt-3 max-w-xs text-xs leading-5 text-[#b8c7dd]">End-to-end products for the work ahead.</p>
+    <footer className="site-footer theme-inverse">
+      <div className="site-shell">
+        <div className="footer-top">
+          <Link href="/" className="footer-brand" aria-label="Fidexa home">
+            <Logo variant="reversed" size={64} />
+            <span>fidexa</span>
+          </Link>
+          <p className="footer-tagline">End-to-end products for the work ahead.</p>
         </div>
-        <nav className="footer-links" aria-label="Footer navigation">
-          <Link href="/projects">Work</Link>
-          <Link href="/#contact">Contact</Link>
-          <Link href="/sms">SMS support</Link>
-        </nav>
-        <div className="footer-socials" aria-label="Social links">
-          <a href="https://github.com/matovu-farid" target="_blank" rel="noopener noreferrer" aria-label="Fidexa on GitHub"><GithubIcon size={16} /></a>
-          <a href="https://twitter.com/matovu100" target="_blank" rel="noopener noreferrer" aria-label="Fidexa on X"><TwitterIcon size={16} /></a>
-          <span className="text-xs text-[#b8c7dd]">© {new Date().getFullYear()} Fidexa</span>
+        <Separator />
+        <div className="footer-grid">
+          <nav className="footer-links" aria-label="Footer navigation">
+            <Button asChild variant="ghost"><Link href="/projects">Work</Link></Button>
+            <Button asChild variant="ghost"><Link href="/#contact">Contact</Link></Button>
+            <Button asChild variant="ghost"><Link href="/sms">SMS support</Link></Button>
+          </nav>
+          <div className="footer-socials" aria-label="Social links">
+            <Button asChild variant="ghost" size="icon"><a href="https://github.com/matovu-farid" target="_blank" rel="noopener noreferrer" aria-label="Fidexa on GitHub"><GithubIcon /></a></Button>
+            <Button asChild variant="ghost" size="icon"><a href="https://twitter.com/matovu100" target="_blank" rel="noopener noreferrer" aria-label="Fidexa on X"><TwitterIcon /></a></Button>
+            <span>© {new Date().getFullYear()} Fidexa</span>
+          </div>
         </div>
       </div>
     </footer>

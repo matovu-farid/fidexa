@@ -1,10 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AlertCircle, CheckCircle, Sparkles } from "lucide-react";
+import { AlertCircle, CheckCircle, Sparkles, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent } from "@/components/ui/card";
+import { Field, FieldGroup, FieldLabel, FieldDescription } from "@/components/ui/field";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ChatModal } from "./chat-modal";
 import { trackAnalytics } from "@/lib/analytics";
 
@@ -51,49 +54,53 @@ export function Contact() {
 
   return (
     <>
-      <section id="contact" className="section-rule section-block">
+      <section id="contact" className="section-rule section-block contact-section">
         <div className="site-shell">
-          <div className="contact-panel editorial-card">
+          <div className="contact-panel">
             <div className="flex flex-col justify-between">
               <div>
-                <p className="eyebrow">05 / Contact</p>
-                <h2 className="section-title mt-5 text-[#101828]">Have something worth building?</h2>
-                <p className="mt-6 max-w-sm text-sm leading-6 text-[#667085]">Tell us what you want to make better—or what you want to make possible. We&apos;ll review your note and reply within two business days.</p>
+                <h2 className="section-title">Have something worth building?</h2>
+                <p className="mt-6 max-w-sm text-sm leading-6 text-muted-foreground">Tell us what you want to make better—or what you want to make possible. We&apos;ll review your note and reply within two business days.</p>
               </div>
-              <p className="contact-side-note mt-12">Typical response / 2 business days<br />hello@fidexa.org</p>
+              <p className="contact-side-note mt-12">Typical response / 2 business days<br /><a href="mailto:hello@fidexa.org" className="inline-flex min-h-11 items-center underline underline-offset-4">hello@fidexa.org</a></p>
             </div>
-            <form onSubmit={handleSubmit} className="rounded-xl bg-[#fffdf8] p-5 text-[#101828] sm:p-7">
-              <p className="eyebrow">Tell us about your project</p>
-              <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                <label className="grid gap-1.5 text-sm font-medium" htmlFor="contact-name">Your name
-                  <Input id="contact-name" className="editorial-input" name="name" autoComplete="name" onFocus={markContactStarted} required disabled={sending} />
-                </label>
-                <label className="grid gap-1.5 text-sm font-medium" htmlFor="contact-email">Email address
-                  <Input id="contact-email" className="editorial-input" name="email" type="email" autoComplete="email" onFocus={markContactStarted} required disabled={sending} />
-                </label>
-              </div>
-              <label className="mt-3 grid gap-1.5 text-sm font-medium" htmlFor="contact-message">What would you like to work on?
-                <Textarea id="contact-message" className="editorial-input min-h-[140px]" name="message" value={message} onChange={(event) => setMessage(event.target.value)} onFocus={markContactStarted} maxLength={10_000} required disabled={sending} />
-              </label>
-              <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
-                <label htmlFor="contact-website">Leave this field empty</label>
-                <Input id="contact-website" name="website" tabIndex={-1} autoComplete="off" />
-              </div>
-              <p className="mt-3 text-xs leading-5 text-[#667085]">We use your details to reply to this inquiry. If you use the AI guide, its conversation is sent to our AI service to generate responses. A copy of your conversation is placed in this form only if you choose to use it; nothing is sent to us until you submit it.</p>
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <Button type="submit" className="button-primary border-0 px-6" disabled={sending}>{sending ? "Sending…" : "Send inquiry ↗"}</Button>
-                <button type="button" onClick={openChat} className="button-secondary min-h-[46px] border-[#101828]/15 px-4 text-[#101828]"><Sparkles size={14} /> Ask AI instead</button>
-              </div>
-              {status === "success" && <p aria-live="polite" className="mt-4 flex items-center gap-2 text-sm text-[#287c5d]"><CheckCircle size={16} /> Inquiry sent. We&apos;ll reply within two business days.</p>}
-              {status === "error" && <p role="alert" className="mt-4 flex items-center gap-2 text-sm text-[#b13c36]"><AlertCircle size={16} /> Something went wrong. Please try again.</p>}
-            </form>
+            <Card className="contact-form-card py-0">
+              <CardContent>
+                <form onSubmit={handleSubmit}>
+                  <FieldGroup>
+                    <div className="grid gap-6 sm:grid-cols-2">
+                      <Field><FieldLabel htmlFor="contact-name">Your name</FieldLabel>
+                        <Input id="contact-name" name="name" autoComplete="name" onFocus={markContactStarted} required disabled={sending} />
+                      </Field>
+                      <Field><FieldLabel htmlFor="contact-email">Email address</FieldLabel>
+                        <Input id="contact-email" name="email" type="email" autoComplete="email" onFocus={markContactStarted} required disabled={sending} />
+                      </Field>
+                    </div>
+                    <Field><FieldLabel htmlFor="contact-message">What would you like to work on?</FieldLabel>
+                      <Textarea id="contact-message" aria-describedby="contact-message-hint contact-privacy" name="message" value={message} onChange={(event) => setMessage(event.target.value)} onFocus={markContactStarted} maxLength={10_000} required disabled={sending} />
+                      <FieldDescription id="contact-message-hint">A few lines about the problem, who it affects, and your current stage are enough to start.</FieldDescription>
+                    </Field>
+                    <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+                      <label htmlFor="contact-website">Leave this field empty</label>
+                      <Input id="contact-website" name="website" tabIndex={-1} autoComplete="off" />
+                    </div>
+                    <FieldDescription id="contact-privacy">We use your name, email and message to reply to this inquiry.</FieldDescription>
+                    <div className="contact-actions">
+                      <Button type="submit" size="lg" className="min-h-12" disabled={sending}>{sending ? "Sending…" : "Send inquiry"}<ArrowUpRight /></Button>
+                      <Button id="contact-ai-trigger" type="button" variant="outline" size="lg" className="min-h-12" onClick={openChat}><Sparkles /> Help shape my inquiry</Button>
+                    </div>
+                    {status === "success" && <Alert role="status"><CheckCircle /><AlertDescription>Inquiry sent. We&apos;ll reply within two business days.</AlertDescription></Alert>}
+                    {status === "error" && <Alert variant="destructive"><AlertCircle /><AlertDescription>Your inquiry wasn&apos;t sent. Your entries are still here. Try “Send inquiry” again, or email <a href="mailto:hello@fidexa.org" className="underline underline-offset-4">hello@fidexa.org</a>.</AlertDescription></Alert>}
+                  </FieldGroup>
+                </form>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
       <ChatModal open={chatOpen} onClose={() => setChatOpen(false)} onUseSummary={(summary) => {
         setMessage(summary);
         setChatOpen(false);
-        requestAnimationFrame(() => document.getElementById("contact-message")?.focus());
       }} />
     </>
   );

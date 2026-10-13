@@ -1,10 +1,21 @@
 export type ProjectCategory = "ai-automation" | "native-apps" | "web-apps" | "developer-tools";
 
+export interface ProjectCaseStudy {
+  shortName: string;
+  intro: string;
+  situation: string;
+  decision: string;
+  delivered: string;
+  caption: string;
+  provenance: string;
+}
+
 export interface Project {
   id: string;
   name: string;
   description: string;
   featuredSummary?: string;
+  caseStudy?: ProjectCaseStudy;
   category: ProjectCategory;
   tags: string[];
   techStack: string[];
@@ -38,6 +49,15 @@ export const projects: Project[] = [
     name: "Rishi",
     description: "Fidexa’s production Apple ecosystem reading platform brings books, listening, and book-grounded questions into one product. Built for iPhone, iPad, Mac, CarPlay, and connected Apple Watch experiences, it supports EPUB and PDF reading, read-aloud, highlights, sync, sharing, and AI chat grounded in the current book. The App Store listing and product walkthrough provide public evidence. Android is planned, but is not available today.",
     featuredSummary: "A production reading app bringing EPUB and PDF books, read-aloud, highlights, sync, and book-grounded AI chat together across Apple devices.",
+    caseStudy: {
+      shortName: "Rishi",
+      intro: "One reading experience, across Apple devices.",
+      situation: "Readers move between books, listening, and questions about what they’re reading.",
+      decision: "Keep reading, read-aloud, and AI questions together, with answers grounded in the current book.",
+      delivered: "An Apple reading platform with EPUB and PDF support, highlights, sync, and sharing. Available on the App Store, with a public product walkthrough.",
+      caption: "Search the library, see books in progress, and choose the next read.",
+      provenance: "Existing Rishi iPhone product capture; a static frame from the walkthrough.",
+    },
     category: "native-apps",
     tags: ["Innovation", "Apple Native"],
     techStack: ["SwiftUI", "Swift", "Shared Swift Packages", "TypeScript", "Cloudflare"],
@@ -56,6 +76,15 @@ export const projects: Project[] = [
     name: "Money Lending Management System",
     description: "Built by Fidexa for Kaks Credit, this production lending and accounting-ledger platform supports a money-lending operation used by real customers and businesses. It connects reducing-balance interest, exact money math, investor capital, risk watchlists, approvals, role-based access, and financial reports. The public product showcase demonstrates the platform; operational workspace access requires sign-in.",
     featuredSummary: "Kaks Credit runs lending on an accounting-ledger platform with reducing-balance interest, investor capital, approvals, risk watchlists, and financial reports.",
+    caseStudy: {
+      shortName: "Kaks Credit",
+      intro: "Lending decisions connected to the ledger.",
+      situation: "Kaks Credit’s lending operation brings together loan calculations, investor capital, approvals, and financial reporting.",
+      decision: "Build around an accounting ledger, using exact money math for reducing-balance interest.",
+      delivered: "A production lending platform with investor capital, risk watchlists, approvals, role-based access, and financial reports.",
+      caption: "The public presentation connects loans, collections, and customers in one workspace view.",
+      provenance: "Public Kaks Credit showcase with a dashboard illustration. The operational workspace requires sign-in.",
+    },
     category: "web-apps",
     tags: ["SaaS", "Fintech"],
     techStack: ["Next.js 16", "React 19", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "TanStack DB", "ElectricSQL", "Better Auth", "BigNumber.js"],
@@ -72,6 +101,15 @@ export const projects: Project[] = [
     name: "Inventory and Trade Management System",
     description: "Fidexa built this production trade platform to connect Supply, Store, and Shop from procurement to retail. Used by real customers and businesses, it combines a shared double-entry ledger, RMB, USD, and UGX money support, POS, stock control, loss detection, and audit trails. The public showcase provides product evidence; operational workspace access requires sign-in.",
     featuredSummary: "A trade platform connecting Supply, Store, and Shop with a shared ledger, point of sale, stock control, loss detection, and audit trails.",
+    caseStudy: {
+      shortName: "Inventory",
+      intro: "From procurement to the shop floor.",
+      situation: "Trade operations span Supply, Store, and Shop, from buying stock to recording retail sales.",
+      decision: "Connect those stages through a shared double-entry ledger with RMB, USD, and UGX support.",
+      delivered: "A production trade platform combining point of sale, stock control, loss detection, and audit trails.",
+      caption: "Supply Routes tracks buying trips and procurement costs; Transfers moves stock between locations.",
+      provenance: "Existing static Inventory dashboard capture. The operational workspace requires sign-in.",
+    },
     category: "web-apps",
     tags: ["SaaS", "Trade"],
     techStack: ["TanStack Start", "TanStack Router", "TanStack DB", "React", "TypeScript", "PostgreSQL (Neon)", "Drizzle ORM", "Cloudflare Workers", "Better Auth"],
