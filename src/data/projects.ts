@@ -1,5 +1,10 @@
 export type ProjectCategory = "ai-automation" | "native-apps" | "web-apps" | "developer-tools";
 
+export interface ProjectEvidence {
+  workflows: { title: string; description: string }[];
+  captures: { src: string; mobileSrc?: string; mobileWidth?: number; mobileHeight?: number; alt: string; width: number; height: number; caption: string }[];
+}
+
 export interface ProjectCaseStudy {
   shortName: string;
   intro: string;
@@ -8,6 +13,7 @@ export interface ProjectCaseStudy {
   delivered: string;
   caption: string;
   provenance: string;
+  evidence?: ProjectEvidence;
 }
 
 export interface Project {
@@ -137,12 +143,35 @@ export const projects: Project[] = [
   {
     id: "apartment-manager",
     name: "Apartment Manager",
-    description: "Property-management software bringing block management, rent billing cycles, expenditure tracking, role-based access, and data export into one business system.",
+    description: "A rebuild of Fidexa’s original Apartment Manager brings property and resident records together with monthly rent billing, payment receipts, expenses, and savings. Daily collections and rent-due views use Kampala time; collection destinations and reconciliation batches connect payments to deposits. Monthly reports support CSV and Excel export, while audit history records operational changes. The accounting workspace includes ledger and statement views and explicitly marks figures provisional when source reconciliation is pending. The public showcase is open; operational screens require sign-in.",
+    featuredSummary: "Apartment Manager connects properties, residents, daily rent work, reconciliation, and monthly reporting in one rental-operations workspace.",
+    caseStudy: {
+      shortName: "Apartment Manager",
+      intro: "Property records meet the daily work of rent.",
+      situation: "Running rentals means keeping apartments, resident history, rent due, collections, and building expenses in step.",
+      decision: "Connect daily rent work to collection destinations, reconciliation, and monthly reporting, while making the status of accounting figures explicit.",
+      delivered: "A rebuild of the original Apartment Manager, with block and resident management, rent billing, payment receipts, expenses, savings, exports, and audit history. Accounting views visibly flag figures as provisional when source reconciliation is pending.",
+      caption: "The public product page introduces the property workspace and its privacy-blurred apartment overview.",
+      provenance: "Captured from the deployed public showcase. Identifying values in its embedded overview were already blurred by the product site.",
+      evidence: {
+        workflows: [
+          { title: "Start with the rental records", description: "Blocks organize apartments by floor, rent, and occupancy. Resident records keep move-in and archived history alongside monthly rent cycles, payment status, and receipts." },
+          { title: "Follow collections through to deposits", description: "Daily collections and the rent-due queue use Kampala dates. Collection destinations and reconciliation batches provide a place to compare recorded payments with deposits and their evidence." },
+          { title: "Report with the accounting status visible", description: "Monthly reports cover rent, receivables, expenses, deposits, and reconciliation, with block filters and CSV/Excel export. Ledger and statement views are available, but unreconciled figures remain explicitly provisional. Audit activity records who changed what." },
+        ],
+        captures: [
+          { src: "/projects/apartment-manager-daily-rent.png", mobileSrc: "/projects/apartment-manager-daily-rent-phone.png", mobileWidth: 361, mobileHeight: 719, width: 1184, height: 539, alt: "Apartment Manager daily collections with day, block, and destination filters and an empty day", caption: "Daily rent work: switch between collections and the due queue, then filter by day, block, and destination. This actual capture shows a day with no recorded payments." },
+          { src: "/projects/apartment-manager-reports.png", mobileSrc: "/projects/apartment-manager-reports-phone.png", mobileWidth: 345, mobileHeight: 310, width: 1168, height: 172, alt: "Apartment Manager monthly report controls with Kampala month, block filter, and CSV and Excel export", caption: "Monthly report controls: choose a Kampala month and permitted blocks, then export CSV or Excel. Financial totals and private records are outside the capture." },
+        ],
+      },
+    },
     category: "web-apps",
     tags: ["SaaS", "Property"],
-    techStack: ["Next.js", "PostgreSQL", "Prisma", "Better Auth"],
-    year: 2025,
-    featured: false,
+    techStack: ["Next.js 15", "React 19", "TypeScript", "PostgreSQL", "Prisma", "Better Auth", "TanStack Query"],
+    year: 2026,
+    featured: true,
+    media: { src: "/projects/apartment-manager-showcase.png", alt: "Apartment Manager public product page showing its property-management proposition and privacy-blurred apartment overview", width: 1093, height: 755 },
+    links: { live: "https://apartment.fidexa.org/home" },
   },
   {
     id: "maria",

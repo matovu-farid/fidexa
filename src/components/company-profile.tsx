@@ -44,7 +44,7 @@ export function CompanyProfile() {
               </CardFooter>
             </Card>
             <div className="company-profile-proof" aria-label="Selected product work">
-              <p>Rishi Reader + production money-lending + inventory/trade platforms</p>
+              <p>Rishi Reader + lending, inventory/trade, and rental-management platforms</p>
             </div>
             <div className="company-profile-actions">
               <Button asChild><a href="#contact">Talk about a project <ArrowUpRight data-icon="inline-end" /></a></Button>

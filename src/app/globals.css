@@ -752,7 +752,29 @@
 @layer components {
   /* Keep evidence crops focused on the workflow named in their captions. */
   .project-story-money-lending .project-media-window { aspect-ratio: 16 / 9; }
+  .showcase-apartments .hero-showcase-image { background-image: url('/projects/apartment-manager-showcase.png'); background-size: contain; background-position: center; }
+  .project-story-apartment-manager { --card: var(--sand); background: var(--sand); }
+  .project-story-apartment-manager .project-media-window { aspect-ratio: 1093 / 755; background: var(--paper); }
+  .project-story-apartment-manager .project-media-window img { object-fit: contain; }
+  .project-story-apartment-manager .project-media-caption { padding: 20px clamp(24px, 3vw, 40px); }
+  .project-evidence { grid-column: 1 / -1; padding: 28px clamp(24px, 3vw, 40px); border-top: 1px solid var(--line); }
+  .project-evidence-trigger[aria-expanded=true] svg { transform: rotate(180deg); }
+  .project-evidence-content { padding-top: 32px; }
+  .project-workflows { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .project-workflows h4 { font-size: 1.25rem; line-height: 1.35; font-weight: 600; margin-bottom: 12px; }
+  .project-workflows p { font-size: 1rem; line-height: 1.75; max-width: 65ch; }
+  .project-evidence-captures { display: flex; flex-direction: column; gap: 32px; margin-top: 36px; max-width: 1120px; margin-inline: auto; }
+  .project-evidence-captures picture { display: block; }
+  .project-evidence-captures img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); }
+  .project-evidence-captures figcaption { font-size: .875rem; line-height: 1.65; max-width: 75ch; margin-top: 12px; }
+  .project-evidence-provenance { font-size: .8125rem; line-height: 1.7; max-width: 75ch; margin-top: 24px; }
+  @media (max-width: 1193px) {
+    .project-workflows { grid-template-columns: 1fr; gap: 24px; }
+  }
   @media (max-width: 767px) {
+    .showcase-apartments .hero-showcase-visual { padding-top: 0; }
+    .project-evidence { padding: 24px; }
+    .project-evidence-captures { max-width: 361px; }
     .project-story-money-lending .project-media-window { aspect-ratio: 4 / 3; }
     .project-story-money-lending .project-media-window img { width: 208%; height: auto; max-width: none; transform: translate(-47%, -32%); }
     .project-story-inventory-trade .project-media-window { aspect-ratio: 5 / 6; }

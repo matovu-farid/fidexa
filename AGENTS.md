@@ -51,12 +51,14 @@ Use real captures from these public deployed surfaces when available:
 - Rishi: `https://rishi.fidexa.org/`
 - Money Lending / Kaks Credit: `https://money-lending.fidexa.org/home`
 - Inventory: `https://inventory.fidexa.org/`
+- Apartment Manager: `https://apartment.fidexa.org/home` and signed-in workflow screens. Never capture invitation keys, resident records, account details or private balances for public assets. Public overview values are already privacy-blurred; authenticated evidence uses crops excluding those records.
 
 Keep deterministic site assets under `public/projects/`:
 
 - `rishi-library.png` — Rishi library/product showcase.
 - `money-lending-showcase.png` — Kaks Credit public product showcase containing its dashboard visual. Do not describe it as an authenticated dashboard unless an authenticated capture is actually obtained.
 - `inventory-dashboard.png` — Inventory operational dashboard.
+- `apartment-manager-showcase.png` — rebuilt product’s public showcase; `apartment-manager-daily-rent.png` and `apartment-manager-reports.png` plus their `-phone` variants — privacy-safe authenticated workflow crops.
 
 When copying browser captures, verify the files with `file` and convert them to actual PNGs if their extension does not match their bytes. Add meaningful `alt` text, explicit `width`/`height`, and `loading="lazy"` for below-fold media. Use a fixed aspect-ratio frame and `object-fit: cover`; inspect every crop at desktop and mobile sizes.
 
@@ -79,7 +81,7 @@ At minimum, verify these contracts:
 
 - Desktop hero: `.hero-panel.getBoundingClientRect().left === 0` and its width equals the viewport width.
 - Mobile hero: the panel and proof card stay within the panel bounds; no child is clipped by `overflow: hidden`.
-- Home has exactly three featured media images in this order: Rishi, Money Lending, Inventory.
+- Home has four featured products in this order: Rishi, Money Lending, Inventory, Apartment Manager. Each has one primary media image; Apartment Manager's optional deeper workflow disclosure adds two authentic captures. It replaces the old Apartment Manager entry under its existing ID, so catalog and category totals stay unchanged.
 - No `.project-snapshot` synthetic UI remains in code or DOM.
 - `/projects` has 11 projects at `All`; `AI & Automation` has 2, `Apple & Native Apps` has 1, `Web Applications` has 5, and `Developer Tools` has 3. Do not show an empty Cross-Platform filter; selecting `All` resets the URL and count.
 - `document.documentElement.scrollWidth === document.documentElement.clientWidth` at the primary targets above. Keep 390×844 as a narrow overflow regression guard, not as the primary design artboard.

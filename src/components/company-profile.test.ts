@@ -21,7 +21,7 @@ describe("company profile section contract", () => {
     expect(component).toContain("Kampala, Uganda");
     expect(component).toContain("GMT+3");
     expect(component).toContain("discovery, domain modelling, product design, implementation, deployment, and support");
-    expect(component).toContain("Rishi Reader + production money-lending + inventory/trade platforms");
+    expect(component).toContain("Rishi Reader + lending, inventory/trade, and rental-management platforms");
     expect(component).toContain("https://matovu-farid.com");
     expect(component).toContain("https://www.linkedin.com/in/matovu-farid/");
     expect(component).toMatch(/href="https:\/\/matovu-farid\.com"\s+target="_blank"\s+rel="noopener noreferrer"/);

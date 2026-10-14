@@ -5,11 +5,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { ProjectEvidence } from "@/components/project-evidence";
 
 const liveLinkLabels: Record<string, string> = {
   rishi: "Explore Rishi",
   "money-lending": "View Kaks Credit showcase",
   "inventory-trade": "View inventory showcase",
+  "apartment-manager": "Explore Apartment Manager",
 };
 
 export function ProjectCard({ project, featured = false, context = "home" }: { project: Project; featured?: boolean; context?: "home" | "index" }) {
@@ -89,6 +91,7 @@ export function ProjectCard({ project, featured = false, context = "home" }: { p
           </CardContent>
           <CardFooter className="project-links items-start p-0">{actions}</CardFooter>
         </div>
+        {story.evidence && <ProjectEvidence evidence={story.evidence} />}
       </Card>
     );
   }

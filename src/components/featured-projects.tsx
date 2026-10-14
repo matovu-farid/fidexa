@@ -14,7 +14,7 @@ export function FeaturedProjects() {
           </div>
           <Button asChild variant="outline"><Link href="/projects">View all work <ArrowUpRight data-icon="inline-end" /></Link></Button>
         </div>
-        <p className="body-copy mt-6 max-w-xl">Three products. The situations behind them, the decisions that shaped them, and what we delivered.</p>
+        <p className="body-copy mt-6 max-w-xl">Four products. The situations behind them, the decisions that shaped them, and what we delivered.</p>
         <div className="featured-grid">
           {featuredProjects.map((project) => <ProjectCard key={project.id} project={project} featured />)}
         </div>

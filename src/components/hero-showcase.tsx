@@ -7,6 +7,7 @@ const products = [
   { id: "rishi", name: "Rishi", description: "Read, listen, and return to your books.", href: "#project-rishi" },
   { id: "lending", name: "Kaks Credit", description: "Lending built around an accounting ledger.", href: "#project-money-lending" },
   { id: "inventory", name: "Inventory", description: "Supply, Store, and Shop in one workspace.", href: "#project-inventory-trade" },
+  { id: "apartments", name: "Apartment Manager", description: "Properties, rent, and the work between them.", href: "#project-apartment-manager" },
 ];
 
 export function HeroShowcase() {
@@ -20,7 +21,7 @@ export function HeroShowcase() {
           </a>
         </TabsContent>
       ))}
-      <TabsList aria-label="Explore selected products" className="hero-product-index grid w-full grid-cols-3 group-data-[orientation=horizontal]/tabs:h-auto">
+      <TabsList aria-label="Explore selected products" className="hero-product-index grid w-full grid-cols-2 xl:grid-cols-4 group-data-[orientation=horizontal]/tabs:h-auto">
         {products.map((product) => <TabsTrigger value={product.id} key={product.id} className="min-h-11 data-[state=active]:bg-accent data-[state=active]:text-accent-foreground">{product.name}</TabsTrigger>)}
       </TabsList>
     </Tabs>
