@@ -1,19 +1,15 @@
-"use client";
-
 import { ChevronDown } from "lucide-react";
 import type { ProjectEvidence as Evidence } from "@/data/projects";
-import { Button } from "@/components/ui/button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function ProjectEvidence({ evidence }: { evidence: Evidence }) {
   return (
-    <Collapsible className="project-evidence">
-      <CollapsibleTrigger asChild>
-        <Button variant="outline" className="project-evidence-trigger h-auto min-h-11 whitespace-normal">
-          Explore the rental workflows <ChevronDown data-icon="inline-end" />
-        </Button>
-      </CollapsibleTrigger>
-      <CollapsibleContent className="project-evidence-content">
+    <details className="project-evidence">
+      <summary className={cn(buttonVariants({ variant: "outline" }), "project-evidence-trigger h-auto min-h-11 whitespace-normal")}>
+        Explore the rental workflows <ChevronDown data-icon="inline-end" aria-hidden="true" />
+      </summary>
+      <div className="project-evidence-content">
         <div className="project-workflows">
           {evidence.workflows.map((workflow) => (
             <section key={workflow.title}>
@@ -34,7 +30,7 @@ export function ProjectEvidence({ evidence }: { evidence: Evidence }) {
           ))}
         </div>
         <p className="project-evidence-provenance">Captured from the signed-in Apartment Manager workspace. Crops exclude residents, account details, invitation keys, and private financial records; no product data was changed.</p>
-      </CollapsibleContent>
-    </Collapsible>
+      </div>
+    </details>
   );
 }

@@ -1,5 +1,6 @@
 import { site } from "../src/data/site";
 import { projects } from "../src/data/projects";
+import { studioEngines } from "../src/data/services";
 
 // Read-only HTTP audit. This does not submit URLs or exercise contact/API writes.
 const base = new URL(process.argv[2] ?? "http://localhost:3001");
@@ -37,13 +38,24 @@ async function audit() {
     check(`${page.path}: agent guide discovery`, (body.match(/<link\b[^>]*>/g) ?? []).map(attributes).some((attr) => attr.rel === "help" && attr.href === `${site.url}/llms.txt`));
     check(`${page.path}: indexable`, !/noindex/i.test(`${meta.robots ?? ""} ${response.headers.get("x-robots-tag") ?? ""}`));
     if (page.path !== "/sms") {
+      const visibleHtml = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
+      if (page.path === "/") {
+        check("/: service explanation and process in initial HTML", studioEngines.every((engine) => [engine.description, ...engine.steps].every((text) => decode(visibleHtml).includes(text))));
+        check("/: featured case studies in initial HTML", projects.filter((project) => project.featured).every((project) => {
+          const story = project.caseStudy;
+          return story && [story.intro, story.situation, story.decision, story.delivered].every((text) => decode(visibleHtml).includes(text));
+        }));
+        const evidence = projects.find((project) => project.id === "apartment-manager")?.caseStudy?.evidence;
+        check("/: deeper case-study text in initial HTML", Boolean(evidence) && evidence!.workflows.every((workflow) => visibleHtml.includes(`<h4>${workflow.title}</h4>`) && decode(visibleHtml).includes(workflow.description)));
+        check("/: evidence images and captions in initial HTML", Boolean(evidence) && evidence!.captures.every((capture) => visibleHtml.includes(`src="${capture.src}"`) && decode(visibleHtml).includes(capture.caption)));
+        check("/: evidence disclosure works without JavaScript", /<details\b[^>]*class="project-evidence"[^>]*>\s*<summary\b/.test(visibleHtml) && !/<details\b[^>]*\bopen(?:=|\s|>)/.test(visibleHtml));
+      }
       const scripts = [...body.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)].filter((match) => attributes(match[1]).type === "application/ld+json");
       check(`${page.path}: initial-HTML JSON-LD`, scripts.length === 1);
       const data = scripts.length ? JSON.parse(scripts[0][2]) : { "@graph": [] };
       check(`${page.path}: Organization + Person + WebSite`, ["Organization", "Person", "WebSite"].every((type) => data["@graph"].some((entity: { "@type": string }) => entity["@type"] === type)));
       if (page.path === "/projects") {
         const list = data["@graph"].find((entity: { "@type": string }) => entity["@type"] === "ItemList");
-        const visibleHtml = body.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "");
         check("/projects: 11 initial-HTML project records", projects.every((project) => visibleHtml.includes(`id="project-${project.id}"`) && visibleHtml.includes(project.name)));
         check("/projects: catalog schema and anchor coverage", list?.itemListElement?.length === 11 && projects.every((project) => list.itemListElement.some((entry: { item: { url: string; description: string } }) => entry.item.url === `${site.url}/projects#project-${project.id}` && entry.item.description === project.description)));
       }

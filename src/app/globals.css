@@ -758,7 +758,9 @@
   .project-story-apartment-manager .project-media-window img { object-fit: contain; }
   .project-story-apartment-manager .project-media-caption { padding: 20px clamp(24px, 3vw, 40px); }
   .project-evidence { grid-column: 1 / -1; padding: 28px clamp(24px, 3vw, 40px); border-top: 1px solid var(--line); }
-  .project-evidence-trigger[aria-expanded=true] svg { transform: rotate(180deg); }
+  .project-evidence-trigger { list-style: none; cursor: pointer; }
+  .project-evidence-trigger::-webkit-details-marker { display: none; }
+  .project-evidence[open] > .project-evidence-trigger svg { transform: rotate(180deg); }
   .project-evidence-content { padding-top: 32px; }
   .project-workflows { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
   .project-workflows h4 { font-size: 1.25rem; line-height: 1.35; font-weight: 600; margin-bottom: 12px; }

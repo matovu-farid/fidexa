@@ -1,13 +1,16 @@
 import { site } from "../data/site";
 import { categories, projects } from "../data/projects";
+import { studioEngines } from "../data/services";
 
 export function createAgentGuide(full: boolean): string {
   const lines = [
     "# Fidexa", "",
     `> ${site.profile}`, "",
     `Founded and led by ${site.founder.name}, ${site.founder.role}.`,
-    "Client Solutions: discovery, domain modelling, product design, implementation, deployment, and support.",
-    "Innovation Lab: Fidexa's own products, including Rishi Reader, AI tools, and native Apple experiences.", "",
+    ...studioEngines.flatMap((engine) => [
+      `${engine.name}: ${engine.description}`,
+      `${engine.scope}. Process: ${engine.steps.join(" → ")}.`,
+    ]), "",
     "## Authoritative pages", "",
     `- [Studio, services, company, and contact](${site.url}/): the public homepage.`,
     `- [Projects](${site.url}/projects): the complete 11-project catalog and category filters.`,
@@ -35,6 +38,18 @@ export function createAgentGuide(full: boolean): string {
       if (project.links?.appStore) lines.push(`- [App Store listing](${project.links.appStore})`);
       if (project.links?.github) lines.push(`- [Source repository](${project.links.github})`);
       if (project.links?.video) lines.push(`- [Product walkthrough](${project.links.video})`);
+      if (project.caseStudy) {
+        const story = project.caseStudy;
+        lines.push("", `#### ${story.shortName} case study`, "", story.intro,
+          `- [Case study on the homepage](${site.url}/#project-${project.id})`,
+          `Situation: ${story.situation}`, `Product decision: ${story.decision}`, `Delivered: ${story.delivered}`);
+        for (const workflow of story.evidence?.workflows ?? []) {
+          lines.push("", `##### ${workflow.title}`, "", workflow.description);
+        }
+        for (const capture of story.evidence?.captures ?? []) {
+          lines.push("", `- [${capture.alt}](${new URL(capture.src, site.url).href}): ${capture.caption}`);
+        }
+      }
       lines.push("");
     }
   } else {
